@@ -33,9 +33,14 @@ RSpec.describe 'applications new' do
         fill_in :description, with: description
         click_button 'Submit'
 
-        application = Application.select(name: "Scott")
-
-        expect(current_path).to eq("/applications/#{application.id}")
+        expect(current_path).to eq("/applications/#{Application.last.id}")
+        expect(page).to have_content(name)
+        expect(page).to have_content(street_address)
+        expect(page).to have_content(city)
+        expect(page).to have_content(state)
+        expect(page).to have_content(zip_code)
+        expect(page).to have_content(description)
+        expect(page).to have_content("In Progress")
       end
     end
 
