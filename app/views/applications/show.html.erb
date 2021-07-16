@@ -1,4 +1,4 @@
-<p>
+<p id='application'>
   Name: <%= @application.name %><br>
   Address: <%= @application.street_address %><br>
   City: <%= @application.city %><br>
@@ -24,7 +24,10 @@
   <% if @pets.is_a?(Array) %>
     <p><%= "Search Results:" %></p>
     <% @pets.each do |pet| %>
-      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+      <section id="pet-<%= pet.id %>">
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :post %>
+      </section>
     <% end %>
   <% end %>
 <% end %>

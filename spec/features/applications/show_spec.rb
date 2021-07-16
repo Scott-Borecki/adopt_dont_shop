@@ -99,9 +99,26 @@ RSpec.describe ' applications show' do
 
           fill_in :search_name, with: 'Babe'
           click_button 'Submit'
-          
+
           expect(current_path).to eq("/applications/#{@bob.id}")
           expect(page).to have_link('Babe')
+        end
+
+        it 'can add Pet to adopt list on Application show page' do
+          visit "/applications/#{@bob.id}"
+
+          fill_in :search_name, with: 'Babe'
+          click_button 'Submit'
+
+          within("#pet-#{@pet_6.id}") do
+            click_button 'Adopt this Pet'
+          end
+
+          expect(current_path).to eq("/applications/#{@bob.id}")
+          expect(@bob.pets).to eq([@pet_6])
+          within("#application") do
+            expect(page).to have_content('Babe')
+          end
         end
       end
     end
