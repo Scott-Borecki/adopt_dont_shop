@@ -4,6 +4,9 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    if params[:search_name]
+      @pets = Pet.search(params[:search_name]).to_a
+    end
   end
 
   def create
