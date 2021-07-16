@@ -27,7 +27,7 @@ RSpec.describe ' applications show' do
                                      state: 'Colorado',
                                      zip_code: '80202',
                                      description: 'Great with animals!',
-                                     status: 'pending')
+                                     status: 'Pending')
         @scott.pets << @pet_1
         @scott.pets << @pet_2
       end

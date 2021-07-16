@@ -3,12 +3,12 @@ class ApplicationsController < ApplicationController
   end
 
   def show
-    @applicant = Application.find(params[:id])
+    @application = Application.find(params[:id])
   end
 
   def create
-    applicant = Application.create!(application_params)
-    redirect_to "/applications/#{applicant.id}"
+    application = Application.create!(application_params)
+    redirect_to "/applications/#{application.id}"
   end
 
   private
