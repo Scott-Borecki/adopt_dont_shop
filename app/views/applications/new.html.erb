@@ -12,7 +12,7 @@
   <%= f.text_field :state %>
 
   <%= f.label :zip_code, "Zip Code:" %>
-  <%= f.text_field :zip_code %>
+  <%= f.text_field :zip_code, maxlength: 5 %>
 
   <%= f.label :description, "Describe why you would make a good home for pet(s):" %>
   <%= f.text_field :description %>
