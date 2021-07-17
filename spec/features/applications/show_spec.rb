@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ' applications show' do
+RSpec.describe 'applications show' do
   describe 'as a visitor' do
     describe 'when I visit an applications show page' do
       before :each do
@@ -84,14 +84,14 @@ RSpec.describe ' applications show' do
       describe 'And that application has been submitted' do
         it 'does not show the "Add a Pet to this Application" section' do
           visit "/applications/#{@scott.id}"
-          expect(page).to_not have_content("Add a Pet to this Application")
+          expect(page).to_not have_content('Add a Pet to this Application')
         end
       end
 
       describe 'And that application has not been submitted' do
         it 'shows the "Add a Pet to this Application" section' do
           visit "/applications/#{@bob.id}"
-          expect(page).to have_content("Add a Pet to this Application")
+          expect(page).to have_content('Add a Pet to this Application')
         end
 
         it 'can search for Pets by name' do
@@ -116,7 +116,7 @@ RSpec.describe ' applications show' do
 
           expect(current_path).to eq("/applications/#{@bob.id}")
           expect(@bob.pets).to eq([@pet_6])
-          within("#application") do
+          within('#application') do
             expect(page).to have_content('Babe')
           end
         end
