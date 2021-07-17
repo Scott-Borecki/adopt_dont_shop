@@ -20,6 +20,10 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT * FROM shelters ORDER BY name desc")
   end
 
+  def self.with_pending_applications
+    joins(pets: [{application_pets: :application}]).where(applications: { status: 'Pending' })
+  end
+
   def pet_count
     pets.count
   end
