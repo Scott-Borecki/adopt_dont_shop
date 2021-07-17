@@ -121,6 +121,16 @@ RSpec.describe 'applications show' do
           expect(page).to have_link('Babe')
         end
 
+        it 'can search for Pets by name (case insenstive matches)' do
+          visit "/applications/#{@bob.id}"
+
+          fill_in :search_name, with: 'babe'
+          click_button 'Submit'
+
+          expect(current_path).to eq("/applications/#{@bob.id}")
+          expect(page).to have_link('Babe')
+        end
+
         it 'can add Pet to adopt list on Application show page' do
           visit "/applications/#{@bob.id}"
 
