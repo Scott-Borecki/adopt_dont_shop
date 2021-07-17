@@ -81,6 +81,13 @@ RSpec.describe 'applications show' do
         end
       end
 
+      describe 'And I have not added any pets to the application' do
+        it 'does not show the section to submit my application' do
+          visit "/applications/#{@scott.id}"
+          expect(page).to_not have_button('Submit Application')
+        end
+      end
+
       describe 'And that application has been submitted' do
         it 'does not show the "Add a Pet to this Application" section' do
           visit "/applications/#{@scott.id}"
