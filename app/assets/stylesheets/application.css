@@ -14,13 +14,13 @@
  *= require_self
  */
 
- html {
+html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
- a {
+a {
   border-bottom: 2px solid #c5c5c5;
   color: deepskyblue;
   text-decoration: none;
@@ -31,22 +31,36 @@ a:hover {
   color: #1565C0;
 }
 
- .navigation {
-   display: flex;
-   flex-flow: row wrap;
-   justify-content: flex-start;
-   list-style: none;
-   margin: 0;
-   background: deepskyblue;
- }
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  background: deepskyblue;
+}
 
- .navigation a {
-   text-decoration: none;
-   display: block;
-   padding: 1em;
-   color: white;
- }
+.navigation a {
+  text-decoration: none;
+  display: block;
+  padding: 1em;
+  color: white;
+}
 
- .navigation a:hover {
-   background: #1565C0;
- }
+.navigation a:hover {
+  background: #1565C0;
+}
+
+.alert {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
