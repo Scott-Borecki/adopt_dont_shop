@@ -41,5 +41,5 @@ Rails.application.routes.draw do
   get '/applications/:id', to: 'applications#show'
   post '/applications', to: 'applications#create'
   # HACK: Maybe there is a better way to send app and pet id params
-  post 'applications/:application_id/:pet_id', to: 'applications#adopt'
+  patch '/applications/:application_id/:pet_id', to: 'applications#adopt'
 end

@@ -21,12 +21,12 @@
     <%= f.submit 'Submit'  %>
   <% end %>
 
-  <% if @pets.is_a?(Array) %>
+  <% if @pets.is_a?(Array) && @pets.any? %>
     <p><%= "Search Results:" %></p>
     <% @pets.each do |pet| %>
       <section id="pet-<%= pet.id %>">
         <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :post %>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :patch %>
       </section>
     <% end %>
   <% end %>
