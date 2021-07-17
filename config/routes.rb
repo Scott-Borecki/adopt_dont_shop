@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   # HACK: Maybe there is a better way to send app and pet id params
   patch '/applications/:application_id/:pet_id', to: 'applications#adopt'
   patch '/applications/:id', to: 'applications#submit'
+
+  get '/admin/shelters', to: 'admin_shelters#index'
 end
