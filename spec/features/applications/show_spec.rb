@@ -120,6 +120,38 @@ RSpec.describe 'applications show' do
             expect(page).to have_content('Babe')
           end
         end
+
+        describe 'And I have added one or more pets to the application' do
+          before :each do
+            @bob.pets << @pet_3
+            @bob.pets << @pet_6
+          end
+
+          it 'displays a section to submit my appliction' do
+            visit "/applications/#{@bob.id}"
+
+            within('#submit-application') do
+              expect(page).to have_field(:description)
+            end
+            expect(@bob.status).to eq('In Progress')
+          end
+
+          it 'I can submit the application' do
+            visit "/applications/#{@bob.id}"
+
+            fill_in :description, with: 'Great with animals!!'
+            click_button 'Submit Application'
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(page).to have_content('Application Status: Pending')
+            expect(page).to have_content('Description: Great with animals!!')
+            expect(page).to have_content(@pet_3.name)
+            expect(page).to have_content(@pet_6.name)
+
+            expect(page).to_not have_content('Add a Pet to this Application')
+            expect(page).to_not have_content('Describe why you would make a good owner for these pet(s):')
+          end
+        end
       end
     end
   end
