@@ -40,5 +40,15 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.adopt' do
+      it 'can adopt a pet and make it not adoptable' do
+        expect(@pet_1.adoptable).to be(true)
+
+        @pet_1.adopt
+
+        expect(@pet_1.adoptable).to be(false)
+      end
+    end
   end
 end
