@@ -57,5 +57,21 @@ RSpec.describe Application, type: :model do
         expect(@application.pet_rejected?(@pet_3)).to eq(false)
       end
     end
+
+    describe '.all_pets_approved?' do
+      it 'returns whether all the pets have been approved' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@application.all_pets_approved?).to eq(true)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@application.all_pets_approved?).to eq(false)
+      end
+    end
   end
 end

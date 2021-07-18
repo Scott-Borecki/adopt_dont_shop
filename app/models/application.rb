@@ -14,4 +14,8 @@ class Application < ApplicationRecord
     application_pet = ApplicationPet.find_by!(application_id: id, pet_id: pet.id)
     application_pet.status == 'Rejected'
   end
+
+  def all_pets_approved?
+    pets.all? { |pet| pet_approved?(pet) }
+  end
 end
