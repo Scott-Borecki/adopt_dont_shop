@@ -182,7 +182,7 @@ RSpec.describe 'the admin application show' do
       end
     end
 
-    describe 'approved/rejected pets on one application dont affect other applications' do
+    describe 'approved/rejected pets on one application dont affect other pending applications' do
       it 'can approve a pet on multiple pending applications' do
         @scott.pets << @pet_5
 
