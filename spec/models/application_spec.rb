@@ -89,5 +89,18 @@ RSpec.describe Application, type: :model do
         expect(@application.any_pets_rejected?).to eq(true)
       end
     end
+
+    describe '.reviews_remaining?' do
+      it 'returns whether any reviews are remaining' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Rejected')
+
+        expect(@application.reviews_remaining?).to eq(true)
+
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@application.reviews_remaining?).to eq(false)
+      end
+    end
   end
 end

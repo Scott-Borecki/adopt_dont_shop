@@ -22,4 +22,10 @@ class Application < ApplicationRecord
   def any_pets_rejected?
     pets.any? { |pet| pet_rejected?(pet) }
   end
+
+  def reviews_remaining?
+    pets.any? do |pet|
+      ApplicationPet.find_by!(application_id: id, pet_id: pet.id).status.nil?
+    end
+  end
 end
