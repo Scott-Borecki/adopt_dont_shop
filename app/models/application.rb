@@ -9,4 +9,9 @@ class Application < ApplicationRecord
     application_pet = ApplicationPet.find_by!(application_id: id, pet_id: pet.id)
     application_pet.status == 'Approved'
   end
+
+  def pet_rejected?(pet)
+    application_pet = ApplicationPet.find_by!(application_id: id, pet_id: pet.id)
+    application_pet.status == 'Rejected'
+  end
 end
