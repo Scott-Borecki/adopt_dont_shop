@@ -1,6 +1,9 @@
-<p>
-  <%= @shelter_name %>
-  <%= @shelter_city %>
-</p>
 <h2><%= @shelter_name %></h2>
 <p><%= @shelter_city %></p>
+
+<section id='statistics'>
+  <h3>Statistics</h3>
+  <p>
+    Average Age of Adoptable Pets: <%= @shelter.average_age_of_adoptable_pets %>
+  </p>
+</section>
