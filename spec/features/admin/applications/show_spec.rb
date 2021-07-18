@@ -124,6 +124,28 @@ RSpec.describe 'the admin application show' do
         expect(page).to have_content('Application Status: Accepted')
         expect(Application.find(@scott.id).status).to eq('Accepted')
       end
+
+      it 'shows the pets as no longer adoptable' do
+        @scott.pets.each do |pet|
+          visit "/pets/#{pet.id}"
+
+          expect(page).to have_content('true')
+        end
+
+        @scott.pets.each do |pet|
+          visit "/admin/applications/#{@scott.id}"
+
+          within "#pet-#{pet.id}" do
+            click_button 'Approve'
+          end
+        end
+
+        @scott.pets.each do |pet|
+          visit "/pets/#{pet.id}"
+
+          expect(page).to have_content('false')
+        end
+      end
     end
 
     describe 'When I reject at least one of the pets and approve the rest' do
