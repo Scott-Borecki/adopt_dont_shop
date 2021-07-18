@@ -16,4 +16,35 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:status) }
   end
+
+  describe 'instance methods' do
+    before :each do
+      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+
+      @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
+      @pet_3 = Pet.create!(adoptable: true, age: 8, breed: 'spanial', name: 'Bear', shelter_id: @shelter_1.id)
+
+      @application = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+
+      @application.pets << @pet_1
+      @application.pets << @pet_2
+      @application.pets << @pet_3
+
+      @application_pet_1 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_1.id)
+      @application_pet_2 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_2.id)
+      @application_pet_3 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_3.id)
+    end
+
+    describe '.pet_approved?' do
+      it 'returns whether the application pet has been approved' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Rejected')
+
+        expect(@application.pet_approved?(@pet_1)).to eq(true)
+        expect(@application.pet_approved?(@pet_2)).to eq(false)
+        expect(@application.pet_approved?(@pet_3)).to eq(false)
+      end
+    end
+  end
 end
