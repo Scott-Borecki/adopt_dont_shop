@@ -16,7 +16,7 @@
 
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
     <%= f.label :search_name, 'Search for Pet by Name' %>
-    <%= @name = f.text_field :search_name %>
+    <%= f.text_field :search_name %>
 
     <%= f.submit 'Submit'  %>
   <% end %>

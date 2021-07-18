@@ -74,6 +74,9 @@ RSpec.describe 'applications show' do
       end
 
       it 'can link to the pet pages' do
+        @scott.pets << @pet_1
+        @scott.pets << @pet_2
+        
         @scott.pets.each do |pet|
           visit "/applications/#{@scott.id}"
           click_on "#{pet.name}"

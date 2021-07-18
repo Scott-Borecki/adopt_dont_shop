@@ -47,6 +47,20 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_name_reverse).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe '#with_pending_applications' do
+      it 'returns the shelters that have pending applications' do
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+
+        bob.pets << @pet_3
+        bob.pets << @pet_4
+        scott.pets << @pet_1
+        scott.pets << @pet_2
+
+        expect(Shelter.with_pending_applications).to eq([@shelter_1])
+      end
+    end
   end
 
   describe 'instance methods' do
@@ -71,6 +85,42 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.average_age_of_adoptable_pets' do
+      it 'returns the average age of the adoptable pets' do
+        expect(@shelter_1.average_age_of_adoptable_pets).to eq(4)
+      end
+
+      it 'returns zero if there are no adoptable pets' do
+        expect(@shelter_2.average_age_of_adoptable_pets).to eq(0)
+      end
+    end
+
+    describe '.number_of_adoptable_pets' do
+      it 'returns the number of adoptable pets' do
+        expect(@shelter_1.number_of_adoptable_pets).to eq(2)
+      end
+    end
+
+    describe '.number_of_pets_adopted' do
+      it 'returns the number of pets adopted' do
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+
+        scott.pets << @pet_3
+        scott.pets << @pet_4
+
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Accepted')
+
+        @pet_2.update(adoptable: false)
+
+        bob.pets << @pet_1
+        bob.pets << @pet_2
+
+        expect(@shelter_1.number_of_pets_adopted).to eq(2)
+        expect(@shelter_2.number_of_pets_adopted).to eq(0)
+        expect(@shelter_3.number_of_pets_adopted).to eq(0)
       end
     end
   end
