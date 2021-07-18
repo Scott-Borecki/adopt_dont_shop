@@ -9,3 +9,10 @@
     Number of Pets Adopted: <%= @shelter.number_of_pets_adopted %>
   </p>
 </section>
+
+<section id='action-required'>
+  <h3>Action Required</h3>
+  <% @shelter.action_required.each do |pet| %>
+    <%= pet.name %><br>
+  <% end %>
+</section>
