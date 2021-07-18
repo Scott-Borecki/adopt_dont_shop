@@ -43,4 +43,8 @@ class Shelter < ApplicationRecord
   def average_age_of_adoptable_pets
     adoptable_pets.count > 0 ? adoptable_pets.average(:age).round(2) : 0
   end
+
+  def number_of_adoptable_pets
+    adoptable_pets.count
+  end
 end

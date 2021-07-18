@@ -47,6 +47,17 @@ RSpec.describe 'the admin shelter show' do
           end
         end
       end
+
+      it 'displays the number of adoptable pets' do
+        shelters = [@shelter_1, @shelter_2, @shelter_3, @shelter_4]
+        shelters.each do |shelter|
+          visit "/admin/shelters/#{shelter.id}"
+
+          within '#statistics' do
+            expect(page).to have_content("Number of Adoptable Pets: #{shelter.number_of_adoptable_pets}")
+          end
+        end
+      end
     end
   end
 end
