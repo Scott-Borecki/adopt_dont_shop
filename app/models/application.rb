@@ -18,4 +18,8 @@ class Application < ApplicationRecord
   def all_pets_approved?
     pets.all? { |pet| pet_approved?(pet) }
   end
+
+  def any_pets_rejected?
+    pets.any? { |pet| pet_rejected?(pet) }
+  end
 end
