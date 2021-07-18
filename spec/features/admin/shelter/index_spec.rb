@@ -26,8 +26,8 @@ RSpec.describe 'the admin shelter index' do
     @bob.pets << @pet_3
     @bob.pets << @pet_6
     @bob.pets << @pet_7
-
   end
+
   describe 'As a visitor, when I visit the admin shelter index' do
     it 'lists all the shelters in reverse alphabetical order by name' do
       visit '/admin/shelters'
