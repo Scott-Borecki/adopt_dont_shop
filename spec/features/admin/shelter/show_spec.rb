@@ -58,6 +58,37 @@ RSpec.describe 'the admin shelter show' do
           end
         end
       end
+
+      it 'displays the number of pets that have been adopted' do
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+
+        @pet_1.update(adoptable: false)
+        @pet_2.update(adoptable: false)
+        @pet_4.update(adoptable: false)
+
+        scott.pets << @pet_1
+        scott.pets << @pet_2
+        scott.pets << @pet_4
+
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+
+        @pet_3.update(adoptable: false)
+        @pet_6.update(adoptable: false)
+        @pet_7.update(adoptable: false)
+
+        bob.pets << @pet_3
+        bob.pets << @pet_6
+        bob.pets << @pet_7
+
+        shelters = [@shelter_1, @shelter_2, @shelter_3, @shelter_4]
+        shelters.each do |shelter|
+          visit "/admin/shelters/#{shelter.id}"
+
+          within '#statistics' do
+            expect(page).to have_content("Number of Pets Adopted: #{shelter.number_of_pets_adopted}")
+          end
+        end
+      end
     end
   end
 end

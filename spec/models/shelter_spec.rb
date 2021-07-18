@@ -103,5 +103,25 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_1.number_of_adoptable_pets).to eq(2)
       end
     end
+
+    describe '.number_of_pets_adopted' do
+      it 'returns the number of pets adopted' do
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+
+        scott.pets << @pet_3
+        scott.pets << @pet_4
+
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+
+        @pet_2.update(adoptable: false)
+
+        bob.pets << @pet_1
+        bob.pets << @pet_2
+
+        expect(@shelter_1.number_of_pets_adopted).to eq(2)
+        expect(@shelter_2.number_of_pets_adopted).to eq(0)
+        expect(@shelter_3.number_of_pets_adopted).to eq(0)
+      end
+    end
   end
 end
