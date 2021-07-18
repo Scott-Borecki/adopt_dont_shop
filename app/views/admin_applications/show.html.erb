@@ -21,6 +21,9 @@
         Approved
       <% elsif @application.pet_rejected?(pet) %>
         Rejected
+      <% elsif pet.adoptable == false %>
+        This pet has been approved for adoption in another application
+        <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>
       <% else %>
         <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch %>
         <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>

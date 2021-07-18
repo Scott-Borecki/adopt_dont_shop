@@ -221,5 +221,22 @@ RSpec.describe 'the admin application show' do
         end
       end
     end
+
+    describe 'approved pets on an approved application affect other applications' do
+      it 'can display when pet is no longer adoptable' do
+        # @pet_5 is adopted by @sierra and the application is 'Accepted'
+        # @pet_5.adoptable is false
+        @scott.pets << @pet_5
+
+        visit "/admin/applications/#{@scott.id}"
+        save_and_open_page
+
+        within "#pet-#{@pet_5.id}" do
+          expect(page).to have_content("This pet has been approved for adoption in another application")
+          expect(page).to have_button('Reject')
+          expect(page).to_not have_button('Approve')
+        end
+      end
+    end
   end
 end
