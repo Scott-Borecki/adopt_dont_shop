@@ -72,6 +72,9 @@ RSpec.describe 'the admin shelter index' do
         expect(page).to have_content(@shelter_1.name)
         expect(page).to have_content(@shelter_2.name)
         expect(page).to_not have_content(@shelter_3.name)
+        expect(page).to_not have_content(@shelter_4.name)
+      end
+    end
       end
     end
   end
