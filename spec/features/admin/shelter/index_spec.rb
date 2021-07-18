@@ -41,6 +41,30 @@ RSpec.describe 'the admin shelter index' do
       expect(@shelter_4.name).to appear_before(@shelter_1.name)
     end
 
+    it 'links to each admin shelters show page' do
+      shelters = [@shelter_1, @shelter_2, @shelter_3, @shelter_4]
+      shelters.each do |shelter|
+        visit '/admin/shelters'
+        within '#shelters' do
+          expect(page).to have_link(shelter.name)
+
+          click_link shelter.name
+          expect(current_path).to eq("/admin/shelters/#{shelter.id}")
+        end
+      end
+
+      shelters_with_pending_applications = [@shelter_1, @shelter_2]
+      shelters_with_pending_applications.each do |shelter|
+        visit '/admin/shelters'
+        within '#pending-applications' do
+          expect(page).to have_link(shelter.name)
+
+          click_link shelter.name
+          expect(current_path).to eq("/admin/shelters/#{shelter.id}")
+        end
+      end
+    end
+
     it "displays a section for 'Shelter's with Pending Applications' with shelter names" do
       visit '/admin/shelters'
 
