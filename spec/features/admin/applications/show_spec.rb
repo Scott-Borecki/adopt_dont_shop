@@ -47,9 +47,6 @@ RSpec.describe 'the admin application show' do
     @scott.pets << @pet_1
     @scott.pets << @pet_2
     @scott.pets << @pet_4
-    # @scott.pets << @pet_5 # Add back to individual test for pets on multiple applications
-    # @scott.pets << @pet_8 # Add back to individual test for pets on multiple applications
-    # @scott.pets << @pet_9 # Add back to individual test for pets on multiple applications
 
     # APPLICATION PETS - SIERRA
     @sierra.pets << @pet_5
@@ -66,7 +63,7 @@ RSpec.describe 'the admin application show' do
     @laura.pets << @pet_12
   end
 
-  describe ' As a visitor, when I visit an admin application show page' do
+  describe 'As a visitor, when I visit an admin application show page' do
     it 'displays a button to approve the application for each pet' do
       @scott.pets.each do |pet|
         visit "/admin/applications/#{@scott.id}"
@@ -160,6 +157,46 @@ RSpec.describe 'the admin application show' do
         expect(current_path).to eq("/admin/applications/#{@scott.id}")
         expect(page).to have_content('Application Status: Rejected')
         expect(Application.find(@scott.id).status).to eq('Rejected')
+      end
+    end
+
+    describe 'approved/rejected pets on one application dont affect other applications' do
+      it 'can approve a pet on multiple pending applications' do
+        @scott.pets << @pet_5
+
+        visit "/admin/applications/#{@scott.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          click_button 'Approve'
+          expect(current_path).to eq("/admin/applications/#{@scott.id}")
+          expect(page).to have_content('Approved')
+        end
+
+        visit "/admin/applications/#{@sierra.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          expect(page).to have_button('Approve')
+          expect(page).to have_button('Reject')
+        end
+      end
+
+      it 'can reject a pet on multiple pending applications' do
+        @scott.pets << @pet_5
+
+        visit "/admin/applications/#{@scott.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          click_button 'Reject'
+          expect(current_path).to eq("/admin/applications/#{@scott.id}")
+          expect(page).to have_content('Rejected')
+        end
+
+        visit "/admin/applications/#{@sierra.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          expect(page).to have_button('Approve')
+          expect(page).to have_button('Reject')
+        end
       end
     end
   end
