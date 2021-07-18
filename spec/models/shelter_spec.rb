@@ -111,7 +111,7 @@ RSpec.describe Shelter, type: :model do
         scott.pets << @pet_3
         scott.pets << @pet_4
 
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Accepted')
 
         @pet_2.update(adoptable: false)
 

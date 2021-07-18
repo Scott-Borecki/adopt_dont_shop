@@ -60,7 +60,7 @@ RSpec.describe 'the admin shelter show' do
       end
 
       it 'displays the number of pets that have been adopted' do
-        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Accepted')
 
         @pet_1.update(adoptable: false)
         @pet_2.update(adoptable: false)
@@ -70,7 +70,7 @@ RSpec.describe 'the admin shelter show' do
         scott.pets << @pet_2
         scott.pets << @pet_4
 
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Approved')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Accepted')
 
         @pet_3.update(adoptable: false)
         @pet_6.update(adoptable: false)
