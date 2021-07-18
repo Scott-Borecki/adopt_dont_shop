@@ -224,8 +224,8 @@ RSpec.describe 'the admin application show' do
 
     describe 'approved pets on an approved application affect other applications' do
       it 'can display when pet is no longer adoptable' do
-        # @pet_5 is adopted by @sierra and the application is 'Accepted'
-        # @pet_5.adoptable is false
+        # NOTE: @pet_5 is adopted by @sierra and the application is 'Accepted'
+        #       @pet_5.adoptable is false
         @scott.pets << @pet_5
 
         visit "/admin/applications/#{@scott.id}"
