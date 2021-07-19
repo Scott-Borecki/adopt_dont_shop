@@ -141,7 +141,6 @@ RSpec.describe 'the admin shelter show' do
         visit visit "/admin/shelters/#{@shelter_1.id}"
 
         expect(page).to have_content('Action Required')
-        save_and_open_page
         
         within '#action-required' do
           expect(page).to have_content(@pet_1.name)
