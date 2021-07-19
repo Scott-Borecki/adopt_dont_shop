@@ -9,6 +9,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def adopt
+    update(adoptable: false)
+  end
+
   def self.adoptable
     where(adoptable: true)
   end

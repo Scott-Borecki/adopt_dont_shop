@@ -123,5 +123,18 @@ RSpec.describe Shelter, type: :model do
         expect(@shelter_3.number_of_pets_adopted).to eq(0)
       end
     end
+
+    describe '.action_required' do
+      it 'returns pets where action is required' do
+        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+
+        scott.pets << @pet_2
+        scott.pets << @pet_4
+        bob.pets << @pet_4
+
+        expect(@shelter_1.action_required).to eq([@pet_2, @pet_4])
+      end
+    end
   end
 end

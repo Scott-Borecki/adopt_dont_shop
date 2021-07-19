@@ -1,0 +1,33 @@
+<h2>Application Details:</h2>
+<p id='application'>
+  Name: <%= @application.name %><br>
+  Address: <%= @application.street_address %><br>
+  City: <%= @application.city %><br>
+  State: <%= @application.state %><br>
+  Zip Code: <%= @application.zip_code %><br>
+  Description: <%= @application.description %><br>
+  Pets: <% @application.pets.each do |pet| %>
+          <%= link_to pet.name, "/pets/#{pet.id}" %>
+        <% end %><br>
+  Application Status: <%= @application.status %>
+</p>
+
+<h2>Pets for Approval:</h2>
+<% @application.pets.each do |pet| %>
+  <section id='pet-<%= pet.id %>'>
+    <p>
+      <%= link_to pet.name, "/pets/#{pet.id}" %>
+      <% if @application.pet_approved?(pet) %>
+        Approved
+      <% elsif @application.pet_rejected?(pet) %>
+        Rejected
+      <% elsif pet.adoptable == false %>
+        This pet has been approved for adoption in another application
+        <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>
+      <% else %>
+        <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch %>
+        <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>
+      <% end %>
+    </p>
+  </section>
+<% end %>
