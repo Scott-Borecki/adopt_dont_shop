@@ -13,6 +13,6 @@
 <section id='action-required'>
   <h3>Action Required</h3>
   <% @shelter.action_required.each do |pet| %>
-    <%= pet.name %><br>
+    <%= pet.name if pet.adoptable %><br>
   <% end %>
 </section>
