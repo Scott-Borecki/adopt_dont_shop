@@ -141,11 +141,31 @@ RSpec.describe 'the admin shelter show' do
         visit visit "/admin/shelters/#{@shelter_1.id}"
 
         expect(page).to have_content('Action Required')
-        
+
         within '#action-required' do
           expect(page).to have_content(@pet_1.name)
           expect(page).to have_content(@pet_2.name)
           expect(page).to_not have_content(@pet_3.name)
+        end
+      end
+
+      it 'links to the admin application show page' do
+        visit visit "/admin/shelters/#{@shelter_1.id}"
+        within '#action-required' do
+          within "#pet-#{@pet_1.id}" do
+            expect(page).to have_link("#{@scott.id}")
+            click_link "#{@scott.id}"
+            expect(current_path).to eq("/admin/applications/#{@scott.id}")
+          end
+        end
+
+        visit visit "/admin/shelters/#{@shelter_1.id}"
+        within '#action-required' do
+          within "#pet-#{@pet_2.id}" do
+            expect(page).to have_link("#{@scott.id}")
+            click_link "#{@scott.id}"
+            expect(current_path).to eq("/admin/applications/#{@scott.id}")
+          end
         end
       end
     end

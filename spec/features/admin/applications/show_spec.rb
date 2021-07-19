@@ -183,39 +183,41 @@ RSpec.describe 'the admin application show' do
     end
 
     describe 'approved/rejected pets on one application dont affect other pending applications' do
-      it 'can approve a pet on multiple pending applications' do
-        @scott.pets << @pet_5
+      before :each do
+        @john = Application.create!(name: 'John', street_address: '234 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals too!', status: 'Pending')
 
+        @john.pets << @pet_1
+      end
+
+      it 'can approve a pet on multiple pending applications' do
         visit "/admin/applications/#{@scott.id}"
 
-        within "#pet-#{@pet_5.id}" do
+        within "#pet-#{@pet_1.id}" do
           click_button 'Approve'
           expect(current_path).to eq("/admin/applications/#{@scott.id}")
           expect(page).to have_content('Approved')
         end
 
-        visit "/admin/applications/#{@sierra.id}"
+        visit "/admin/applications/#{@john.id}"
 
-        within "#pet-#{@pet_5.id}" do
+        within "#pet-#{@pet_1.id}" do
           expect(page).to have_button('Approve')
           expect(page).to have_button('Reject')
         end
       end
 
       it 'can reject a pet on multiple pending applications' do
-        @scott.pets << @pet_5
-
         visit "/admin/applications/#{@scott.id}"
 
-        within "#pet-#{@pet_5.id}" do
+        within "#pet-#{@pet_1.id}" do
           click_button 'Reject'
           expect(current_path).to eq("/admin/applications/#{@scott.id}")
           expect(page).to have_content('Rejected')
         end
 
-        visit "/admin/applications/#{@sierra.id}"
+        visit "/admin/applications/#{@john.id}"
 
-        within "#pet-#{@pet_5.id}" do
+        within "#pet-#{@pet_1.id}" do
           expect(page).to have_button('Approve')
           expect(page).to have_button('Reject')
         end
@@ -229,7 +231,6 @@ RSpec.describe 'the admin application show' do
         @scott.pets << @pet_5
 
         visit "/admin/applications/#{@scott.id}"
-        save_and_open_page
 
         within "#pet-#{@pet_5.id}" do
           expect(page).to have_content("This pet has been approved for adoption in another application")
