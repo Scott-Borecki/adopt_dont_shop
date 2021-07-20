@@ -16,8 +16,8 @@
     <section id='pet-<%= pet.id %>'>
       <% if pet.adoptable %>
         <%= pet.name%>
-        <% ApplicationPet.action_required(pet). each do |application_pet| %>
-          <%= link_to "#{application_pet.application_id}", "/admin/applications/#{application_pet.application_id}" %>
+        <% pet.actions_required.each do |application| %>
+          <%= link_to "#{application.id}", "/admin/applications/#{application.id}" %>
         <% end %>
       <% end %>
     </section>
