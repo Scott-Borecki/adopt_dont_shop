@@ -22,7 +22,7 @@ class ApplicationsController < ApplicationController
   def adopt
     # PARAMS via URI: :application_id, :pet_id
     application = Application.find(params[:application_id])
-    application.add_pet(params)
+    application.add_pet(params[:pet_id])
     redirect_to "/applications/#{application.id}"
   end
 

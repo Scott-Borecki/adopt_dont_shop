@@ -42,13 +42,13 @@ RSpec.describe Application, type: :model do
       @application_pet_2 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lobster.id)
       @application_pet_3 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @bear.id)
 
-      @params_scott = { pet_id: @dolly.id}
+      @params_scott = @dolly.id
       @params_bob = { application_id: @bob.id, pet_id: @dolly.id}
     end
 
     describe '.add_pet' do
       it 'adds pet to application' do
-        @scott.add_pet(@params_scott)
+        @scott.add_pet(@dolly.id)
 
         expected = [@lucille, @lobster, @bear, @dolly]
         expect(@scott.pets).to eq(expected)
@@ -59,7 +59,7 @@ RSpec.describe Application, type: :model do
       it 'updates application pet status to approved' do
         @bob.pets << @dolly
 
-        @bob.approve_pet(@params_bob)
+        @bob.approve_pet(@dolly.id)
 
         actual = ApplicationPet.find_by(@params_bob).status
         expect(actual).to eq('Approved')
@@ -70,7 +70,7 @@ RSpec.describe Application, type: :model do
       it 'updates application pet status to rejected' do
         @bob.pets << @dolly
 
-        @bob.reject_pet(@params_bob)
+        @bob.reject_pet(@dolly.id)
 
         actual = ApplicationPet.find_by(@params_bob).status
         expect(actual).to eq('Rejected')

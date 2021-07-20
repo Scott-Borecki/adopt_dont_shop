@@ -5,18 +5,18 @@ class Application < ApplicationRecord
   has_many :application_pets, :dependent => :destroy
   has_many :pets, through: :application_pets
 
-  def add_pet(params)
-    pet = Pet.find(params[:pet_id])
+  def add_pet(pet_id)
+    pet = Pet.find(pet_id)
     pets << pet
   end
 
-  def approve_pet(params)
-    application_pet = application_pets.find_by(pet_id: params[:pet_id])
+  def approve_pet(pet_id)
+    application_pet = application_pets.find_by(pet_id: pet_id)
     application_pet.update(status: 'Approved')
   end
 
-  def reject_pet(params)
-    application_pet = application_pets.find_by(pet_id: params[:pet_id])
+  def reject_pet(pet_id)
+    application_pet = application_pets.find_by(pet_id: pet_id)
     application_pet.update(status: 'Rejected')
   end
 
