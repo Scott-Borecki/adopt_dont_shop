@@ -36,9 +36,7 @@ class Application < ApplicationRecord
   end
 
   def reviews_remaining?
-    pets.any? do |pet|
-      application_pet_by_pet_id(pet.id).status.nil?
-    end
+    pets.any? { |pet| application_pet_by_pet_id(pet.id).status.nil? }
   end
 
   def application_pet_by_pet_id(pet_id)
