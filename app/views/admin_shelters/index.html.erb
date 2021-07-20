@@ -1,14 +1,18 @@
 <section id='shelters'>
   <h1>Shelters</h1>
-  <% @shelters.each do |shelter| %>
-    <p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
-  <% end %>
+  <p class='indent'>
+    <% @shelters.each do |shelter| %>
+      <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
+    <% end %>
+  </p>
 </section>
 
 <section id='pending-applications'>
   <h1>Pending Applications</h1>
+  <p class='indent'>
+    <% @shelters_with_pending_applications.each do |shelter| %>
+      <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
+    <% end %>
+  </p>
 
-  <% @shelters_with_pending_applications.each do |shelter| %>
-    <p><%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %></p>
-  <% end %>
 </section>

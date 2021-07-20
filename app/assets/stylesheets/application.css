@@ -31,6 +31,10 @@ a:hover {
   color: #1565C0;
 }
 
+p {
+  line-height: 1.6em;
+}
+
 .navigation {
   display: flex;
   flex-flow: row wrap;
@@ -63,4 +67,38 @@ a:hover {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.content {
+  padding: 2em 3em;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.indent {
+  margin-left: 2em;
+}
+
+.item-button {
+  margin-right: 0.5em;
+}
+
+.item-title {
+  margin-right: 0.5em;
+  width: 200px;
+}
+
+.line {
+  border-bottom: 2px solid #c5c5c5;
+  margin-bottom: 2em;
+}
+
+.record {
+  margin-bottom: 3em;
 }
