@@ -25,9 +25,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_applications
-    joins(pets: [{application_pets: :application}])
-    .where(applications: { status: 'Pending' })
-    .distinct
+    joins(pets: :applications)
+      .where('applications.status = ?', 'Pending')
+      .distinct
   end
 
   def pet_count
@@ -55,10 +55,14 @@ class Shelter < ApplicationRecord
   end
 
   def number_of_pets_adopted
-    pets.joins(:applications).where(applications: { status: 'Accepted' }).count
+    pets.joins(:applications)
+        .where('applications.status = ?', 'Accepted')
+        .count
   end
 
   def action_required
-    pets.joins(application_pets: :application).where(applications: { status: 'Pending' }).where(application_pets: { status: nil })
+    pets.joins(application_pets: :application)
+        .where(applications: { status: 'Pending' })
+        .where(application_pets: { status: nil })
   end
 end
