@@ -1,9 +1,9 @@
 <h2><%= @shelter_name %></h2>
-<p><%= @shelter_city %></p>
+<p class='indent'><%= @shelter_city %></p>
 
 <section id='statistics'>
   <h3>Statistics</h3>
-  <p>
+  <p class='indent'>
     Average Age of Adoptable Pets: <%= @shelter.average_age_of_adoptable_pets %><br>
     Number of Adoptable Pets: <%= @shelter.number_of_adoptable_pets %><br>
     Number of Pets Adopted: <%= @shelter.number_of_pets_adopted %>
@@ -13,11 +13,11 @@
 <section id='action-required'>
   <h3>Action Required</h3>
   <% @shelter.action_required.each do |pet| %>
-    <section id='pet-<%= pet.id %>'>
+    <section id='pet-<%= pet.id %>' class='indent container'>
       <% if pet.adoptable %>
-        <%= pet.name%>
-        <% ApplicationPet.action_required(pet). each do |application_pet| %>
-          <%= link_to "#{application_pet.application_id}", "/admin/applications/#{application_pet.application_id}" %>
+        <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
+        <% pet.actions_required.each do |application| %>
+          <%= link_to "#{application.id}", "/admin/applications/#{application.id}", class: 'item-button' %> 
         <% end %>
       <% end %>
     </section>

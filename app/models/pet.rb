@@ -5,6 +5,10 @@ class Pet < ApplicationRecord
   has_many :application_pets, :dependent => :destroy
   has_many :applications, through: :application_pets
 
+  def self.adoptable
+    where(adoptable: true)
+  end
+
   def shelter_name
     shelter.name
   end
@@ -13,7 +17,7 @@ class Pet < ApplicationRecord
     update(adoptable: false)
   end
 
-  def self.adoptable
-    where(adoptable: true)
+  def actions_required
+    applications.where(application_pets: { status: nil })
   end
 end

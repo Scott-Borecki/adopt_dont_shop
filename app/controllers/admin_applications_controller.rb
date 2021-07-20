@@ -11,18 +11,16 @@ class AdminApplicationsController < ApplicationController
   end
 
   def approve_pet
-    @application = Application.find(params[:application_id])
-    @pet = Pet.find(params[:pet_id])
-    @application_pet = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet.id)
-    @application_pet.update(status: 'Approved')
-    redirect_to "/admin/applications/#{@application.id}"
+    # PARAMS via URI: :application_id, :pet_id
+    application = Application.find(params[:application_id])
+    application.approve_pet(params)
+    redirect_to "/admin/applications/#{application.id}"
   end
 
   def reject_pet
-    @application = Application.find(params[:application_id])
-    @pet = Pet.find(params[:pet_id])
-    @application_pet = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet.id)
-    @application_pet.update(status: 'Rejected')
-    redirect_to "/admin/applications/#{@application.id}"
+    # PARAMS via URI: :application_id, :pet_id
+    application = Application.find(params[:application_id])
+    application.reject_pet(params)
+    redirect_to "/admin/applications/#{application.id}"
   end
 end

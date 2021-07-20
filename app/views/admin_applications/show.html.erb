@@ -1,5 +1,5 @@
 <h2>Application Details:</h2>
-<p id='application'>
+<p id='application' class='indent'>
   Name: <%= @application.name %><br>
   Address: <%= @application.street_address %><br>
   City: <%= @application.city %><br>
@@ -14,20 +14,19 @@
 
 <h2>Pets for Approval:</h2>
 <% @application.pets.each do |pet| %>
-  <section id='pet-<%= pet.id %>'>
-    <p>
-      <%= link_to pet.name, "/pets/#{pet.id}" %>
-      <% if @application.pet_approved?(pet) %>
-        Approved
-      <% elsif @application.pet_rejected?(pet) %>
-        Rejected
-      <% elsif pet.adoptable == false %>
-        This pet has been approved for adoption in another application
-        <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>
-      <% else %>
-        <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch %>
-        <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch %>
-      <% end %>
-    </p>
+  <section id='pet-<%= pet.id %>' class='container indent'>
+    <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
+    <% if @application.pet_approved?(pet) %>
+      <div class='item-button'>Approved</div>
+    <% elsif @application.pet_rejected?(pet) %>
+      <div class='item-button'>Rejected</div>
+    <% elsif pet.adoptable == false %>
+      <div class='item-button'>This pet has been approved for adoption in another application</div>
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
+    <% else %>
+      <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, class: 'item-button' %>
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
+    <% end %>
+    <br><br>
   </section>
 <% end %>

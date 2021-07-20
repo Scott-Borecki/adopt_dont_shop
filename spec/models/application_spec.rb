@@ -13,6 +13,7 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:zip_code) }
     it { should validate_numericality_of(:zip_code) }
+    it { should validate_length_of(:zip_code).is_equal_to(5) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:status) }
   end
@@ -21,40 +22,80 @@ RSpec.describe Application, type: :model do
     before :each do
       @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
 
-      @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
-      @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-      @pet_3 = Pet.create!(adoptable: true, age: 8, breed: 'spanial', name: 'Bear', shelter_id: @shelter_1.id)
+      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
+      @bear = Pet.create!(adoptable: true, age: 8, breed: 'spanial', name: 'Bear', shelter_id: @shelter_1.id)
+      @dolly = Pet.create!(adoptable: true, age: 2, breed: 'hound', name: 'Dolly', shelter_id: @shelter_1.id)
 
-      @application = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+      @scott = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Pending')
 
-      @application.pets << @pet_1
-      @application.pets << @pet_2
-      @application.pets << @pet_3
+      @scott.pets << @lucille
+      @scott.pets << @lobster
+      @scott.pets << @bear
 
-      @application_pet_1 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_1.id)
-      @application_pet_2 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_2.id)
-      @application_pet_3 = ApplicationPet.find_by!(application_id: @application.id, pet_id: @pet_3.id)
+      @bob.pets << @lucille
+      @bob.pets << @lobster
+      @bob.pets << @bear
+
+      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lucille.id)
+      @application_pet_2 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lobster.id)
+      @application_pet_3 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @bear.id)
+
+      @params_scott = { pet_id: @dolly.id}
+      @params_bob = { application_id: @bob.id, pet_id: @dolly.id}
+    end
+
+    describe '.add_pet' do
+      it 'adds pet to application' do
+        @scott.add_pet(@params_scott)
+
+        expected = [@lucille, @lobster, @bear, @dolly]
+        expect(@scott.pets).to eq(expected)
+      end
+    end
+
+    describe '.approve_pet' do
+      it 'updates application pet status to approved' do
+        @bob.pets << @dolly
+
+        @bob.approve_pet(@params_bob)
+
+        actual = ApplicationPet.find_by(@params_bob).status
+        expect(actual).to eq('Approved')
+      end
+    end
+
+    describe '.reject_pet' do
+      it 'updates application pet status to rejected' do
+        @bob.pets << @dolly
+
+        @bob.reject_pet(@params_bob)
+
+        actual = ApplicationPet.find_by(@params_bob).status
+        expect(actual).to eq('Rejected')
+      end
     end
 
     describe '.pet_approved?' do
-      it 'returns whether the application pet has been approved' do
+      it 'returns whether the bob pet has been approved' do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Rejected')
 
-        expect(@application.pet_approved?(@pet_1)).to eq(true)
-        expect(@application.pet_approved?(@pet_2)).to eq(false)
-        expect(@application.pet_approved?(@pet_3)).to eq(false)
+        expect(@bob.pet_approved?(@lucille)).to eq(true)
+        expect(@bob.pet_approved?(@lobster)).to eq(false)
+        expect(@bob.pet_approved?(@bear)).to eq(false)
       end
     end
 
     describe '.pet_rejected?' do
-      it 'returns whether the application pet has been rejected' do
+      it 'returns whether the bob pet has been rejected' do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Rejected')
 
-        expect(@application.pet_rejected?(@pet_1)).to eq(false)
-        expect(@application.pet_rejected?(@pet_2)).to eq(true)
-        expect(@application.pet_rejected?(@pet_3)).to eq(false)
+        expect(@bob.pet_rejected?(@lucille)).to eq(false)
+        expect(@bob.pet_rejected?(@lobster)).to eq(true)
+        expect(@bob.pet_rejected?(@bear)).to eq(false)
       end
     end
 
@@ -64,13 +105,13 @@ RSpec.describe Application, type: :model do
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Approved')
 
-        expect(@application.all_pets_approved?).to eq(true)
+        expect(@bob.all_pets_approved?).to eq(true)
 
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Rejected')
 
-        expect(@application.all_pets_approved?).to eq(false)
+        expect(@bob.all_pets_approved?).to eq(false)
       end
     end
 
@@ -80,13 +121,13 @@ RSpec.describe Application, type: :model do
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Approved')
 
-        expect(@application.any_pets_rejected?).to eq(false)
+        expect(@bob.any_pets_rejected?).to eq(false)
 
         @application_pet_1.update(status: 'Rejected')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Approved')
 
-        expect(@application.any_pets_rejected?).to eq(true)
+        expect(@bob.any_pets_rejected?).to eq(true)
       end
     end
 
@@ -95,11 +136,11 @@ RSpec.describe Application, type: :model do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Rejected')
 
-        expect(@application.reviews_remaining?).to eq(true)
+        expect(@bob.reviews_remaining?).to eq(true)
 
         @application_pet_3.update(status: 'Approved')
 
-        expect(@application.reviews_remaining?).to eq(false)
+        expect(@bob.reviews_remaining?).to eq(false)
       end
     end
   end

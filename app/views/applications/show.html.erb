@@ -1,4 +1,6 @@
-<p id='application'>
+<h2>Application Details</h2>
+
+<p id='application' class='indent'>
   Name: <%= @application.name %><br>
   Address: <%= @application.street_address %><br>
   City: <%= @application.city %><br>
@@ -22,20 +24,22 @@
   <% end %>
 
   <% if @pets.is_a?(Array) && @pets.any? %>
-    <p><%= "Search Results:" %></p>
+    <h4 class='indent'><%= "Search Results:" %></h4>
     <% @pets.each do |pet| %>
-      <section id="pet-<%= pet.id %>">
-        <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
-        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :patch %>
+      <section id="pet-<%= pet.id %>" class='indent container'>
+        <%= link_to "#{pet.name}", "/pets/#{pet.id}", class: 'item-title' %>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :patch, class: 'item-button' %>
       </section>
     <% end %>
   <% end %>
 
   <% if @application.pets.any? %>
+    <br>
     <section id='submit-application'>
+      <h3>Submit Application</h3>
       <%= form_with url: "/applications/#{@application.id}", method: :patch, local: true do |f| %>
-        <%= f.label :description, 'Describe why you would make a good owner for these pet(s):' %>
-        <%= f.text_area :description %>
+        <%= f.label :description, 'Describe why you would make a good owner for these pet(s):' %><br><br>
+        <%= f.text_area :description, size: '50x10' %><br><br>
 
         <%= f.hidden_field :status, value: 'Pending' %>
 
