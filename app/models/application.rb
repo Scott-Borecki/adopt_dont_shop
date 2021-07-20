@@ -11,36 +11,36 @@ class Application < ApplicationRecord
   end
 
   def approve_pet(pet_id)
-    application_pet = application_pets.find_by(pet_id: pet_id)
-    application_pet.update(status: 'Approved')
+    application_pet_by_pet_id(pet_id).approve
   end
 
   def reject_pet(pet_id)
-    application_pet = application_pets.find_by(pet_id: pet_id)
-    application_pet.update(status: 'Rejected')
+    application_pet_by_pet_id(pet_id).reject
   end
 
-  def pet_approved?(pet)
-    application_pet = application_pets.find_by(pet_id: pet.id)
-    application_pet.status == 'Approved'
+  def pet_approved?(pet_id)
+    application_pet_by_pet_id(pet_id).approved?
   end
 
-  def pet_rejected?(pet)
-    application_pet = application_pets.find_by(pet_id: pet.id)
-    application_pet.status == 'Rejected'
+  def pet_rejected?(pet_id)
+    application_pet_by_pet_id(pet_id).rejected?
   end
 
   def all_pets_approved?
-    pets.all? { |pet| pet_approved?(pet) }
+    pets.all? { |pet| pet_approved?(pet.id) }
   end
 
   def any_pets_rejected?
-    pets.any? { |pet| pet_rejected?(pet) }
+    pets.any? { |pet| pet_rejected?(pet.id) }
   end
 
   def reviews_remaining?
     pets.any? do |pet|
-      application_pets.find_by(pet_id: pet.id).status.nil?
+      application_pet_by_pet_id(pet.id).status.nil?
     end
+  end
+
+  def application_pet_by_pet_id(pet_id)
+    application_pets.find_by(pet_id: pet_id)
   end
 end

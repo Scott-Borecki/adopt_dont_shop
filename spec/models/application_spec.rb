@@ -82,9 +82,9 @@ RSpec.describe Application, type: :model do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Rejected')
 
-        expect(@bob.pet_approved?(@lucille)).to eq(true)
-        expect(@bob.pet_approved?(@lobster)).to eq(false)
-        expect(@bob.pet_approved?(@bear)).to eq(false)
+        expect(@bob.pet_approved?(@lucille.id)).to eq(true)
+        expect(@bob.pet_approved?(@lobster.id)).to eq(false)
+        expect(@bob.pet_approved?(@bear.id)).to eq(false)
       end
     end
 
@@ -93,9 +93,9 @@ RSpec.describe Application, type: :model do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Rejected')
 
-        expect(@bob.pet_rejected?(@lucille)).to eq(false)
-        expect(@bob.pet_rejected?(@lobster)).to eq(true)
-        expect(@bob.pet_rejected?(@bear)).to eq(false)
+        expect(@bob.pet_rejected?(@lucille.id)).to eq(false)
+        expect(@bob.pet_rejected?(@lobster.id)).to eq(true)
+        expect(@bob.pet_rejected?(@bear.id)).to eq(false)
       end
     end
 
@@ -141,6 +141,14 @@ RSpec.describe Application, type: :model do
         @application_pet_3.update(status: 'Approved')
 
         expect(@bob.reviews_remaining?).to eq(false)
+      end
+    end
+
+    describe '.application_pet_by_pet_id' do
+      it 'returns the application pet record by pet id' do
+        actual   = @bob.application_pet_by_pet_id(@lucille.id)
+        expected = @application_pet_1
+        expect(actual).to eq(expected)
       end
     end
   end
