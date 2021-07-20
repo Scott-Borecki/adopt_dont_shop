@@ -28,9 +28,12 @@ class ApplicationsController < ApplicationController
 
   def submit
     application = Application.find(params[:id])
-    application.update!(application_params)
-    # Application.submit(params[:id], params)
-    redirect_to "/applications/#{application.id}"
+    if application.update(application_params)
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/#{application.id}"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
   private

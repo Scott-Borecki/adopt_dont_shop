@@ -76,7 +76,7 @@ RSpec.describe 'applications show' do
       it 'can link to the pet pages' do
         @scott.pets << @pet_1
         @scott.pets << @pet_2
-        
+
         @scott.pets.each do |pet|
           visit "/applications/#{@scott.id}"
           click_on "#{pet.name}"
@@ -180,6 +180,17 @@ RSpec.describe 'applications show' do
 
             expect(page).to_not have_content('Add a Pet to this Application')
             expect(page).to_not have_content('Describe why you would make a good owner for these pet(s):')
+          end
+
+          describe 'And I fail to fill in the description form field' do
+            it 'takes me back to the application show page with an error message' do
+              visit "/applications/#{@bob.id}"
+
+              click_button 'Submit Application'
+
+              expect(current_path).to eq("/applications/#{@bob.id}")
+              expect(page).to have_content("Error: Description can't be blank")
+            end
           end
         end
       end
