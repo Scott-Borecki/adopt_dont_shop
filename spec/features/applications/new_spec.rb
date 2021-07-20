@@ -21,7 +21,6 @@ RSpec.describe 'applications new' do
         city           = 'Denver'
         state          = 'Colorado'
         zip_code       = '80202'
-        description    = 'Good with animals'
 
         visit '/applications/new'
 
@@ -30,7 +29,6 @@ RSpec.describe 'applications new' do
         fill_in :city, with: city
         fill_in :state, with: state
         fill_in :zip_code, with: zip_code
-        fill_in :description, with: description
         click_button 'Submit'
 
         expect(current_path).to eq("/applications/#{Application.last.id}")
@@ -39,7 +37,6 @@ RSpec.describe 'applications new' do
         expect(page).to have_content(city)
         expect(page).to have_content(state)
         expect(page).to have_content(zip_code)
-        expect(page).to have_content(description)
         expect(page).to have_content("In Progress")
       end
 
@@ -50,7 +47,7 @@ RSpec.describe 'applications new' do
           click_button 'Submit'
 
           expect(page).to have_current_path("/applications/new")
-          expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number, Zip code is the wrong length (should be 5 characters), Description can't be blank")
+          expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, State can't be blank, Zip code can't be blank, Zip code is not a number, Zip code is the wrong length (should be 5 characters)")
         end
       end
     end

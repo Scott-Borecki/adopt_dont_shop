@@ -1,6 +1,7 @@
 class Application < ApplicationRecord
-  validates :name, :street_address, :city, :state, :zip_code, :description,
-            :status, presence: true
+  validates :name, :street_address, :city, :state, :zip_code, :status,
+            presence: true
+  validates :description, presence: true, on: :update
   validates :zip_code, numericality: true, length: { is: 5 }
   has_many :application_pets, :dependent => :destroy
   has_many :pets, through: :application_pets

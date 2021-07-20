@@ -52,7 +52,6 @@ RSpec.describe 'applications show' do
                                   city: 'Denver',
                                   state: 'Colorado',
                                   zip_code: '80202',
-                                  description: 'Great with animals!',
                                   status: 'In Progress')
       end
 

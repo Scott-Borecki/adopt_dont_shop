@@ -18,7 +18,7 @@ RSpec.describe 'the admin shelter index' do
     @pet_7 = Pet.create!(adoptable: true, age: 2, breed: 'orange tabby', name: 'Milo', shelter_id: @shelter_3.id)
 
     @scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
-    @bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+    @bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
 
     @scott.pets << @pet_1
     @scott.pets << @pet_2
@@ -77,7 +77,7 @@ RSpec.describe 'the admin shelter index' do
     end
 
     it "displays shelter names alphabetically in 'Shelter's with Pending Applications'" do
-      @bob.update(status: 'Pending')
+      @bob.update(description: 'Great with animals!', status: 'Pending')
 
       visit '/admin/shelters'
 

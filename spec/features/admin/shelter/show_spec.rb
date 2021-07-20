@@ -107,7 +107,7 @@ RSpec.describe 'the admin shelter show' do
         @pet_12 = Pet.create!(adoptable: true, age: 8, breed: 'himalayan cat', name: 'Sassy', shelter_id: @shelter_4.id)
 
         # APPLICATIONS
-        @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+        @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
         @scott = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
         @sierra = Application.create!(name: 'Sierra', street_address: '789 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Accepted')
         @laura = Application.create!(name: 'Laura', street_address: '1550 Main Street', city: 'Aurora', state: 'Colorado', zip_code: '80010', description: 'Great with animals!', status: 'Rejected')

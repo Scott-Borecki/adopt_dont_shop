@@ -14,7 +14,7 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:zip_code) }
     it { should validate_numericality_of(:zip_code) }
     it { should validate_length_of(:zip_code).is_equal_to(5) }
-    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:description).on(:update) }
     it { should validate_presence_of(:status) }
   end
 
@@ -27,7 +27,7 @@ RSpec.describe Application, type: :model do
       @bear = Pet.create!(adoptable: true, age: 8, breed: 'spanial', name: 'Bear', shelter_id: @shelter_1.id)
       @dolly = Pet.create!(adoptable: true, age: 2, breed: 'hound', name: 'Dolly', shelter_id: @shelter_1.id)
 
-      @scott = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+      @scott = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
       @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Pending')
 
       @scott.pets << @lucille

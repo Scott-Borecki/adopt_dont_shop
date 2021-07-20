@@ -57,7 +57,7 @@ RSpec.describe Shelter, type: :model do
     describe '#with_pending_applications' do
       it 'returns the shelters that have pending applications' do
         scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
 
         bob.pets << @pet_3
         bob.pets << @pet_4
@@ -133,7 +133,7 @@ RSpec.describe Shelter, type: :model do
     describe '.action_required' do
       it 'returns pets where action is required' do
         scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'In Progress')
+        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
 
         scott.pets << @pet_2
         scott.pets << @pet_4
