@@ -1,4 +1,6 @@
 class ApplicationPet < ApplicationRecord
+  validates :status, presence: true
+  validates :status, inclusion: { in: %w(Pending Approved Rejected) }
   belongs_to :pet
   belongs_to :application
 
@@ -8,6 +10,10 @@ class ApplicationPet < ApplicationRecord
 
   def reject
     update(status: 'Rejected')
+  end
+
+  def pending?
+    status == 'Pending'
   end
 
   def approved?

@@ -2,7 +2,6 @@ class Shelter < ApplicationRecord
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
-
   has_many :pets, dependent: :destroy
 
   def self.order_by_recently_created
@@ -64,6 +63,6 @@ class Shelter < ApplicationRecord
   def action_required
     pets.joins(application_pets: :application)
         .where(applications: { status: 'Pending' })
-        .where(application_pets: { status: nil })
+        .where(application_pets: { status: 'Pending' })
   end
 end

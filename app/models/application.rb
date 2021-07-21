@@ -3,6 +3,7 @@ class Application < ApplicationRecord
             presence: true
   validates :description, presence: true, on: :update
   validates :zip_code, numericality: true, length: { is: 5 }
+  validates :status, inclusion: { in: ['In Progress', 'Pending', 'Accepted', 'Rejected'] }
   has_many :application_pets, :dependent => :destroy
   has_many :pets, through: :application_pets
 
@@ -36,7 +37,7 @@ class Application < ApplicationRecord
   end
 
   def reviews_remaining?
-    pets.any? { |pet| application_pet_by_pet_id(pet.id).status.nil? }
+    pets.any? { |pet| application_pet_by_pet_id(pet.id).pending? }
   end
 
   def application_pet_by_pet_id(pet_id)
