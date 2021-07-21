@@ -5,6 +5,7 @@ RSpec.describe ApplicationPet, type: :model do
     it { should belong_to(:application) }
     it { should belong_to(:pet) }
     it { should validate_presence_of(:status).on(:create) }
+    it { should validate_inclusion_of(:status).in_array(['Pending', 'Approved', 'Rejected']) }
   end
 
   describe 'object creation' do

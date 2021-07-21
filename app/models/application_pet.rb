@@ -1,5 +1,6 @@
 class ApplicationPet < ApplicationRecord
   validates :status, presence: true, on: :create
+  validates :status, inclusion: { in: %w(Pending Approved Rejected) }
   belongs_to :pet
   belongs_to :application
 
