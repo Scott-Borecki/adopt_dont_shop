@@ -20,6 +20,7 @@ class Shelter < ApplicationRecord
     order(:name)
   end
 
+  # NOTE: Part of User Story was to write these queries with raw SQL
   def self.order_by_name_reverse
     find_by_sql("SELECT * FROM shelters ORDER BY name desc")
   end

@@ -5,6 +5,7 @@ class AdminSheltersController < ApplicationController
   end
 
   def show
+    # NOTE: Part of User Story was to write these queries with raw SQL
     @shelter = Shelter.find_by_sql("SELECT * FROM shelters WHERE (id=#{params[:id]}) LIMIT 1").first
     @shelter_name = Shelter.find_by_sql("SELECT name FROM shelters WHERE id=#{params[:id]}").pluck(:name).first
     @shelter_city = Shelter.find_by_sql("SELECT city FROM shelters WHERE id=#{params[:id]}").pluck(:city).first
