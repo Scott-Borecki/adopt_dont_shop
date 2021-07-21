@@ -36,7 +36,8 @@ RSpec.describe 'shelter creation' do
 
         fill_in 'City', with: 'Houston'
 
-        expect(page).to have_content("Error: Name can't be blank, Rank can't be blank, Rank is not a number")
+        expect(page).to have_content("Error: Name can't be blank, Rank can't "\
+                                     "be blank, Rank is not a number")
         expect(page).to have_current_path('/shelters/new')
       end
     end

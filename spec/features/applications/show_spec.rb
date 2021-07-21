@@ -197,11 +197,13 @@ RSpec.describe 'applications show' do
             expect(page).to have_content(@pet_6.name)
 
             expect(page).to_not have_content('Add a Pet to this Application')
-            expect(page).to_not have_content('Describe why you would make a good owner for these pet(s):')
+            expect(page).to_not have_content('Describe why you would make a '\
+                                             'good owner for these pet(s):')
           end
 
           describe 'And I fail to fill in the description form field' do
-            it 'takes me back to the application show page with an error message' do
+            it 'takes me back to the application show page with an error '\
+               'message' do
               visit "/applications/#{@bob.id}"
 
               click_button 'Submit Application'

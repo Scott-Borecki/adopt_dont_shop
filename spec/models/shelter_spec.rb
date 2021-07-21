@@ -13,14 +13,28 @@ RSpec.describe Shelter, type: :model do
   end
 
   before(:each) do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+    @shelter_1 = Shelter.create(name: 'Aurora shelter',
+                                city: 'Aurora, CO', foster_program: false,
+                                rank: 9)
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter',
+                                city: 'Harlingen, TX', foster_program: false,
+                                rank: 5)
+    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado',
+                                city: 'Denver, CO', foster_program: true,
+                                rank: 10)
 
-    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: false)
-    @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
-    @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+    @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate',
+                                    breed: 'tuxedo shorthair', age: 5,
+                                    adoptable: false)
+    @pet_2 = @shelter_1.pets.create(name: 'Clawdia',
+                                    breed: 'shorthair', age: 3,
+                                    adoptable: true)
+    @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald',
+                                    breed: 'sphynx', age: 8,
+                                    adoptable: true)
+    @pet_4 = @shelter_1.pets.create(name: 'Ann',
+                                    breed: 'ragdoll', age: 5,
+                                    adoptable: true)
   end
 
   describe 'class methods' do
@@ -32,32 +46,44 @@ RSpec.describe Shelter, type: :model do
 
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do
-        expect(Shelter.order_by_recently_created).to eq([@shelter_3, @shelter_2, @shelter_1])
+        expect(Shelter.order_by_recently_created)
+          .to eq([@shelter_3, @shelter_2, @shelter_1])
       end
     end
 
     describe '#order_by_number_of_pets' do
       it 'orders the shelters by number of pets they have, descending' do
-        expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_number_of_pets)
+          .to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
 
     describe '#order_by_name' do
       it 'orders the shelters by name in alphabetical order' do
-        expect(Shelter.order_by_name).to eq([@shelter_1, @shelter_3, @shelter_2])
+        expect(Shelter.order_by_name)
+          .to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
 
     describe '#order_by_name_reverse' do
       it 'orders the shelters by name in reverse alphabetical order' do
-        expect(Shelter.order_by_name_reverse).to eq([@shelter_2, @shelter_3, @shelter_1])
+        expect(Shelter.order_by_name_reverse)
+          .to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
 
     describe '#with_pending_applications' do
       it 'returns the shelters that have pending applications' do
-        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
+        scott = Application.create!(name: 'Scott',
+                                    street_address: '123 Main Street',
+                                    city: 'Denver', state: 'Colorado',
+                                    zip_code: '80202',
+                                    description: 'Great with animals!',
+                                    status: 'Pending')
+        bob = Application.create!(name: 'Bob',
+                                  street_address: '456 Main Street',
+                                  city: 'Denver', state: 'Colorado',
+                                  zip_code: '80202', status: 'In Progress')
 
         bob.pets << @pet_3
         bob.pets << @pet_4
@@ -77,7 +103,8 @@ RSpec.describe Shelter, type: :model do
     end
 
     describe '.alphabetical_pets' do
-      it 'returns pets associated with the given shelter in alphabetical name order' do
+      it 'returns pets associated with the given shelter in alphabetical '\
+         'name order' do
         expect(@shelter_1.alphabetical_pets).to eq([@pet_4, @pet_2])
       end
     end
@@ -112,12 +139,22 @@ RSpec.describe Shelter, type: :model do
 
     describe '.number_of_pets_adopted' do
       it 'returns the number of pets adopted' do
-        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
+        scott = Application.create!(name: 'Scott',
+                                    street_address: '123 Main Street',
+                                    city: 'Denver', state: 'Colorado',
+                                    zip_code: '80202',
+                                    description: 'Great with animals!',
+                                    status: 'Pending')
 
         scott.pets << @pet_3
         scott.pets << @pet_4
 
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Accepted')
+        bob = Application.create!(name: 'Bob',
+                                  street_address: '456 Main Street',
+                                  city: 'Denver', state: 'Colorado',
+                                  zip_code: '80202',
+                                  description: 'Great with animals!',
+                                  status: 'Accepted')
 
         @pet_2.update(adoptable: false)
 
@@ -132,8 +169,16 @@ RSpec.describe Shelter, type: :model do
 
     describe '.action_required' do
       it 'returns pets where action is required' do
-        scott = Application.create!( name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', description: 'Great with animals!', status: 'Pending')
-        bob = Application.create!( name: 'Bob', street_address: '456 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
+        scott = Application.create!(name: 'Scott',
+                                    street_address: '123 Main Street',
+                                    city: 'Denver', state: 'Colorado',
+                                    zip_code: '80202',
+                                    description: 'Great with animals!',
+                                    status: 'Pending')
+        bob = Application.create!(name: 'Bob',
+                                  street_address: '456 Main Street',
+                                  city: 'Denver', state: 'Colorado',
+                                  zip_code: '80202', status: 'In Progress')
 
         scott.pets << @pet_2
         scott.pets << @pet_4

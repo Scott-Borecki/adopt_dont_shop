@@ -4,7 +4,9 @@ RSpec.describe Application, type: :model do
   describe 'relationships' do
     it { should have_many(:application_pets) }
     it { should have_many(:pets).through(:application_pets) }
-    it { should validate_inclusion_of(:status).in_array(['In Progress', 'Pending', 'Accepted', 'Rejected']) }
+    it { should validate_inclusion_of(:status).in_array(['In Progress',
+                                                         'Pending', 'Accepted',
+                                                         'Rejected']) }
   end
 
   describe 'validations' do
@@ -21,15 +23,27 @@ RSpec.describe Application, type: :model do
 
   describe 'instance methods' do
     before :each do
-      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO',
+                                   foster_program: false, rank: 9)
 
-      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
-      @lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: @shelter_1.id)
-      @bear = Pet.create!(adoptable: true, age: 8, breed: 'spanial', name: 'Bear', shelter_id: @shelter_1.id)
-      @dolly = Pet.create!(adoptable: true, age: 2, breed: 'hound', name: 'Dolly', shelter_id: @shelter_1.id)
+      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx',
+                             name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @lobster = Pet.create!(adoptable: true, age: 3, breed: 'doberman',
+                             name: 'Lobster', shelter_id: @shelter_1.id)
+      @bear = Pet.create!(adoptable: true, age: 8, breed: 'spanial',
+                          name: 'Bear', shelter_id: @shelter_1.id)
+      @dolly = Pet.create!(adoptable: true, age: 2, breed: 'hound',
+                           name: 'Dolly', shelter_id: @shelter_1.id)
 
-      @scott = Application.create!(name: 'Scott', street_address: '123 Main Street', city: 'Denver', state: 'Colorado', zip_code: '80202', status: 'In Progress')
-      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Pending')
+      @scott = Application.create!(name: 'Scott',
+                                   street_address: '123 Main Street',
+                                   city: 'Denver', state: 'Colorado',
+                                   zip_code: '80202', status: 'In Progress')
+      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
+                                 city: 'Arvada', state: 'Colorado',
+                                 zip_code: '80003',
+                                 description: 'Great with animals!',
+                                 status: 'Pending')
 
       @scott.pets << @lucille
       @scott.pets << @lobster
@@ -39,9 +53,12 @@ RSpec.describe Application, type: :model do
       @bob.pets << @lobster
       @bob.pets << @bear
 
-      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lucille.id)
-      @application_pet_2 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lobster.id)
-      @application_pet_3 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @bear.id)
+      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id,
+                                                   pet_id: @lucille.id)
+      @application_pet_2 = ApplicationPet.find_by!(application_id: @bob.id,
+                                                   pet_id: @lobster.id)
+      @application_pet_3 = ApplicationPet.find_by!(application_id: @bob.id,
+                                                   pet_id: @bear.id)
 
       @params_scott = @dolly.id
       @params_bob = { application_id: @bob.id, pet_id: @dolly.id}
