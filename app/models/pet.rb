@@ -18,6 +18,6 @@ class Pet < ApplicationRecord
   end
 
   def actions_required
-    applications.where(application_pets: { status: nil })
+    applications.where(application_pets: { status: 'Pending' })
   end
 end
