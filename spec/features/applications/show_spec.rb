@@ -39,13 +39,6 @@ RSpec.describe 'applications show' do
                             name: 'Milo',
                             shelter_id: @shelter.id)
 
-        @scott = Application.create!(name: 'Scott',
-                                     street_address: '123 Main Street',
-                                     city: 'Denver',
-                                     state: 'Colorado',
-                                     zip_code: '80202',
-                                     description: 'Great with animals!',
-                                     status: 'Pending')
 
         @bob = Application.create!(name: 'Bob',
                                   street_address: '456 Main Street',
@@ -53,6 +46,14 @@ RSpec.describe 'applications show' do
                                   state: 'Colorado',
                                   zip_code: '80202',
                                   status: 'In Progress')
+
+        @scott = Application.create!(name: 'Scott',
+                                     street_address: '123 Main Street',
+                                     city: 'Denver',
+                                     state: 'Colorado',
+                                     zip_code: '80202',
+                                     description: 'Great with animals!',
+                                     status: 'Pending')
       end
 
       it 'can show the applications attributes' do
@@ -98,55 +99,73 @@ RSpec.describe 'applications show' do
       end
 
       describe 'And that application has not been submitted' do
-        it 'shows the "Add a Pet to this Application" section' do
-          visit "/applications/#{@bob.id}"
-          expect(page).to have_content('Add a Pet to this Application')
-        end
-
-        it 'can search for Pets by name' do
-          visit "/applications/#{@bob.id}"
-
-          fill_in :search_name, with: 'Babe'
-          click_button 'Submit'
-
-          expect(current_path).to eq("/applications/#{@bob.id}")
-          expect(page).to have_link('Babe')
-        end
-
-        it 'can search for Pets by name (partial matches)' do
-          visit "/applications/#{@bob.id}"
-
-          fill_in :search_name, with: 'Bab'
-          click_button 'Submit'
-
-          expect(current_path).to eq("/applications/#{@bob.id}")
-          expect(page).to have_link('Babe')
-        end
-
-        it 'can search for Pets by name (case insenstive matches)' do
-          visit "/applications/#{@bob.id}"
-
-          fill_in :search_name, with: 'babe'
-          click_button 'Submit'
-
-          expect(current_path).to eq("/applications/#{@bob.id}")
-          expect(page).to have_link('Babe')
-        end
-
-        it 'can add Pet to adopt list on Application show page' do
-          visit "/applications/#{@bob.id}"
-
-          fill_in :search_name, with: 'Babe'
-          click_button 'Submit'
-
-          within("#pet-#{@pet_6.id}") do
-            click_button 'Adopt this Pet'
+        describe 'I can add a pet to the application' do
+          it 'shows the "Add a Pet to this Application" section' do
+            visit "/applications/#{@bob.id}"
+            expect(page).to have_content('Add a Pet to this Application')
           end
 
-          expect(current_path).to eq("/applications/#{@bob.id}")
-          expect(@bob.pets).to eq([@pet_6])
-          within('#application') do
-            expect(page).to have_content('Babe')
+          it 'can search for Pets by name' do
+            visit "/applications/#{@bob.id}"
+
+            fill_in :search_name, with: 'Babe'
+            click_button 'Submit'
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(page).to have_link('Babe')
+          end
+
+          it 'can search for Pets by name (partial matches)' do
+            visit "/applications/#{@bob.id}"
+
+            fill_in :search_name, with: 'Bab'
+            click_button 'Submit'
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(page).to have_link('Babe')
+          end
+
+          it 'can search for Pets by name (case insenstive matches)' do
+            visit "/applications/#{@bob.id}"
+
+            fill_in :search_name, with: 'babe'
+            click_button 'Submit'
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(page).to have_link('Babe')
+          end
+
+          it 'can return only pets that are adoptable' do
+            Pet.create!(adoptable: false,
+                        age: 1,
+                        breed: 'lion',
+                        name: 'Rory',
+                        shelter_id: @shelter.id)
+
+            visit "/applications/#{@bob.id}"
+
+            fill_in :search_name, with: 'Rory'
+            click_button 'Submit'
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(page).to_not have_link('Rory')
+          end
+
+          it 'can add Pet to adopt list on Application show page' do
+            visit "/applications/#{@bob.id}"
+
+            fill_in :search_name, with: 'Babe'
+            click_button 'Submit'
+
+            within("#pet-#{@pet_6.id}") do
+              click_button 'Adopt this Pet'
+            end
+
+            expect(current_path).to eq("/applications/#{@bob.id}")
+            expect(@bob.pets).to eq([@pet_6])
+            within('#application') do
+              expect(page).to have_content('Babe')
+            end
           end
         end
 
