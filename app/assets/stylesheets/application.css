@@ -35,6 +35,10 @@ p {
   line-height: 1.6em;
 }
 
+ul li {
+  line-height: 1.6em;
+}
+
 .navigation {
   display: flex;
   flex-flow: row wrap;
