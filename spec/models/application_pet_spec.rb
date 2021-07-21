@@ -5,20 +5,28 @@ RSpec.describe ApplicationPet, type: :model do
     it { should belong_to(:application) }
     it { should belong_to(:pet) }
     it { should validate_presence_of(:status) }
-    it { should validate_inclusion_of(:status).in_array(['Pending', 'Approved', 'Rejected']) }
+    it { should validate_inclusion_of(:status).in_array(['Pending', 'Approved',
+                                                         'Rejected']) }
   end
 
   describe 'object creation' do
     before :each do
-      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO',
+                                   foster_program: false, rank: 9)
 
-      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx',
+                             name: 'Lucille Bald', shelter_id: @shelter_1.id)
 
-      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Pending')
+      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
+                                 city: 'Arvada', state: 'Colorado',
+                                 zip_code: '80003',
+                                 description: 'Great with animals!',
+                                 status: 'Pending')
 
       @bob.pets << @lucille
 
-      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lucille.id)
+      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id,
+                                                   pet_id: @lucille.id)
     end
 
     it 'has a default status of pending' do
@@ -28,15 +36,22 @@ RSpec.describe ApplicationPet, type: :model do
 
   describe 'instance methods' do
     before :each do
-      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+      @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO',
+                                   foster_program: false, rank: 9)
 
-      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter_1.id)
+      @lucille = Pet.create!(adoptable: true, age: 1, breed: 'sphynx',
+                            name: 'Lucille Bald', shelter_id: @shelter_1.id)
 
-      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street', city: 'Arvada', state: 'Colorado', zip_code: '80003', description: 'Great with animals!', status: 'Pending')
+      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
+                                 city: 'Arvada', state: 'Colorado',
+                                 zip_code: '80003',
+                                 description: 'Great with animals!',
+                                 status: 'Pending')
 
       @bob.pets << @lucille
 
-      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id, pet_id: @lucille.id)
+      @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id,
+                                                   pet_id: @lucille.id)
     end
 
     describe '.approve' do

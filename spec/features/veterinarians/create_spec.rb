@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'veterinarian creation' do
   before(:each) do
-    @vet_office = VeterinaryOffice.create(name: 'Best Vets', boarding_services: true, max_patient_capacity: 20)
+    @vet_office = VeterinaryOffice.create(name: 'Best Vets',
+                                          boarding_services: true,
+                                          max_patient_capacity: 20)
   end
 
   describe 'the veterinarian new' do
@@ -40,7 +42,9 @@ RSpec.describe 'veterinarian creation' do
         expect(page).to have_current_path(
           "/veterinary_offices/#{@vet_office.id}/veterinarians/new"
         )
-        expect(page).to have_content("Error: Name can't be blank, Review rating can't be blank, Review rating is not a number")
+        expect(page).to have_content("Error: Name can't be blank, Review "\
+                                     "rating can't be blank, Review rating is "\
+                                     "not a number")
       end
     end
   end

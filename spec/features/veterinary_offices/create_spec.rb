@@ -31,7 +31,9 @@ RSpec.describe 'vet office creation' do
         visit '/veterinary_offices/new'
         click_button 'Save'
 
-        expect(page).to have_content("Error: Name can't be blank, Max patient capacity can't be blank, Max patient capacity is not a number")
+        expect(page).to have_content("Error: Name can't be blank, Max patient"\
+                                     " capacity can't be blank, Max patient "\
+                                     "capacity is not a number")
         expect(page).to have_current_path('/veterinary_offices/new')
       end
     end

@@ -1,0 +1,19 @@
+<h2><%= shelter.name %></h2>
+<section class='indent'>
+  <p>
+    Rank: <%= shelter.rank %><br>
+    City: <%= shelter.city %>
+  </p>
+
+  <p class="pet-count">Pets at <%= shelter.name %>: <%= shelter.pet_count %></p>
+
+  <p>
+    <%= link_to "All pets at #{shelter.name}", "/shelters/#{shelter.id}/pets" %>
+    <ul>
+      <% shelter.pets.each do |pet| %>
+        <li><%= link_to pet.name, "/pets/#{pet.id}" %></li>
+      <% end %>
+    </ul>
+    <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+  </p>
+</section>

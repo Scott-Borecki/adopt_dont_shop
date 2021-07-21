@@ -1,0 +1,14 @@
+<h2>Application Details</h2>
+
+<p id='application' class='indent'>
+  Name: <%= application.name %><br>
+  Address: <%= application.street_address %><br>
+  City: <%= application.city %><br>
+  State: <%= application.state %><br>
+  Zip Code: <%= application.zip_code %><br>
+  Description: <%= application.description %><br>
+  Pets: <% application.pets.each do |pet| %>
+          <%= link_to pet.name, "/pets/#{pet.id}" %>
+        <% end %><br>
+  Application Status: <%= application.status %>
+</p>
