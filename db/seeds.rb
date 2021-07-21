@@ -79,17 +79,17 @@ Pet.create!(adoptable: true, age: 2,  breed: 'Tabby',
             name: 'Sophie', shelter_id: shelter_4.id)
 
 # PETS - SHELTER 5
-Pet.create!(adoptable: false, age: 2, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 2, breed: 'Capuchin Monkey',
             name: 'Crystal', shelter_id: shelter_5.id)
-Pet.create!(adoptable: false, age: 4, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 4, breed: 'Capuchin Monkey',
             name: 'Bill', shelter_id: shelter_5.id)
-Pet.create!(adoptable: false, age: 8, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 8, breed: 'Capuchin Monkey',
             name: 'Rahul', shelter_id: shelter_5.id)
-Pet.create!(adoptable: false, age: 3, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 3, breed: 'Capuchin Monkey',
             name: 'Rafiki', shelter_id: shelter_5.id)
-Pet.create!(adoptable: false, age: 6, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 6, breed: 'Capuchin Monkey',
             name: 'Spot', shelter_id: shelter_5.id)
-Pet.create!(adoptable: false, age: 1, breed: 'Capuchin Monkey',
+Pet.create!(adoptable: true, age: 1, breed: 'Capuchin Monkey',
             name: 'Blue', shelter_id: shelter_5.id)
 
 # APPLICATIONS
