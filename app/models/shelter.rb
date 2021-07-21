@@ -64,6 +64,6 @@ class Shelter < ApplicationRecord
   def action_required
     pets.joins(application_pets: :application)
         .where(applications: { status: 'Pending' })
-        .where(application_pets: { status: nil })
+        .where(application_pets: { status: 'Pending' })
   end
 end

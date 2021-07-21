@@ -36,7 +36,7 @@ class Application < ApplicationRecord
   end
 
   def reviews_remaining?
-    pets.any? { |pet| application_pet_by_pet_id(pet.id).status.nil? }
+    pets.any? { |pet| application_pet_by_pet_id(pet.id).pending? }
   end
 
   def application_pet_by_pet_id(pet_id)
