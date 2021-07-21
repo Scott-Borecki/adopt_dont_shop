@@ -205,6 +205,14 @@ RSpec.describe 'the admin shelter show' do
         end
       end
 
+      it 'diplays "No action required" if there are no pending applications' do
+        visit visit "/admin/shelters/#{@shelter_4.id}"
+
+        within '#action-required' do
+          expect(page).to have_content('No action required')
+        end
+      end
+
       it 'links to the admin application show page' do
         visit visit "/admin/shelters/#{@shelter_1.id}"
         within '#action-required' do
