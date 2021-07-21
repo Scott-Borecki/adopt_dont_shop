@@ -1,5 +1,4 @@
-<h2><%= @shelter_name %></h2>
-<p class='indent'><%= @shelter_city %></p>
+<%= render partial: '/shelters/shelter_details', locals: { shelter: @shelter } %>
 
 <section id='statistics'>
   <h3>Statistics</h3>
@@ -17,7 +16,7 @@
       <% if pet.adoptable %>
         <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
         <% pet.actions_required.each do |application| %>
-          <%= link_to "#{application.id}", "/admin/applications/#{application.id}", class: 'item-button' %> 
+          <%= link_to "#{application.id}", "/admin/applications/#{application.id}", class: 'item-button' %>
         <% end %>
       <% end %>
     </section>
