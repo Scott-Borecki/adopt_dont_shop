@@ -85,28 +85,20 @@ RSpec.describe 'the admin application show' do
                                status: 'Rejected')
 
     # APPLICATION PETS - BOB
-    @bob.pets << @pet_3
-    @bob.pets << @pet_6
-    @bob.pets << @pet_7
+    @bob.pets << @pet_3 << @pet_6 << @pet_7
 
     # APPLICATION PETS - SCOTT
-    @scott.pets << @pet_1
-    @scott.pets << @pet_2
-    @scott.pets << @pet_4
+    @scott.pets << @pet_1 << @pet_2 << @pet_4
 
     # APPLICATION PETS - SIERRA
-    @sierra.pets << @pet_5
-    @sierra.pets << @pet_8
-    @sierra.pets << @pet_9
+    @sierra.pets << @pet_5 << @pet_8 << @pet_9
 
     @pet_5.update(adoptable: false)
     @pet_8.update(adoptable: false)
     @pet_9.update(adoptable: false)
 
     # APPLICATION PETS - LAURA
-    @laura.pets << @pet_10
-    @laura.pets << @pet_11
-    @laura.pets << @pet_12
+    @laura.pets << @pet_10 << @pet_11 << @pet_12
   end
 
   describe 'As a visitor, when I visit an admin application show page' do

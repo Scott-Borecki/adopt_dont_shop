@@ -39,7 +39,6 @@ RSpec.describe 'applications show' do
                             name: 'Milo',
                             shelter_id: @shelter.id)
 
-
         @bob = Application.create!(name: 'Bob',
                                   street_address: '456 Main Street',
                                   city: 'Denver',
@@ -170,8 +169,7 @@ RSpec.describe 'applications show' do
 
         describe 'And I have added one or more pets to the application' do
           before :each do
-            @bob.pets << @pet_3
-            @bob.pets << @pet_6
+            @bob.pets << @pet_3 << @pet_6
           end
 
           it 'displays a section to submit my appliction' do

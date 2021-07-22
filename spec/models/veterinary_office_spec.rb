@@ -18,6 +18,7 @@ RSpec.describe VeterinaryOffice, type: :model do
     @vet_office_2 = VeterinaryOffice.create(name: 'Vets R Us',
                                             boarding_services: true,
                                             max_patient_capacity: 20)
+                                            
     @not_on_call_vet = Veterinarian.create(name: 'Sam', review_rating: 10,
                                            on_call: false,
                                            veterinary_office_id: @vet_office_1.id)
