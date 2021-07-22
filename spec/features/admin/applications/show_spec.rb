@@ -295,6 +295,22 @@ RSpec.describe 'the admin application show' do
           expect(page).to_not have_button('Approve')
         end
       end
+
+      it 'can update display when pet is approved, but no longer adoptable' do
+        # NOTE: @pet_5 is adopted by @sierra and the application is 'Accepted'
+        #       @pet_5.adoptable is false
+        @scott.pets << @pet_5
+        @scott.approve_pet(@pet_5)
+
+        visit "/admin/applications/#{@scott.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          expect(page).to have_content("This pet has been approved for "\
+                                       "adoption in another application")
+          expect(page).to have_button('Reject')
+          expect(page).to_not have_button('Approve')
+        end
+      end
     end
   end
 end
