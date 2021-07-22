@@ -47,7 +47,7 @@ class Application < ApplicationRecord
   end
 
   def any_pets_rejected?
-    number_of_pets_rejected > 0
+    number_of_pets_rejected.positive?
   end
 
   def reviews_remaining?
