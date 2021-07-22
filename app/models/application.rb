@@ -29,16 +29,28 @@ class Application < ApplicationRecord
     application_pet_by_pet_id(pet_id).rejected?
   end
 
+  def number_of_pets_approved
+    application_pets.where(status: 'Approved').length
+  end
+
+  def number_of_pets_rejected
+    application_pets.where(status: 'Rejected').length
+  end
+
+  def number_of_pets
+    application_pets.length
+  end
+
   def all_pets_approved?
-    pets.all? { |pet| pet_approved?(pet.id) }
+    number_of_pets_approved == number_of_pets
   end
 
   def any_pets_rejected?
-    pets.any? { |pet| pet_rejected?(pet.id) }
+    number_of_pets_rejected > 0
   end
 
   def reviews_remaining?
-    pets.any? { |pet| application_pet_by_pet_id(pet.id).pending? }
+    number_of_pets_approved + number_of_pets_rejected < number_of_pets
   end
 
   def application_pet_by_pet_id(pet_id)

@@ -90,6 +90,7 @@ RSpec.describe Application, type: :model do
 
         @bob.reject_pet(@dolly.id)
 
+        # @bob.reload
         actual = ApplicationPet.find_by(@params_bob).status
         expect(actual).to eq('Rejected')
       end
@@ -114,6 +115,48 @@ RSpec.describe Application, type: :model do
         expect(@bob.pet_rejected?(@lucille.id)).to eq(false)
         expect(@bob.pet_rejected?(@lobster.id)).to eq(true)
         expect(@bob.pet_rejected?(@bear.id)).to eq(false)
+      end
+    end
+
+    describe '.number_of_pets_approved' do
+      it 'returns the number of pets approved on the application' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@bob.number_of_pets_approved).to eq(3)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@bob.number_of_pets_approved).to eq(2)
+      end
+    end
+
+    describe '.number_of_pets_rejected' do
+      it 'returns the number of pets rejected on the application' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@bob.number_of_pets_rejected).to eq(0)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@bob.number_of_pets_rejected).to eq(1)
+      end
+    end
+
+    describe '.number_of_pets' do
+      it 'returns the number of pets on the application' do
+        expect(@bob.number_of_pets).to eq(3)
+
+        @bob.pets << @dolly
+
+        expect(@bob.number_of_pets).to eq(4)
       end
     end
 
