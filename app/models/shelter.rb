@@ -30,6 +30,11 @@ class Shelter < ApplicationRecord
       .distinct
   end
 
+  # NOTE: Part of User Story was to write this query with raw SQL
+  def self.sql_find_by_id(id)
+    find_by_sql("SELECT * FROM shelters WHERE (id=#{id}) LIMIT 1").first
+  end
+
   def pet_count
     pets.count
   end
