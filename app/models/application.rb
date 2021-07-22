@@ -51,6 +51,8 @@ class Application < ApplicationRecord
   end
 
   def reviews_remaining?
+    status == 'In Progress' ||
+    number_of_pets == 0 ||
     number_of_pets_approved + number_of_pets_rejected < number_of_pets
   end
 

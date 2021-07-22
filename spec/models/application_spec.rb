@@ -48,14 +48,16 @@ RSpec.describe Application, type: :model do
                                  zip_code: '80003',
                                  description: 'Great with animals!',
                                  status: 'Pending')
+      @sierra = Application.create!(name: 'Sierra',
+                                 street_address: '789 Main Street',
+                                 city: 'Arvada', state: 'Colorado',
+                                 zip_code: '80003',
+                                 description: 'Great with animals!',
+                                 status: 'In Progress')
 
-      @scott.pets << @lucille
-      @scott.pets << @lobster
-      @scott.pets << @bear
+      @scott.pets << @lucille << @lobster << @bear
 
-      @bob.pets << @lucille
-      @bob.pets << @lobster
-      @bob.pets << @bear
+      @bob.pets << @lucille << @lobster << @bear
 
       @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id,
                                                    pet_id: @lucille.id)
@@ -206,6 +208,18 @@ RSpec.describe Application, type: :model do
         @application_pet_3.update(status: 'Approved')
 
         expect(@bob.reviews_remaining?).to eq(false)
+      end
+
+      it 'returns true if there are no pets' do
+        expect(@sierra.pets.length).to eq(0)
+        expect(@sierra.reviews_remaining?).to eq(true)
+      end
+
+      it 'returns true if the application is in progress' do
+        @sierra.pets << @lucille << @lobster << @bear
+        expect(@sierra.pets.length).to eq(3)
+        expect(@sierra.status).to eq('In Progress')
+        expect(@sierra.reviews_remaining?).to eq(true)
       end
     end
 
