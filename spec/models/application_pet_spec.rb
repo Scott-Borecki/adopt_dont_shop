@@ -87,17 +87,6 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '.pending?' do
-      it 'can return whether a pet is approved on an application' do
-        expect(@application_pet_1.pending?).to eq(true)
-
-        @application_pet_1.update(status: 'Approved')
-
-        actual = ApplicationPet.find(@application_pet_1.id)
-        expect(actual.pending?).to eq(false)
-      end
-    end
-
     describe '.rejected?' do
       it 'can return whether a pet is rejeced on an application' do
         expect(@application_pet_1.rejected?).to eq(false)
