@@ -64,5 +64,6 @@ class Shelter < ApplicationRecord
     pets.joins(application_pets: :application)
         .where(applications: { status: 'Pending' })
         .where(application_pets: { status: 'Pending' })
+        .distinct
   end
 end
