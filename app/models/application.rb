@@ -57,7 +57,7 @@ class Application < ApplicationRecord
   end
 
   def adopt_all_pets
-    pets.each { |pet| pet.adopt }
+    pets.each(&:adopt)
   end
 
   def application_pet_by_pet_id(pet_id)
