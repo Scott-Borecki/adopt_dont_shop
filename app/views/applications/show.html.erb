@@ -1,6 +1,6 @@
 <%= render partial: 'application_details', locals: { application: @application } %>
 
-<% if @application.status == 'In Progress' %>
+<% if @application.in_progress? %>
   <h3>Add a Pet to this Application</h3>
 
   <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
@@ -11,7 +11,7 @@
   <% end %>
 
   <% if @pets.is_a?(Array) && @pets.any? %>
-    <h4 class='indent'><%= "Search Results:" %></h4>
+    <h4 class='indent'>Search Results:</h4>
     <% @pets.each do |pet| %>
       <section id="pet-<%= pet.id %>" class='indent container'>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}", class: 'item-title' %>

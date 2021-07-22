@@ -21,6 +21,7 @@ RSpec.describe 'applications new' do
         city           = 'Denver'
         state          = 'Colorado'
         zip_code       = '80202'
+        contents = [name, street_address, city, state, zip_code, 'In Progress']
 
         visit '/applications/new'
 
@@ -32,12 +33,10 @@ RSpec.describe 'applications new' do
         click_button 'Submit'
 
         expect(current_path).to eq("/applications/#{Application.last.id}")
-        expect(page).to have_content(name)
-        expect(page).to have_content(street_address)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip_code)
-        expect(page).to have_content("In Progress")
+
+        contents.each do |content|
+          expect(page).to have_content(content)
+        end
       end
 
       describe 'And I fail to fill in any of the form fields' do

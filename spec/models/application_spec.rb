@@ -169,5 +169,12 @@ RSpec.describe Application, type: :model do
         expect(actual).to eq(expected)
       end
     end
+
+    describe '.in_progress?' do
+      it 'returns whether the application is in progress' do
+        expect(@scott.in_progress?).to eq(true)
+        expect(@bob.in_progress?).to eq(false)
+      end
+    end
   end
 end

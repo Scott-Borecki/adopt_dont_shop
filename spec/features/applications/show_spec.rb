@@ -57,25 +57,24 @@ RSpec.describe 'applications show' do
       end
 
       it 'can show the applications attributes' do
-        @scott.pets << @pet_1
-        @scott.pets << @pet_2
+        @scott.pets << @pet_1 << @pet_2
+
+        contents = [@scott.name, @scott.street_address, @scott.city,
+                    @scott.state, @scott.zip_code, @scott.description,
+                    @scott.status]
 
         visit "/applications/#{@scott.id}"
 
-        expect(page).to have_content(@scott.name)
-        expect(page).to have_content(@scott.street_address)
-        expect(page).to have_content(@scott.city)
-        expect(page).to have_content(@scott.state)
-        expect(page).to have_content(@scott.zip_code)
-        expect(page).to have_content(@scott.description)
+        contents.each do |content|
+          expect(page).to have_content(content)
+        end
+
         expect(page).to have_link(@pet_1.name)
         expect(page).to have_link(@pet_2.name)
-        expect(page).to have_content(@scott.status)
       end
 
       it 'can link to the pet pages' do
-        @scott.pets << @pet_1
-        @scott.pets << @pet_2
+        @scott.pets << @pet_1 << @pet_2
 
         @scott.pets.each do |pet|
           visit "/applications/#{@scott.id}"
@@ -185,16 +184,20 @@ RSpec.describe 'applications show' do
           end
 
           it 'I can submit the application' do
+            contents = ['Application Status: Pending',
+                        'Description: Great with animals!!',
+                        @pet_3.name, @pet_6.name]
+
             visit "/applications/#{@bob.id}"
 
             fill_in :description, with: 'Great with animals!!'
             click_button 'Submit Application'
 
             expect(current_path).to eq("/applications/#{@bob.id}")
-            expect(page).to have_content('Application Status: Pending')
-            expect(page).to have_content('Description: Great with animals!!')
-            expect(page).to have_content(@pet_3.name)
-            expect(page).to have_content(@pet_6.name)
+
+            contents.each do |content|
+              expect(page).to have_content(content)
+            end
 
             expect(page).to_not have_content('Add a Pet to this Application')
             expect(page).to_not have_content('Describe why you would make a '\
