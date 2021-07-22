@@ -43,22 +43,20 @@ RSpec.describe 'the admin shelter index' do
                                city: 'Denver', state: 'Colorado',
                                zip_code: '80202', status: 'In Progress')
 
-    @scott.pets << @pet_1
-    @scott.pets << @pet_2
-    @scott.pets << @pet_4
-    @bob.pets << @pet_3
-    @bob.pets << @pet_6
-    @bob.pets << @pet_7
+    @scott.pets << @pet_1 << @pet_2 << @pet_4
+    @bob.pets << @pet_3 << @pet_6 << @pet_7
   end
 
   describe 'As a visitor, when I visit the admin shelter index' do
     it 'lists all the shelters in reverse alphabetical order by name' do
+      shelters = [@shelter_1, @shelter_2, @shelter_3, @shelter_4]
+
       visit '/admin/shelters'
 
-      expect(page).to have_content(@shelter_1.name)
-      expect(page).to have_content(@shelter_2.name)
-      expect(page).to have_content(@shelter_3.name)
-      expect(page).to have_content(@shelter_4.name)
+      shelters.each do |shelter|
+        expect(page).to have_content(shelter.name)
+      end
+
       expect(@shelter_2.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_4.name)
       expect(@shelter_4.name).to appear_before(@shelter_1.name)
