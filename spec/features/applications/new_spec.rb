@@ -26,7 +26,7 @@ RSpec.describe 'applications new' do
         }
 
         visit '/applications/new'
-        
+
         fill_in :name,           with: contents[:name]
         fill_in :street_address, with: contents[:street_address]
         fill_in :city,           with: contents[:city]

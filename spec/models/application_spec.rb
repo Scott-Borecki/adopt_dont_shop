@@ -22,7 +22,8 @@ RSpec.describe Application, type: :model do
     it { should validate_inclusion_of(:status).in_array(['In Progress',
                                                          'Pending',
                                                          'Accepted',
-                                                         'Rejected']) }
+                                                         'Rejected'])
+                                                       }
   end
 
   describe 'instance methods' do
@@ -49,11 +50,11 @@ RSpec.describe Application, type: :model do
                                  description: 'Great with animals!',
                                  status: 'Pending')
       @sierra = Application.create!(name: 'Sierra',
-                                 street_address: '789 Main Street',
-                                 city: 'Arvada', state: 'Colorado',
-                                 zip_code: '80003',
-                                 description: 'Great with animals!',
-                                 status: 'In Progress')
+                                    street_address: '789 Main Street',
+                                    city: 'Arvada', state: 'Colorado',
+                                    zip_code: '80003',
+                                    description: 'Great with animals!',
+                                    status: 'In Progress')
 
       @scott.pets << @lucille << @lobster << @bear
 

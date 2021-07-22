@@ -297,8 +297,8 @@ RSpec.describe 'the admin application show' do
         visit "/admin/applications/#{@scott.id}"
 
         within "#pet-#{@pet_5.id}" do
-          expect(page).to have_content("This pet has been approved for "\
-                                       "adoption in another application")
+          expect(page).to have_content('This pet has been approved for '\
+                                       'adoption in another application')
           expect(page).to have_button('Reject')
           expect(page).to_not have_button('Approve')
         end
