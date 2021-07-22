@@ -179,10 +179,16 @@ RSpec.describe Shelter, type: :model do
                                   street_address: '456 Main Street',
                                   city: 'Denver', state: 'Colorado',
                                   zip_code: '80202', status: 'In Progress')
+        sierra = Application.create!(name: 'Sierra',
+                                     street_address: '345 Main Street',
+                                     city: 'Arvada', state: 'Colorado',
+                                     zip_code: '80003',
+                                     description: 'Great with animals!',
+                                     status: 'Pending')
 
-        scott.pets << @pet_2
-        scott.pets << @pet_4
+        scott.pets << @pet_2 << @pet_4
         bob.pets << @pet_4
+        sierra.pets << @pet_4
 
         expect(@shelter_1.action_required).to eq([@pet_2, @pet_4])
       end
