@@ -44,4 +44,8 @@ class Application < ApplicationRecord
   def application_pet_by_pet_id(pet_id)
     application_pets.find_by(pet_id: pet_id)
   end
+
+  def in_progress?
+    status == 'In Progress'
+  end
 end
