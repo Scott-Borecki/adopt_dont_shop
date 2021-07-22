@@ -49,6 +49,13 @@ RSpec.describe Pet, type: :model do
       end
     end
 
+    describe '.not_adoptable?' do
+      it 'returns whether the pet is not adoptable' do
+        expect(@pet_1.not_adoptable?).to eq(false)
+        expect(@pet_3.not_adoptable?).to eq(true)
+      end
+    end
+
     describe '.adopt' do
       it 'can adopt a pet and make it not adoptable' do
         expect(@pet_1.adoptable).to be(true)

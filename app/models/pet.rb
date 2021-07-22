@@ -13,6 +13,10 @@ class Pet < ApplicationRecord
     shelter.name
   end
 
+  def not_adoptable?
+    adoptable == false
+  end
+
   def adopt
     update(adoptable: false)
   end
