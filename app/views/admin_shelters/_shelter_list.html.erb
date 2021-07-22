@@ -1,0 +1,5 @@
+<p class='indent'>
+  <% shelters.each do |shelter| %>
+    <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
+  <% end %>
+</p>

@@ -1,18 +1,9 @@
 <section id='shelters'>
   <h1>Shelters</h1>
-  <p class='indent'>
-    <% @shelters.each do |shelter| %>
-      <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
-    <% end %>
-  </p>
+  <%= render partial: 'shelter_list', locals: { shelters: @shelters } %>
 </section>
 
 <section id='pending-applications'>
   <h1>Pending Applications</h1>
-  <p class='indent'>
-    <% @shelters_with_pending_applications.each do |shelter| %>
-      <%= link_to shelter.name, "/admin/shelters/#{shelter.id}" %><br>
-    <% end %>
-  </p>
-
+  <%= render partial: 'shelter_list', locals: { shelters: @shelters_with_pending_applications } %>
 </section>
