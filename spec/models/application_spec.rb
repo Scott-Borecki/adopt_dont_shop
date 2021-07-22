@@ -19,6 +19,10 @@ RSpec.describe Application, type: :model do
     it { should validate_length_of(:zip_code).is_equal_to(5) }
     it { should validate_presence_of(:description).on(:update) }
     it { should validate_presence_of(:status) }
+    it { should validate_inclusion_of(:status).in_array(['In Progress',
+                                                         'Pending',
+                                                         'Accepted',
+                                                         'Rejected']) }
   end
 
   describe 'instance methods' do
