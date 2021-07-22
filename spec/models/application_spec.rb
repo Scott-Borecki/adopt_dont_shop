@@ -19,6 +19,10 @@ RSpec.describe Application, type: :model do
     it { should validate_length_of(:zip_code).is_equal_to(5) }
     it { should validate_presence_of(:description).on(:update) }
     it { should validate_presence_of(:status) }
+    it { should validate_inclusion_of(:status).in_array(['In Progress',
+                                                         'Pending',
+                                                         'Accepted',
+                                                         'Rejected']) }
   end
 
   describe 'instance methods' do
@@ -44,14 +48,16 @@ RSpec.describe Application, type: :model do
                                  zip_code: '80003',
                                  description: 'Great with animals!',
                                  status: 'Pending')
+      @sierra = Application.create!(name: 'Sierra',
+                                    street_address: '789 Main Street',
+                                    city: 'Arvada', state: 'Colorado',
+                                    zip_code: '80003',
+                                    description: 'Great with animals!',
+                                    status: 'In Progress')
 
-      @scott.pets << @lucille
-      @scott.pets << @lobster
-      @scott.pets << @bear
+      @scott.pets << @lucille << @lobster << @bear
 
-      @bob.pets << @lucille
-      @bob.pets << @lobster
-      @bob.pets << @bear
+      @bob.pets << @lucille << @lobster << @bear
 
       @application_pet_1 = ApplicationPet.find_by!(application_id: @bob.id,
                                                    pet_id: @lucille.id)
@@ -90,6 +96,7 @@ RSpec.describe Application, type: :model do
 
         @bob.reject_pet(@dolly.id)
 
+        # @bob.reload
         actual = ApplicationPet.find_by(@params_bob).status
         expect(actual).to eq('Rejected')
       end
@@ -114,6 +121,48 @@ RSpec.describe Application, type: :model do
         expect(@bob.pet_rejected?(@lucille.id)).to eq(false)
         expect(@bob.pet_rejected?(@lobster.id)).to eq(true)
         expect(@bob.pet_rejected?(@bear.id)).to eq(false)
+      end
+    end
+
+    describe '.number_of_pets_approved' do
+      it 'returns the number of pets approved on the application' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@bob.number_of_pets_approved).to eq(3)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@bob.number_of_pets_approved).to eq(2)
+      end
+    end
+
+    describe '.number_of_pets_rejected' do
+      it 'returns the number of pets rejected on the application' do
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Approved')
+
+        expect(@bob.number_of_pets_rejected).to eq(0)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@bob.number_of_pets_rejected).to eq(1)
+      end
+    end
+
+    describe '.number_of_pets' do
+      it 'returns the number of pets on the application' do
+        expect(@bob.number_of_pets).to eq(3)
+
+        @bob.pets << @dolly
+
+        expect(@bob.number_of_pets).to eq(4)
       end
     end
 
@@ -159,6 +208,32 @@ RSpec.describe Application, type: :model do
         @application_pet_3.update(status: 'Approved')
 
         expect(@bob.reviews_remaining?).to eq(false)
+      end
+
+      it 'returns true if there are no pets' do
+        expect(@sierra.pets.length).to eq(0)
+        expect(@sierra.reviews_remaining?).to eq(true)
+      end
+
+      it 'returns true if the application is in progress' do
+        @sierra.pets << @lucille << @lobster << @bear
+        expect(@sierra.pets.length).to eq(3)
+        expect(@sierra.status).to eq('In Progress')
+        expect(@sierra.reviews_remaining?).to eq(true)
+      end
+    end
+
+    describe '.adopt_all_pets' do
+      it 'updates the pets to not be adoptable' do
+        @bob.pets.each do |pet|
+          expect(pet.adoptable).to eq(true)
+        end
+
+        @bob.adopt_all_pets
+
+        @bob.pets.each do |pet|
+          expect(pet.adoptable).to eq(false)
+        end
       end
     end
 

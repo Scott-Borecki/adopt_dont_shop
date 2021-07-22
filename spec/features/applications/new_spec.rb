@@ -16,25 +16,27 @@ RSpec.describe 'applications new' do
 
     describe 'I am taken to the new application page' do
       it 'can fill in the new application form' do
-        name           = 'Scott'
-        street_address = '123 Main Street'
-        city           = 'Denver'
-        state          = 'Colorado'
-        zip_code       = '80202'
-        contents = [name, street_address, city, state, zip_code, 'In Progress']
+        contents = {
+          name:           'Scott',
+          street_address: '123 Main Street',
+          city:           'Denver',
+          state:          'Colorado',
+          zip_code:       '80202',
+          status:         'In Progress'
+        }
 
         visit '/applications/new'
 
-        fill_in :name, with: name
-        fill_in :street_address, with: street_address
-        fill_in :city, with: city
-        fill_in :state, with: state
-        fill_in :zip_code, with: zip_code
+        fill_in :name,           with: contents[:name]
+        fill_in :street_address, with: contents[:street_address]
+        fill_in :city,           with: contents[:city]
+        fill_in :state,          with: contents[:state]
+        fill_in :zip_code,       with: contents[:zip_code]
         click_button 'Submit'
 
         expect(current_path).to eq("/applications/#{Application.last.id}")
 
-        contents.each do |content|
+        contents.values.each do |content|
           expect(page).to have_content(content)
         end
       end

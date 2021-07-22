@@ -17,6 +17,7 @@ RSpec.describe Pet, type: :model do
     @shelter_1 = Shelter.create(name: 'Aurora shelter',
                                 city: 'Aurora, CO', foster_program: false,
                                 rank: 9)
+
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate',
                                     breed: 'tuxedo shorthair', age: 5,
                                     adoptable: true)
@@ -93,13 +94,10 @@ RSpec.describe Pet, type: :model do
                                     description: 'Great with animals!',
                                     status: 'Rejected')
 
-        scott.pets << @pet_1
-        scott.pets << @pet_2
-        bob.pets << @pet_1
-        bob.pets << @pet_2
+        scott.pets << @pet_1 << @pet_2
+        bob.pets << @pet_1 << @pet_2
         sierra.pets << @pet_3
-        laura.pets << @pet_1
-        laura.pets << @pet_2
+        laura.pets << @pet_1 << @pet_2
 
         ap_1_scott = @pet_1.application_pets.find_by(application_id: scott.id)
         ap_2_scott = @pet_2.application_pets.find_by(application_id: scott.id)

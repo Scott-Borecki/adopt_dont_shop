@@ -85,28 +85,20 @@ RSpec.describe 'the admin application show' do
                                status: 'Rejected')
 
     # APPLICATION PETS - BOB
-    @bob.pets << @pet_3
-    @bob.pets << @pet_6
-    @bob.pets << @pet_7
+    @bob.pets << @pet_3 << @pet_6 << @pet_7
 
     # APPLICATION PETS - SCOTT
-    @scott.pets << @pet_1
-    @scott.pets << @pet_2
-    @scott.pets << @pet_4
+    @scott.pets << @pet_1 << @pet_2 << @pet_4
 
     # APPLICATION PETS - SIERRA
-    @sierra.pets << @pet_5
-    @sierra.pets << @pet_8
-    @sierra.pets << @pet_9
+    @sierra.pets << @pet_5 << @pet_8 << @pet_9
 
     @pet_5.update(adoptable: false)
     @pet_8.update(adoptable: false)
     @pet_9.update(adoptable: false)
 
     # APPLICATION PETS - LAURA
-    @laura.pets << @pet_10
-    @laura.pets << @pet_11
-    @laura.pets << @pet_12
+    @laura.pets << @pet_10 << @pet_11 << @pet_12
   end
 
   describe 'As a visitor, when I visit an admin application show page' do
@@ -291,6 +283,22 @@ RSpec.describe 'the admin application show' do
         within "#pet-#{@pet_5.id}" do
           expect(page).to have_content("This pet has been approved for "\
                                        "adoption in another application")
+          expect(page).to have_button('Reject')
+          expect(page).to_not have_button('Approve')
+        end
+      end
+
+      it 'can update display when pet is approved, but no longer adoptable' do
+        # NOTE: @pet_5 is adopted by @sierra and the application is 'Accepted'
+        #       @pet_5.adoptable is false
+        @scott.pets << @pet_5
+        @scott.approve_pet(@pet_5)
+
+        visit "/admin/applications/#{@scott.id}"
+
+        within "#pet-#{@pet_5.id}" do
+          expect(page).to have_content('This pet has been approved for '\
+                                       'adoption in another application')
           expect(page).to have_button('Reject')
           expect(page).to_not have_button('Approve')
         end

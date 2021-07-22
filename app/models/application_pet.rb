@@ -12,10 +12,6 @@ class ApplicationPet < ApplicationRecord
     update(status: 'Rejected')
   end
 
-  def pending?
-    status == 'Pending'
-  end
-
   def approved?
     status == 'Approved'
   end

@@ -4,13 +4,13 @@
 <% @application.pets.each do |pet| %>
   <section id='pet-<%= pet.id %>' class='container indent'>
     <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
-    <% if @application.pet_approved?(pet) %>
+    <% if pet.not_adoptable? %>
+      <div class='item-button'>This pet has been approved for adoption in another application</div>
+      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
+    <% elsif @application.pet_approved?(pet) %>
       <div class='item-button'>Approved</div>
     <% elsif @application.pet_rejected?(pet) %>
       <div class='item-button'>Rejected</div>
-    <% elsif pet.not_adoptable? %>
-      <div class='item-button'>This pet has been approved for adoption in another application</div>
-      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
     <% else %>
       <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, class: 'item-button' %>
       <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
