@@ -53,6 +53,10 @@ class Application < ApplicationRecord
     number_of_pets_approved + number_of_pets_rejected < number_of_pets
   end
 
+  def adopt_all_pets
+    pets.each { |pet| pet.adopt }
+  end
+
   def application_pet_by_pet_id(pet_id)
     application_pets.find_by(pet_id: pet_id)
   end

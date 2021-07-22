@@ -4,7 +4,7 @@ class AdminApplicationsController < ApplicationController
     if @application.reviews_remaining?
     elsif @application.all_pets_approved?
       @application.update(status: 'Accepted')
-      @application.pets.each { |pet| pet.adopt }
+      @application.adopt_all_pets
     elsif @application.any_pets_rejected?
       @application.update(status: 'Rejected')
     end

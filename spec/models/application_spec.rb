@@ -205,6 +205,20 @@ RSpec.describe Application, type: :model do
       end
     end
 
+    describe '.adopt_all_pets' do
+      it 'updates the pets to not be adoptable' do
+        @bob.pets.each do |pet|
+          expect(pet.adoptable).to eq(true)
+        end
+
+        @bob.adopt_all_pets
+
+        @bob.pets.each do |pet|
+          expect(pet.adoptable).to eq(false)
+        end
+      end
+    end
+
     describe '.application_pet_by_pet_id' do
       it 'returns the application pet record by pet id' do
         actual   = @bob.application_pet_by_pet_id(@lucille.id)
