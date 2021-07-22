@@ -22,8 +22,7 @@ RSpec.describe Application, type: :model do
     it { should validate_inclusion_of(:status).in_array(['In Progress',
                                                          'Pending',
                                                          'Accepted',
-                                                         'Rejected'])
-                                                       }
+                                                         'Rejected']) }
   end
 
   describe 'instance methods' do
