@@ -67,4 +67,8 @@ class Application < ApplicationRecord
   def in_progress?
     status == 'In Progress'
   end
+
+  def accept
+    update(status: 'Accepted')
+  end
 end

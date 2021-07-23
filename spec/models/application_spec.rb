@@ -251,5 +251,13 @@ RSpec.describe Application, type: :model do
         expect(@bob.in_progress?).to eq(false)
       end
     end
+
+    describe '.accept' do
+      it 'can update the application status to accepted' do
+        @bob.accept
+        actual = Application.find(@bob.id).status
+        expect(actual).to eq('Accepted')
+      end
+    end
   end
 end

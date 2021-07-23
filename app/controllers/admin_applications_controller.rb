@@ -3,7 +3,7 @@ class AdminApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if @application.reviews_remaining?
     elsif @application.all_pets_approved?
-      @application.update(status: 'Accepted')
+      @application.accept
       @application.adopt_all_pets
     elsif @application.any_pets_rejected?
       @application.update(status: 'Rejected')
