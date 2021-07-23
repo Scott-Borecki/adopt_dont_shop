@@ -1,9 +1,9 @@
 <section id='shelters'>
   <h1>Shelters</h1>
-  <%= render partial: 'shelter_list', locals: { shelters: @shelters } %>
+  <%= render partial: '/shared/shelter_list', locals: { shelters: @shelters } %>
 </section>
 
 <section id='pending-applications'>
   <h1>Pending Applications</h1>
-  <%= render partial: 'shelter_list', locals: { shelters: @shelters_with_pending_applications } %>
+  <%= render partial: '/shared/shelter_list', locals: { shelters: @shelters_with_pending_applications } %>
 </section>

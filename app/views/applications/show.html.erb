@@ -1,4 +1,4 @@
-<%= render partial: 'application_details', locals: { application: @application } %>
+<%= render partial: '/shared/application_details', locals: { application: @application } %>
 
 <% if @application.in_progress? %>
   <h3>Add a Pet to this Application</h3>
