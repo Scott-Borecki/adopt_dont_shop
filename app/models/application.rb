@@ -4,8 +4,8 @@ class Application < ApplicationRecord
   validates :description, presence: true, on: :update
   validates :zip_code, numericality: true, length: { is: 5 }
   validates :status, presence: true
-  validates :status, inclusion: { in: ['In Progress', 'Pending', 'Accepted',
-                                       'Rejected'] }
+  validates :status, inclusion: { in: ['In Progress', 'Pending',
+                                       'Accepted', 'Rejected'] }
   has_many :application_pets, :dependent => :destroy
   has_many :pets, through: :application_pets
 
