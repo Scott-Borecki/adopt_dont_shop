@@ -75,4 +75,14 @@ class Application < ApplicationRecord
   def reject
     update(status: 'Rejected')
   end
+
+  def process
+    if reviews_remaining?
+    elsif all_pets_approved?
+      accept
+      adopt_all_pets
+    elsif any_pets_rejected?
+      reject
+    end
+  end
 end

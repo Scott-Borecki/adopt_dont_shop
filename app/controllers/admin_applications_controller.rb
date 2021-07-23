@@ -1,13 +1,7 @@
 class AdminApplicationsController < ApplicationController
   def show
     @application = Application.find(params[:id])
-    if @application.reviews_remaining?
-    elsif @application.all_pets_approved?
-      @application.accept
-      @application.adopt_all_pets
-    elsif @application.any_pets_rejected?
-      @application.reject
-    end
+    @application.process
   end
 
   def approve_pet

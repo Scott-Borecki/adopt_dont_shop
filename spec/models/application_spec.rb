@@ -267,5 +267,80 @@ RSpec.describe Application, type: :model do
         expect(actual).to eq('Rejected')
       end
     end
+
+    describe '.process' do
+      it 'can not do anything when all reviews are remaining' do
+        expected = 'Fail'
+        allow(@bob).to receive(:adopt_all_pets).and_return(expected)
+        allow(@bob).to receive(:reject).and_return(expected)
+
+        expect(@bob.process).to eq(nil)
+        expect(@bob.process).to_not eq(expected)
+        expect(@bob.process).to_not eq(expected)
+      end
+
+      it 'can not do anything when some reviews are remaining' do
+        expected = 'Fail'
+        allow(@bob).to receive(:adopt_all_pets).and_return(expected)
+        allow(@bob).to receive(:reject).and_return(expected)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+
+        expect(@bob.process).to eq(nil)
+        expect(@bob.process).to_not eq(expected)
+        expect(@bob.process).to_not eq(expected)
+
+        @application_pet_1.update(status: 'Rejected')
+        @application_pet_2.update(status: 'Rejected')
+
+        expect(@bob.process).to eq(nil)
+        expect(@bob.process).to_not eq(expected)
+        expect(@bob.process).to_not eq(expected)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Rejected')
+
+        expect(@bob.process).to eq(nil)
+        expect(@bob.process).to_not eq(expected)
+        expect(@bob.process).to_not eq(expected)
+      end
+
+      it 'can accept the application and adopt all pets when all pets are'\
+         ' approved' do
+        expected = 'Success'
+        allow(@bob).to receive(:adopt_all_pets).and_return(expected)
+
+        @bob.application_pets.each do |application_pet|
+          application_pet.approve
+        end
+
+        expect(@bob.process).to eq(expected)
+      end
+
+      it 'can reject the application when all reviews are complete and all '\
+         'pets are rejected' do
+        expected = 'Success'
+        allow(@bob).to receive(:reject).and_return(expected)
+
+        @bob.application_pets.each do |application_pet|
+         application_pet.reject
+        end
+
+        expect(@bob.process).to eq(expected)
+      end
+
+      it 'can reject the application when all reviews are complete and at '\
+         'least one pet is rejected' do
+        expected = 'Success'
+        allow(@bob).to receive(:reject).and_return(expected)
+
+        @application_pet_1.update(status: 'Approved')
+        @application_pet_2.update(status: 'Approved')
+        @application_pet_3.update(status: 'Rejected')
+
+        expect(@bob.process).to eq(expected)
+      end
+    end
   end
 end
