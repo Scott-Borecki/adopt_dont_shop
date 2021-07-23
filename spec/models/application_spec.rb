@@ -124,35 +124,35 @@ RSpec.describe Application, type: :model do
       end
     end
 
-    describe '.number_of_pets_approved' do
+    describe '.number_of_approved_pets' do
       it 'returns the number of pets approved on the application' do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Approved')
 
-        expect(@bob.number_of_pets_approved).to eq(3)
+        expect(@bob.number_of_approved_pets).to eq(3)
 
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Rejected')
 
-        expect(@bob.number_of_pets_approved).to eq(2)
+        expect(@bob.number_of_approved_pets).to eq(2)
       end
     end
 
-    describe '.number_of_pets_rejected' do
+    describe '.number_of_rejected_pets' do
       it 'returns the number of pets rejected on the application' do
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Approved')
 
-        expect(@bob.number_of_pets_rejected).to eq(0)
+        expect(@bob.number_of_rejected_pets).to eq(0)
 
         @application_pet_1.update(status: 'Approved')
         @application_pet_2.update(status: 'Approved')
         @application_pet_3.update(status: 'Rejected')
 
-        expect(@bob.number_of_pets_rejected).to eq(1)
+        expect(@bob.number_of_rejected_pets).to eq(1)
       end
     end
 

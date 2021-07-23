@@ -30,12 +30,12 @@ class Application < ApplicationRecord
     application_pet_by_pet_id(pet_id).rejected?
   end
 
-  def number_of_pets_approved
-    application_pets.where(status: 'Approved').length
+  def number_of_approved_pets
+    application_pets.number_of_approved_pets
   end
 
-  def number_of_pets_rejected
-    application_pets.where(status: 'Rejected').length
+  def number_of_rejected_pets
+    application_pets.number_of_rejected_pets
   end
 
   def number_of_pets
@@ -43,17 +43,17 @@ class Application < ApplicationRecord
   end
 
   def all_pets_approved?
-    number_of_pets_approved == number_of_pets
+    number_of_approved_pets == number_of_pets
   end
 
   def any_pets_rejected?
-    number_of_pets_rejected.positive?
+    number_of_rejected_pets.positive?
   end
 
   def reviews_remaining?
     status == 'In Progress' ||
       number_of_pets.zero? ||
-      number_of_pets_approved + number_of_pets_rejected < number_of_pets
+      number_of_approved_pets + number_of_rejected_pets < number_of_pets
   end
 
   def adopt_all_pets
