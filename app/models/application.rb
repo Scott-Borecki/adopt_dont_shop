@@ -71,4 +71,8 @@ class Application < ApplicationRecord
   def accept
     update(status: 'Accepted')
   end
+
+  def reject
+    update(status: 'Rejected')
+  end
 end

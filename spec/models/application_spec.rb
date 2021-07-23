@@ -259,5 +259,13 @@ RSpec.describe Application, type: :model do
         expect(actual).to eq('Accepted')
       end
     end
+
+    describe '.reject' do
+      it 'can update the application status to rejected' do
+        @bob.reject
+        actual = Application.find(@bob.id).status
+        expect(actual).to eq('Rejected')
+      end
+    end
   end
 end

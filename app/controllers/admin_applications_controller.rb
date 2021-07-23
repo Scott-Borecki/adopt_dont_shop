@@ -6,7 +6,7 @@ class AdminApplicationsController < ApplicationController
       @application.accept
       @application.adopt_all_pets
     elsif @application.any_pets_rejected?
-      @application.update(status: 'Rejected')
+      @application.reject
     end
   end
 
