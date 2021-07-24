@@ -4,7 +4,7 @@
 <% @application.pets.each do |pet| %>
   <section id='pet-<%= pet.id %>' class='container indent'>
     <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
-    <% if pet.not_adoptable? %>
+    <% if pet.not_adoptable? && @application.pending? %>
       <div class='item-button'>This pet has been approved for adoption in another application</div>
       <%= render partial: 'shared/reject_button', locals: { application: @application, pet: pet } %>
     <% elsif @application.pet_approved?(pet) %>

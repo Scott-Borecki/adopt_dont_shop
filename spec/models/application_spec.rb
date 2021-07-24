@@ -284,6 +284,16 @@ RSpec.describe Application, type: :model do
       end
     end
 
+    describe '#pending?' do
+      context 'when application status is "Pending"' do
+        specify { expect(@bob).to be_pending }
+      end
+
+      context 'when application status is not "Pending"' do
+        specify { expect(@scott).to_not be_pending }
+      end
+    end
+
     describe '#accept' do
       it 'updates the application status to accepted' do
         @bob.accept

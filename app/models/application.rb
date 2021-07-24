@@ -74,6 +74,10 @@ class Application < ApplicationRecord
     status == 'In Progress'
   end
 
+  def pending?
+    status == 'Pending'
+  end
+
   def accept
     update!(status: 'Accepted')
   end
