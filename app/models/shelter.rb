@@ -1,8 +1,9 @@
 class Shelter < ApplicationRecord
+  has_many :pets, dependent: :destroy
+
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
-  has_many :pets, dependent: :destroy
 
   def self.order_by_recently_created
     order(created_at: :desc)

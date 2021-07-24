@@ -1,13 +1,14 @@
 class Application < ApplicationRecord
-  validates :name, :street_address, :city, :state, :zip_code, :status,
-            presence: true
-  validates :description, presence: true, on: :update
-  validates :zip_code, numericality: true, length: { is: 5 }
-  validates :status, presence: true
-  validates :status, inclusion: { in: ['In Progress', 'Pending',
-                                       'Accepted', 'Rejected'] }
   has_many :application_pets, :dependent => :destroy
   has_many :pets, through: :application_pets
+
+  validates :name, presence: true
+  validates :street_address, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zip_code, presence: true, numericality: true, length: { is: 5 }
+  validates :description, presence: true, on: :update
+  validates :status, presence: true, inclusion: { in: ['In Progress', 'Pending', 'Accepted', 'Rejected'] }
 
   def add_pet(pet_id)
     pet = Pet.find(pet_id)
