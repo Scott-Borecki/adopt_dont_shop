@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian update' do
-  it "shows the veterinarian edit form" do
+RSpec.describe 'pets/edit.html.erb' do
+  it "shows the pet edit form" do
     shelter = Shelter.create(name: 'Hollywood shelter',
                              city: 'Irvine, CA',
                              foster_program: false,

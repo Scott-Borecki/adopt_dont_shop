@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'vet office creation' do
+RSpec.describe '/veterinary_offices/new.html.erb' do
   describe 'the vet office new' do
     it 'renders the new form' do
       visit '/veterinary_offices/new'

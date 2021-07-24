@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the admin shelter show' do
+RSpec.describe 'admin/shelters/show.html.erb' do
   before :each do
     # SHELTERS
     @shelter_1 = Shelter.create!(name: 'Aurora shelter',

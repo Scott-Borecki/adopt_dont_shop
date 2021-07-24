@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'applications new' do
+RSpec.describe 'applications/new.html.erb' do
   describe 'as a visitor' do
     describe 'when I visit the pet index page' do
       it 'can see a link to start an application' do

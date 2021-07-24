@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the shelter show' do
+RSpec.describe 'pets/show.html.erb' do
   it "shows the shelter and all it's attributes" do
     shelter = Shelter.create(name: 'Mystery Building',
                              city: 'Irvine CA',

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the shelters index' do
+RSpec.describe 'shelters/index.html.erb' do
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter',
                                 city: 'Aurora, CO',

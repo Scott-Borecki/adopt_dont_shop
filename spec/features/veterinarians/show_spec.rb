@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian show' do
+RSpec.describe 'veterinarians/show.html.erb' do
   it "shows the veterinarian and all it's attributes" do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,

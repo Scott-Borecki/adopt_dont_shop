@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the shelter update' do
+RSpec.describe 'shelters/edit.html.erb' do
   it "shows the shelter edit form" do
     shelter = Shelter.create(name: 'Aurora shelter',
                              city: 'Aurora, CO',

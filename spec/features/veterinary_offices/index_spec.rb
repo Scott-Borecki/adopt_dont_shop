@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinary offices index' do
+RSpec.describe '/veterinary_offices/index.html.erb' do
   before(:each) do
     @vet_office_1 = VeterinaryOffice.create(name: 'Special Friends',
                                             boarding_services: true,

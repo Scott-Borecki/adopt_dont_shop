@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'applications show' do
+RSpec.describe 'applications/show.html.erb' do
   describe 'as a visitor' do
     describe 'when I visit an applications show page' do
       before :each do

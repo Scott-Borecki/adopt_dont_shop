@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the pets index' do
+RSpec.describe 'pets/index.html.erb' do
   it 'lists all the pets with their attributes' do
     shelter = Shelter.create(name: 'Aurora shelter',
                              city: 'Aurora, CO',

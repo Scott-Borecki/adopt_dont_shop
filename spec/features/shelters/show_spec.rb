@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the shelter show' do
+RSpec.describe 'shelters/show.html.erb' do
   it "shows the shelter and all it's attributes" do
     shelter = Shelter.create(name: 'Aurora shelter',
                              city: 'Aurora, CO',
@@ -46,7 +46,7 @@ RSpec.describe 'the shelter show' do
   end
 
   it 'displays a link to the shelters pets index' do
-    shelter = Shelter.create(name: 'Aurora shelter', 
+    shelter = Shelter.create(name: 'Aurora shelter',
                              city: 'Aurora, CO',
                              foster_program: true,
                              rank: 9)

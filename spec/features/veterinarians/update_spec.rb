@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian update' do
+RSpec.describe 'veterinarians/edit.html.erb' do
   it "shows the veterinarian edit form" do
     vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                          boarding_services: true,

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarians index' do
+RSpec.describe 'veterinarians/index.html.erb' do
   it 'lists all the veterinarians with their attributes' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
