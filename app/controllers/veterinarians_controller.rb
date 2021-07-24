@@ -1,10 +1,14 @@
 class VeterinariansController < ApplicationController
+  before_action :fetch_current_veterinarian, only: [:show,
+                                                    :edit,
+                                                    :update,
+                                                    :destroy]
+
   def index
     @veterinarians = Veterinarian.on_call
   end
 
   def show
-    @veterinarian = Veterinarian.find(params[:id])
   end
 
   def new
@@ -24,24 +28,19 @@ class VeterinariansController < ApplicationController
   end
 
   def edit
-    @veterinarian = Veterinarian.find(params[:id])
   end
 
   def update
-    veterinarian = Veterinarian.find(params[:id])
-
-    if veterinarian.update(vet_params)
-      redirect_to "/veterinarians/#{veterinarian.id}"
+    if @veterinarian.update(vet_params)
+      redirect_to "/veterinarians/#{@veterinarian.id}"
     else
-      redirect_to "/veterinarians/#{veterinarian.id}/edit"
-      flash[:alert] = "Error: #{error_message(veterinarian.errors)}"
+      redirect_to "/veterinarians/#{@veterinarian.id}/edit"
+      flash[:alert] = "Error: #{error_message(@veterinarian.errors)}"
     end
   end
 
   def destroy
-    veterinarian = Veterinarian.find(params[:id])
-    
-    veterinarian.destroy
+    @veterinarian.destroy
     redirect_to '/veterinarians'
   end
 
@@ -55,5 +54,9 @@ class VeterinariansController < ApplicationController
       :review_rating,
       :veterinary_office_id
     )
+  end
+
+  def fetch_current_veterinarian
+    @veterinarian = Veterinarian.find(params[:id])
   end
 end
