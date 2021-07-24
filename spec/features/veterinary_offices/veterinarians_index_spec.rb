@@ -8,19 +8,24 @@ RSpec.describe 'the veterinary offices veterinarians index' do
     @vet_office_2 = VeterinaryOffice.create(name: 'Vets R Us',
                                             boarding_services: true,
                                             max_patient_capacity: 20)
-    @not_on_call_vet = Veterinarian.create(name: 'Taylor', review_rating: 10,
+    @not_on_call_vet = Veterinarian.create(name: 'Taylor',
+                                           review_rating: 10,
                                            on_call: false,
                                            veterinary_office_id: @vet_office_1.id)
-    @vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, 
+    @vet_1 = Veterinarian.create(name: 'Taylor',
+                                 review_rating: 10,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_1.id)
-    @vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    @vet_2 = Veterinarian.create(name: 'Jim',
+                                 review_rating: 8,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_1.id)
-    @vet_3 = Veterinarian.create(name: 'Sarah', review_rating: 9,
+    @vet_3 = Veterinarian.create(name: 'Sarah',
+                                 review_rating: 9,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_2.id)
-    @vet_4 = Veterinarian.create(name: 'John', review_rating: 2,
+    @vet_4 = Veterinarian.create(name: 'John',
+                                 review_rating: 2,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_2.id)
   end

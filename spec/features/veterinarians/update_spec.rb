@@ -5,7 +5,8 @@ RSpec.describe 'the veterinarian update' do
     vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                          boarding_services: true,
                                          max_patient_capacity: 5)
-    vet = vet_office.veterinarians.create(name: 'Kelsey', on_call: true,
+    vet = vet_office.veterinarians.create(name: 'Kelsey',
+                                          on_call: true,
                                           review_rating: 9)
 
     visit "/veterinarians/#{vet.id}/edit"
@@ -20,7 +21,9 @@ RSpec.describe 'the veterinarian update' do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                            boarding_services: true,
                                            max_patient_capacity: 5)
-      vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9,
+      vet = Veterinarian.create(name: 'Kelsey',
+                                on_call: true,
+                                review_rating: 9,
                                 veterinary_office_id: vet_office.id)
 
       visit "/veterinarians/#{vet.id}/edit"
@@ -41,7 +44,9 @@ RSpec.describe 'the veterinarian update' do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                            boarding_services: true,
                                            max_patient_capacity: 5)
-      vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9,
+      vet = Veterinarian.create(name: 'Kelsey',
+                                on_call: true,
+                                review_rating: 9,
                                 veterinary_office_id: vet_office.id)
 
       visit "/veterinarians/#{vet.id}/edit"

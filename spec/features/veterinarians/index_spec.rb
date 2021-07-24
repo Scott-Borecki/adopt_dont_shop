@@ -5,10 +5,12 @@ RSpec.describe 'the veterinarians index' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10,
+    vet_1 = Veterinarian.create(name: 'Taylor',
+                                review_rating: 10,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    vet_2 = Veterinarian.create(name: 'Jim',
+                                review_rating: 8,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
 
@@ -27,10 +29,12 @@ RSpec.describe 'the veterinarians index' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10,
-                                on_call: false, 
+    vet_1 = Veterinarian.create(name: 'Taylor',
+                                review_rating: 10,
+                                on_call: false,
                                 veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    vet_2 = Veterinarian.create(name: 'Jim',
+                                review_rating: 8,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
 
@@ -43,10 +47,12 @@ RSpec.describe 'the veterinarians index' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10,
+    vet_1 = Veterinarian.create(name: 'Taylor',
+                                review_rating: 10,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    vet_2 = Veterinarian.create(name: 'Jim',
+                                review_rating: 8,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
 
@@ -64,10 +70,12 @@ RSpec.describe 'the veterinarians index' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10,
+    vet_1 = Veterinarian.create(name: 'Taylor',
+                                review_rating: 10,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
-    vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    vet_2 = Veterinarian.create(name: 'Jim',
+                                review_rating: 8,
                                 on_call: true,
                                 veterinary_office_id: vet_office.id)
 
