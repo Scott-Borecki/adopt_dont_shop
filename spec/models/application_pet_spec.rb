@@ -55,7 +55,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '.approved_pets' do
-      it 'can return all the approved pets' do
+      it 'returns all the approved pets' do
         expect(ApplicationPet.approved_pets).to eq([])
 
         @application_pet_1.approve
@@ -66,7 +66,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '.rejected_pets' do
-      it 'can return all the rejected pets' do
+      it 'returns all the rejected pets' do
         expect(ApplicationPet.rejected_pets).to eq([])
 
         @application_pet_1.reject
@@ -77,7 +77,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '.number_of_approved_pets' do
-      it 'can return the number of approved pets' do
+      it 'returns the number of approved pets' do
         expect(ApplicationPet.approved_pets).to eq([])
 
         @application_pet_1.approve
@@ -87,7 +87,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '.number_of_rejected_pets' do
-      it 'can return the number of rejected pets' do
+      it 'returns the number of rejected pets' do
         expect(ApplicationPet.rejected_pets).to eq([])
 
         @application_pet_1.reject
@@ -118,7 +118,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '#approve' do
-      it 'can approve a pet on an application' do
+      it 'approves a pet on an application' do
         expect(@application_pet_1.status).to eq('Pending')
 
         @application_pet_1.approve
@@ -129,7 +129,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '#reject' do
-      it 'can reject a pet on an application' do
+      it 'rejects a pet on an application' do
         expect(@application_pet_1.status).to eq('Pending')
 
         @application_pet_1.reject
@@ -140,7 +140,7 @@ RSpec.describe ApplicationPet, type: :model do
     end
 
     describe '#approved?' do
-      it 'can return whether a pet is approved on an application' do
+      it 'returns whether a pet is approved on an application' do
         expect(@application_pet_1.approved?).to eq(false)
 
         @application_pet_1.approve

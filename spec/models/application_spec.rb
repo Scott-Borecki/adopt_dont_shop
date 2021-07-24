@@ -251,7 +251,7 @@ RSpec.describe Application, type: :model do
     end
 
     describe '#accept' do
-      it 'can update the application status to accepted' do
+      it 'updates the application status to accepted' do
         @bob.accept
         actual = Application.find(@bob.id).status
         expect(actual).to eq('Accepted')
@@ -259,7 +259,7 @@ RSpec.describe Application, type: :model do
     end
 
     describe '#reject' do
-      it 'can update the application status to rejected' do
+      it 'updates the application status to rejected' do
         @bob.reject
         actual = Application.find(@bob.id).status
         expect(actual).to eq('Rejected')
@@ -310,7 +310,7 @@ RSpec.describe Application, type: :model do
 
       context 'when all reviews are complete' do
         context 'when all pets are approved' do
-          it 'can accept the application and adopt all pets' do
+          it 'accepts the application and adopt all pets' do
             expected = 'Success'
             allow(@bob).to receive(:adopt_all_pets).and_return(expected)
 
@@ -323,7 +323,7 @@ RSpec.describe Application, type: :model do
         end
 
         context 'when all pets are rejected' do
-          it 'can reject the application' do
+          it 'rejects the application' do
             expected = 'Success'
             allow(@bob).to receive(:reject).and_return(expected)
 
@@ -336,7 +336,7 @@ RSpec.describe Application, type: :model do
         end
 
         context 'when at least one pet is rejected' do
-          it 'can reject the application' do
+          it 'rejects the application' do
             expected = 'Success'
             allow(@bob).to receive(:reject).and_return(expected)
 

@@ -65,7 +65,7 @@ RSpec.describe Pet, type: :model do
     end
 
     describe '#adopt' do
-      it 'can adopt a pet and make it not adoptable' do
+      it 'adopts a pet and make it not adoptable' do
         expect(@pet_1.adoptable).to be(true)
 
         @pet_1.adopt

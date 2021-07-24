@@ -102,7 +102,7 @@ RSpec.describe Shelter, type: :model do
 
     describe 'instance methods' do
       describe '#adoptable_pets' do
-        it 'only returns pets that are adoptable' do
+        it 'returns only pets that are adoptable' do
           expect(@shelter_1.adoptable_pets).to eq([@pet_2, @pet_4])
         end
       end

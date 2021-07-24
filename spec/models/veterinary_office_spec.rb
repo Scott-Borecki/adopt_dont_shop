@@ -75,7 +75,7 @@ RSpec.describe VeterinaryOffice, type: :model do
     end
 
     describe '#on_call_vets' do
-      it 'only returns office veterinarians who are on call' do
+      it 'returns only office veterinarians who are on call' do
         expect(@vet_office_1.on_call_vets).to eq([@vet_1, @vet_2])
       end
     end
