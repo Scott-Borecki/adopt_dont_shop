@@ -26,27 +26,36 @@ RSpec.describe Application, type: :model do
   end
 
   describe 'class methods' do
-    describe '.pending' do
-      it 'returns all pending applcations' do
-        scott = Application.create!(name: 'Scott',
-                                    street_address: '123 Main Street',
-                                    city: 'Denver', state: 'Colorado',
-                                    zip_code: '80202', status: 'In Progress')
-        bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
-                                  city: 'Arvada', state: 'Colorado',
-                                  zip_code: '80003',
-                                  description: 'Great with animals!',
-                                  status: 'Pending')
-        sierra = Application.create!(name: 'Sierra',
-                                     street_address: '789 Main Street',
-                                     city: 'Arvada', state: 'Colorado',
-                                     zip_code: '80003',
-                                     description: 'Great with animals!',
-                                     status: 'In Progress')
+    before do
+      @scott = Application.create!(name: 'Scott',
+                                  street_address: '123 Main Street',
+                                  city: 'Denver', state: 'Colorado',
+                                  zip_code: '80202', status: 'In Progress')
+      @bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
+                                city: 'Arvada', state: 'Colorado',
+                                zip_code: '80003',
+                                description: 'Great with animals!',
+                                status: 'Pending')
+      @sierra = Application.create!(name: 'Sierra',
+                                   street_address: '789 Main Street',
+                                   city: 'Arvada', state: 'Colorado',
+                                   zip_code: '80003',
+                                   description: 'Great with animals!',
+                                   status: 'In Progress')
+    end
 
-        expect(Application.pending).to eq([bob])
-        expect(Application.pending).to_not include(scott)
-        expect(Application.pending).to_not include(sierra)
+    describe '.pending' do
+      it 'returns all pending applications' do
+        expect(Application.pending).to eq([@bob])
+        expect(Application.pending).to_not include(@scott)
+        expect(Application.pending).to_not include(@sierra)
+      end
+    end
+
+    describe '.in_progress' do
+      it 'returns all in progress applications' do
+        expect(Application.in_progress).to eq([@scott, @sierra])
+        expect(Application.in_progress).to_not include(@bob)
       end
     end
   end

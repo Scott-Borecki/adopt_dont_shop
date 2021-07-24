@@ -14,6 +14,10 @@ class Application < ApplicationRecord
     where(status: 'Pending')
   end
 
+  def self.in_progress
+    where(status: 'In Progress')
+  end
+
   def add_pet(pet_id)
     pet = Pet.find(pet_id)
     pets << pet
