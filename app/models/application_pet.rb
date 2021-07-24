@@ -15,11 +15,11 @@ class ApplicationPet < ApplicationRecord
   end
 
   def self.number_of_approved_pets
-    approved_pets.length
+    approved_pets.size
   end
 
   def self.number_of_rejected_pets
-    rejected_pets.length
+    rejected_pets.size
   end
 
   def approve

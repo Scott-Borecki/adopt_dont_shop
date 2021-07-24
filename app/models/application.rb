@@ -40,7 +40,7 @@ class Application < ApplicationRecord
   end
 
   def number_of_pets
-    application_pets.length
+    application_pets.size
   end
 
   def all_pets_approved?
