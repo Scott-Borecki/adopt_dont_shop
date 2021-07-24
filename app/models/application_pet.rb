@@ -1,10 +1,11 @@
 class ApplicationPet < ApplicationRecord
-  # TODO(Scott Borecki): Check out enums for default statuses represented by integers
+  # TODO(Scott Borecki): Check out enums for default statuses by integers
 
   belongs_to :pet
   belongs_to :application
 
-  validates :status, presence: true, inclusion: { in: %w(Pending Approved Rejected) }
+  validates :status, presence: true,
+                     inclusion: { in: %w[Pending Approved Rejected] }
 
   def self.approved_pets
     where(status: 'Approved')

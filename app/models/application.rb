@@ -8,7 +8,10 @@ class Application < ApplicationRecord
   validates :state, presence: true
   validates :zip_code, presence: true, numericality: true, length: { is: 5 }
   validates :description, presence: true, on: :update
-  validates :status, presence: true, inclusion: { in: ['In Progress', 'Pending', 'Accepted', 'Rejected'] }
+  validates :status, presence: true, inclusion: { in: ['In Progress',
+                                                       'Pending',
+                                                       'Accepted',
+                                                       'Rejected'] }
 
   def self.pending
     where(status: 'Pending')

@@ -1,4 +1,6 @@
 class PetsController < ApplicationController
+  before_action :fetch_current_pet, only: [:show, :edit, :update, :destroy]
+
   def index
     if params[:search].present?
       @pets = Pet.search(params[:search])
@@ -8,7 +10,6 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find(params[:id])
   end
 
   def new
@@ -27,22 +28,19 @@ class PetsController < ApplicationController
   end
 
   def edit
-    @pet = Pet.find(params[:id])
   end
 
   def update
-    pet = Pet.find(params[:id])
-    
-    if pet.update(pet_params)
-      redirect_to "/pets/#{pet.id}"
+    if @pet.update(pet_params)
+      redirect_to "/pets/#{@pet.id}"
     else
-      redirect_to "/pets/#{pet.id}/edit"
-      flash[:alert] = "Error: #{error_message(pet.errors)}"
+      redirect_to "/pets/#{@pet.id}/edit"
+      flash[:alert] = "Error: #{error_message(@pet.errors)}"
     end
   end
 
   def destroy
-    Pet.find(params[:id]).destroy
+    @pet.destroy
     redirect_to '/pets'
   end
 
@@ -50,5 +48,9 @@ class PetsController < ApplicationController
 
   def pet_params
     params.permit(:id, :name, :age, :breed, :adoptable, :shelter_id)
+  end
+
+  def fetch_current_pet
+    @pet = Pet.find(params[:id])
   end
 end
