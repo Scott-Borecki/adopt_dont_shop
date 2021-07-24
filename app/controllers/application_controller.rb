@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   def welcome
-    @shelters = Shelter.order_by_name
+    @shelters     = Shelter.order_by_name
+    @applications = Application.all
   end
 
   private

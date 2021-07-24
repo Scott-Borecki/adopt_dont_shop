@@ -1,1 +1,140 @@
 <h1>Adopt, don't shop!</h1>
+
+<section id='table-of-contents'>
+  <h3>Table of Contents:</h3>
+  <ul>
+    <li><%= link_to 'Project Overview', '#project-overview' %></li>
+    <li><%= link_to 'Learning Goals', '#learning-goals' %></li>
+    <li><%= link_to 'Getting Started', '#getting-started' %></li>
+    <ul>
+      <li><%= link_to 'Create a New Adoption Application', '#new-application' %></li>
+      <li><%= link_to 'View, Edit, and Submit Existing Applications', '#in-progress-applications' %></li>
+      <li><%= link_to 'View Shelters with Pending Applications', '#pending-applications' %></li>
+      <li><%= link_to 'Approve or Reject Pending Applications', '#review-applications' %></li>
+    </ul>
+    <li><%= link_to 'Contributors', '#contributors' %></li>
+  </ul>
+</section>
+
+<section id='project-overview'>
+  <h3>Project Overview</h3>
+  <section class='indent'>
+    <p>
+      This is a 7-day, solo project during Mod 2 of
+      <%= link_to 'Turing School', "https://turing.edu/" %>'s Back End Engineering
+      Program.
+    </p>
+    <p>
+      This project builds off an existing Ruby on Rails app and adds
+      functionality to create and review pet adoption applications.
+    </p>
+    <p>
+      You can find the initial project repo here:
+      <%= link_to 'Initial Project Repo', "https://github.com/turingschool-examples/adopt_dont_shop" %>
+    </p>
+  </section>
+</section>
+
+<section id='learning-goals'>
+  <h3>Learning Goals</h3>
+  <section class='indent'>
+    <p>
+      The learning goals of this project were as follows:
+      <ul>
+        <li>Build out CRUD functionality for a many to many relationship</li>
+        <li>Use ActiveRecord to write queries that join multiple tables of data together</li>
+        <li>Use MVC to organize code effectively, limiting the amount of logic included in views and controllers</li>
+        <li>Validate models and handle sad paths for invalid data input</li>
+        <li>Use flash messages to give feedback to the user</li>
+        <li>Use partials in views</li>
+        <li>Use within blocks in tests</li>
+        <li>Track user stories using GitHub Projects</li>
+        <li>Deploy an application to Heroku</li>
+      </ul>
+    </p>
+  </section>
+</section>
+
+<section id='getting-started'>
+  <h3>Getting Started</h3>
+  <section class='indent'>
+    <p>
+      Explore the app funcitonality by following the steps below.
+    </p>
+  </section>
+</section>
+
+<section class='indent'>
+  <section id='new-application'>
+    <h4>Create a New Adoption Application</h4>
+    <section class='indent'>
+      <p>
+        <b>Create</b> a new application here:
+        <%= link_to 'Start an Application', '/applications/new' %>
+      </p>
+      <p>
+        Simply, fill in the required fields and click <b>Submit</b>.
+      </p>
+    </section>
+  </section>
+
+  <section id='in-progress-applications'>
+    <h4>View, Edit, and Submit Existing Applications</h4>
+    <section class='indent'>
+      <p>
+        To <b>submit</b> an application, you must add pet(s) to your application and describe why you would make a good owner for the pet(s).
+      </p>
+      <p>
+        Try it yourself with these applications that have not been submitted:
+        <% @applications.in_progress.each do |application| %>
+          <%= link_to application.id, "/applications/#{application.id}" %>
+        <% end %>
+      </p>
+    </section>
+  </section>
+
+  <section id='pending-applications'>
+    <h4>View Shelters with Pending Applications</h4>
+    <% if @shelters.with_pending_applications.any? %>
+      <%= render partial: '/shared/shelter_list', locals: { shelters: @shelters.with_pending_applications } %>
+    <% else %>
+      <p class='indent'>
+        <i>There are no pending applications at this time.  Follow the steps above to <b>create</b> and <b>submit</b> an application.</i>
+      </p>
+    <% end %>
+  </section>
+
+  <section id='review-applications'>
+    <h4>Approve or Reject Pending Applications</h4>
+    <section class='indent'>
+      <p>
+        Before an application is accepted, the admin needs to review the application and approve or reject the adoption of each pet on the application.
+      </p>
+      <% if @applications.pending.any? %>
+        <p>
+          Lace up your admin shoes and try it yourself with these pending applications:
+          <% @applications.pending.each do |application| %>
+            <%= link_to application.id, "/admin/applications/#{application.id}" %>
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <i>There are no pending applications at this time.  Follow the steps above to <b>create</b> and <b>submit</b> an application.</i>
+        </p>
+      <% end %>
+    </section>
+  </section>
+</section>
+
+<section id='contributors'>
+  <h3>Contributors</h3>
+  <section class='indent'>
+    <p>
+      Scott Borecki (<%= link_to 'Github', 'https://github.com/Scott-Borecki/' %>
+      <%= link_to 'LinkedIn', 'https://www.linkedin.com/in/scott-borecki/' %>)
+    </p>
+    <p>
+      The <%= link_to 'base repo', "https://github.com/turingschool-examples/adopt_dont_shop" %> used for this project is from <%= link_to 'Turing School', "https://turing.edu/" %>.
+    </p>
+  </section>
+</section>
