@@ -144,7 +144,7 @@ RSpec.describe 'the admin application show' do
     # APPLICATION PETS - LAURA
     @laura.pets << @pet_10 << @pet_11 << @pet_12
   end
-
+  
   describe 'As a visitor, when I visit an admin application show page' do
     it 'displays a button to approve the application for each pet' do
       @scott.pets.each do |pet|

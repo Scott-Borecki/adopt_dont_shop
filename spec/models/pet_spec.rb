@@ -30,13 +30,13 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'class methods' do
-    describe '#search' do
+    describe '.search' do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
 
-    describe '#adoptable' do
+    describe '.adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
@@ -44,20 +44,23 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.shelter_name' do
+    describe '#shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
 
-    describe '.not_adoptable?' do
-      it 'returns whether the pet is not adoptable' do
-        expect(@pet_1.not_adoptable?).to eq(false)
-        expect(@pet_3.not_adoptable?).to eq(true)
+    describe '#not_adoptable?' do
+      context 'when pet is adoptable' do
+        specify { expect(@pet_1.not_adoptable?).to eq(false) }
+      end
+
+      context 'when pet is not adoptable' do
+        specify { expect(@pet_3.not_adoptable?).to eq(true) }
       end
     end
 
-    describe '.adopt' do
+    describe '#adopt' do
       it 'can adopt a pet and make it not adoptable' do
         expect(@pet_1.adoptable).to be(true)
 
@@ -67,7 +70,7 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe '.actions_required' do
+    describe '#actions_required' do
       it 'returns the applications where action is required for pet'  do
         scott = Application.create!(name: 'Scott',
                                     street_address: '123 Main Street',

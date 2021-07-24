@@ -22,7 +22,7 @@ RSpec.describe Veterinarian, type: :model do
                                               review_rating: 9,
                                               on_call: true)
     @vet_3 = @vet_office.veterinarians.create(name: 'Jim',
-                                              review_rating: 8, 
+                                              review_rating: 8,
                                               on_call: true)
     @not_on_call_vet = @vet_office.veterinarians.create(name: 'Sam',
                                                         review_rating: 10,
@@ -30,13 +30,13 @@ RSpec.describe Veterinarian, type: :model do
   end
 
   describe 'class methods' do
-    describe '#search' do
+    describe '.search' do
       it 'returns partial matches' do
         expect(Veterinarian.search("Ta")).to eq([@vet_1, @vet_2])
       end
     end
 
-    describe '#on_call' do
+    describe '.on_call' do
       it 'returns on call veterinarians' do
         expect(Veterinarian.on_call).to eq([@vet_1, @vet_2, @vet_3])
       end
@@ -44,7 +44,7 @@ RSpec.describe Veterinarian, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.office_name' do
+    describe '#office_name' do
       it 'returns the veterinary_office name for the given vet' do
         expect(@vet_1.office_name).to eq(@vet_office.name)
       end

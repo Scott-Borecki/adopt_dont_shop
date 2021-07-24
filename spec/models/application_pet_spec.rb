@@ -54,7 +54,7 @@ RSpec.describe ApplicationPet, type: :model do
                                                    pet_id: @lucille.id)
     end
 
-    describe '#approved_pets' do
+    describe '.approved_pets' do
       it 'can return all the approved pets' do
         expect(ApplicationPet.approved_pets).to eq([])
 
@@ -65,7 +65,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '#rejected_pets' do
+    describe '.rejected_pets' do
       it 'can return all the rejected pets' do
         expect(ApplicationPet.rejected_pets).to eq([])
 
@@ -76,7 +76,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '#number_of_approved_pets' do
+    describe '.number_of_approved_pets' do
       it 'can return the number of approved pets' do
         expect(ApplicationPet.approved_pets).to eq([])
 
@@ -86,7 +86,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '#number_of_rejected_pets' do
+    describe '.number_of_rejected_pets' do
       it 'can return the number of rejected pets' do
         expect(ApplicationPet.rejected_pets).to eq([])
 
@@ -117,7 +117,7 @@ RSpec.describe ApplicationPet, type: :model do
                                                    pet_id: @lucille.id)
     end
 
-    describe '.approve' do
+    describe '#approve' do
       it 'can approve a pet on an application' do
         expect(@application_pet_1.status).to eq('Pending')
 
@@ -128,7 +128,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '.reject' do
+    describe '#reject' do
       it 'can reject a pet on an application' do
         expect(@application_pet_1.status).to eq('Pending')
 
@@ -139,7 +139,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '.approved?' do
+    describe '#approved?' do
       it 'can return whether a pet is approved on an application' do
         expect(@application_pet_1.approved?).to eq(false)
 
@@ -150,7 +150,7 @@ RSpec.describe ApplicationPet, type: :model do
       end
     end
 
-    describe '.rejected?' do
+    describe '#rejected?' do
       it 'can return whether a pet is rejeced on an application' do
         expect(@application_pet_1.rejected?).to eq(false)
 
