@@ -3,6 +3,7 @@ class Veterinarian < ApplicationRecord
 
   validates :name, presence: true
   validates :review_rating, presence: true, numericality: true
+  validates :on_call, inclusion: { in: [true, false] }
 
   def self.on_call
     where(on_call: true)

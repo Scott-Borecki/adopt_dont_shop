@@ -8,24 +8,28 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
     it { should validate_numericality_of(:age) }
+    it { should validate_presence_of(:name) }
   end
 
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter',
-                                city: 'Aurora, CO', foster_program: false,
+                                city: 'Aurora, CO',
+                                foster_program: false,
                                 rank: 9)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate',
-                                    breed: 'tuxedo shorthair', age: 5,
+                                    breed: 'tuxedo shorthair',
+                                    age: 5,
                                     adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia',
-                                    breed: 'shorthair', age: 3,
+                                    breed: 'shorthair',
+                                    age: 3,
                                     adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann',
-                                    breed: 'ragdoll', age: 3,
+                                    breed: 'ragdoll',
+                                    age: 3,
                                     adoptable: false)
   end
 
@@ -74,25 +78,29 @@ RSpec.describe Pet, type: :model do
       it 'returns the applications where action is required for pet'  do
         scott = Application.create!(name: 'Scott',
                                     street_address: '123 Main Street',
-                                    city: 'Denver', state: 'Colorado',
+                                    city: 'Denver',
+                                    state: 'Colorado',
                                     zip_code: '80202',
                                     description: 'Great with animals!',
                                     status: 'Pending')
         bob = Application.create!(name: 'Bob',
                                   street_address: '456 Main Street',
-                                  city: 'Denver', state: 'Colorado',
+                                  city: 'Denver',
+                                  state: 'Colorado',
                                   zip_code: '80202',
                                   description: 'Great with animals!',
                                   status: 'Pending')
         sierra = Application.create!(name: 'Sierra',
                                     street_address: '789 Main Street',
-                                    city: 'Arvada', state: 'Colorado',
+                                    city: 'Arvada',
+                                    state: 'Colorado',
                                     zip_code: '80003',
                                     description: 'Great with animals!',
                                     status: 'Accepted')
         laura = Application.create!(name: 'Laura',
                                     street_address: '1550 Main Street',
-                                    city: 'Aurora', state: 'Colorado',
+                                    city: 'Aurora',
+                                    state: 'Colorado',
                                     zip_code: '80010',
                                     description: 'Great with animals!',
                                     status: 'Rejected')

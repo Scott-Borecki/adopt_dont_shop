@@ -5,6 +5,7 @@ class Pet < ApplicationRecord
   has_many :applications, through: :application_pets
 
   validates :name, presence: true
+  validates :adoptable, inclusion: { in: [true, false] }
   validates :age, presence: true, numericality: true
 
   def self.adoptable

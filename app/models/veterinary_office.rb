@@ -3,6 +3,7 @@ class VeterinaryOffice < ApplicationRecord
 
   validates :name, presence: true
   validates :max_patient_capacity, presence: true, numericality: true
+  validates :boarding_services, inclusion: { in: [true, false] }
 
   def self.order_by_recently_created
     order(created_at: :desc)
