@@ -25,6 +25,32 @@ RSpec.describe Application, type: :model do
                                                          'Rejected']) }
   end
 
+  describe 'class methods' do
+    describe '.pending' do
+      it 'returns all pending applcations' do
+        scott = Application.create!(name: 'Scott',
+                                    street_address: '123 Main Street',
+                                    city: 'Denver', state: 'Colorado',
+                                    zip_code: '80202', status: 'In Progress')
+        bob = Application.create!(name: 'Bob', street_address: '456 Main Street',
+                                  city: 'Arvada', state: 'Colorado',
+                                  zip_code: '80003',
+                                  description: 'Great with animals!',
+                                  status: 'Pending')
+        sierra = Application.create!(name: 'Sierra',
+                                     street_address: '789 Main Street',
+                                     city: 'Arvada', state: 'Colorado',
+                                     zip_code: '80003',
+                                     description: 'Great with animals!',
+                                     status: 'In Progress')
+
+        expect(Application.pending).to eq([bob])
+        expect(Application.pending).to_not include(scott)
+        expect(Application.pending).to_not include(sierra)
+      end
+    end
+  end
+
   describe 'instance methods' do
     before :each do
       @shelter_1 = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO',

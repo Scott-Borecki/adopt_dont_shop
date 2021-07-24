@@ -10,6 +10,10 @@ class Application < ApplicationRecord
   validates :description, presence: true, on: :update
   validates :status, presence: true, inclusion: { in: ['In Progress', 'Pending', 'Accepted', 'Rejected'] }
 
+  def self.pending
+    where(status: 'Pending')
+  end
+
   def add_pet(pet_id)
     pet = Pet.find(pet_id)
     pets << pet
