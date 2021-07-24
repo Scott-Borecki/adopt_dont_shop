@@ -20,7 +20,7 @@ class Pet < ApplicationRecord
   end
 
   def adopt
-    update(adoptable: false)
+    update!(adoptable: false)
   end
 
   def actions_required

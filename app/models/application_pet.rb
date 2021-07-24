@@ -23,11 +23,11 @@ class ApplicationPet < ApplicationRecord
   end
 
   def approve
-    update(status: 'Approved')
+    update!(status: 'Approved')
   end
 
   def reject
-    update(status: 'Rejected')
+    update!(status: 'Rejected')
   end
 
   def approved?

@@ -67,11 +67,11 @@ class Application < ApplicationRecord
   end
 
   def accept
-    update(status: 'Accepted')
+    update!(status: 'Accepted')
   end
 
   def reject
-    update(status: 'Rejected')
+    update!(status: 'Rejected')
   end
 
   def process
