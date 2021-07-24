@@ -43,17 +43,14 @@ class Application < ApplicationRecord
   end
 
   def all_pets_approved?
-    number_of_approved_pets == number_of_pets
+    number_of_pets.positive? &&
+      number_of_approved_pets == number_of_pets
   end
 
   def any_pets_rejected?
-    number_of_rejected_pets.positive?
-  end
-
-  def reviews_remaining?
-    status == 'In Progress' ||
-      number_of_pets.zero? ||
-      number_of_approved_pets + number_of_rejected_pets < number_of_pets
+    number_of_pets.positive? &&
+      number_of_rejected_pets.positive? &&
+      number_of_approved_pets + number_of_rejected_pets == number_of_pets
   end
 
   def adopt_all_pets
@@ -77,8 +74,7 @@ class Application < ApplicationRecord
   end
 
   def process
-    if reviews_remaining?
-    elsif all_pets_approved?
+    if all_pets_approved?
       accept
       adopt_all_pets
     elsif any_pets_rejected?

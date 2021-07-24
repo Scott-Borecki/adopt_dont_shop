@@ -198,31 +198,6 @@ RSpec.describe Application, type: :model do
       end
     end
 
-    describe '.reviews_remaining?' do
-      it 'returns whether any reviews are remaining' do
-        @application_pet_1.update(status: 'Approved')
-        @application_pet_2.update(status: 'Rejected')
-
-        expect(@bob.reviews_remaining?).to eq(true)
-
-        @application_pet_3.update(status: 'Approved')
-
-        expect(@bob.reviews_remaining?).to eq(false)
-      end
-
-      it 'returns true if there are no pets' do
-        expect(@sierra.pets.length).to eq(0)
-        expect(@sierra.reviews_remaining?).to eq(true)
-      end
-
-      it 'returns true if the application is in progress' do
-        @sierra.pets << @lucille << @lobster << @bear
-        expect(@sierra.pets.length).to eq(3)
-        expect(@sierra.status).to eq('In Progress')
-        expect(@sierra.reviews_remaining?).to eq(true)
-      end
-    end
-
     describe '.adopt_all_pets' do
       it 'updates the pets to not be adoptable' do
         @bob.pets.each do |pet|
