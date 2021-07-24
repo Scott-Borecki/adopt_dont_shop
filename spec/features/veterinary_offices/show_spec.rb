@@ -34,7 +34,7 @@ RSpec.describe '/veterinary_offices/show.html.erb' do
     click_on("Delete #{vet_office.name}")
 
     expect(page).to have_current_path('/veterinary_offices')
-    expect(page).to_not have_content(vet_office.name)
+    expect(page).to have_no_content(vet_office.name)
   end
 
   it "displays a link to the veterinary offices's veterinarians" do

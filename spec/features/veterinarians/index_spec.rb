@@ -40,7 +40,7 @@ RSpec.describe 'veterinarians/index.html.erb' do
 
     visit '/veterinarians'
 
-    expect(page).to_not have_content(vet_1.name)
+    expect(page).to have_no_content(vet_1.name)
   end
 
   it 'displays a link to edit each veterinarian' do
@@ -87,6 +87,6 @@ RSpec.describe 'veterinarians/index.html.erb' do
     click_link("Delete #{vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
-    expect(page).to_not have_content(vet_1.name)
+    expect(page).to have_no_content(vet_1.name)
   end
 end

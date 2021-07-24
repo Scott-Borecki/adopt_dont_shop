@@ -37,6 +37,6 @@ RSpec.describe 'pets/show.html.erb' do
     click_on("Delete #{pet.name}")
 
     expect(page).to have_current_path('/pets')
-    expect(page).to_not have_content(pet.name)
+    expect(page).to have_no_content(pet.name)
   end
 end

@@ -35,7 +35,7 @@ RSpec.describe 'veterinarians/edit.html.erb' do
 
       expect(page).to have_current_path("/veterinarians/#{vet.id}")
       expect(page).to have_content('Ignacio')
-      expect(page).to_not have_content('Kelsey')
+      expect(page).to have_no_content('Kelsey')
     end
   end
 

@@ -32,7 +32,7 @@ RSpec.describe 'shelters/edit.html.erb' do
 
       expect(page).to have_current_path('/shelters')
       expect(page).to have_content('Wichita Shelter')
-      expect(page).to_not have_content('Houston Shelter')
+      expect(page).to have_no_content('Houston Shelter')
     end
   end
 

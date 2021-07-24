@@ -329,7 +329,7 @@ RSpec.describe 'admin/applications/show.html.erb' do
           expect(page).to have_content("This pet has been approved for "\
                                        "adoption in another application")
           expect(page).to have_button('Reject')
-          expect(page).to_not have_button('Approve')
+          expect(page).to have_no_button('Approve')
         end
       end
 
@@ -345,7 +345,7 @@ RSpec.describe 'admin/applications/show.html.erb' do
           expect(page).to have_content('This pet has been approved for '\
                                        'adoption in another application')
           expect(page).to have_button('Reject')
-          expect(page).to_not have_button('Approve')
+          expect(page).to have_no_button('Approve')
         end
       end
     end

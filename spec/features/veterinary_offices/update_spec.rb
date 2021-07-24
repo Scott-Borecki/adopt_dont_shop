@@ -28,7 +28,7 @@ RSpec.describe '/veterinary_offices/edit.html.erb' do
 
       expect(page).to have_current_path('/veterinary_offices')
       expect(page).to have_content('Wichita vet office')
-      expect(page).to_not have_content('Houston vet office')
+      expect(page).to have_no_content('Houston vet office')
     end
   end
 

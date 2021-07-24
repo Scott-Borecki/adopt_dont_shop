@@ -45,8 +45,8 @@ RSpec.describe 'shelters/pets.html.erb' do
     expect(page).to have_content(@pet_2.age)
     expect(page).to have_content(@shelter.name)
 
-    expect(page).to_not have_content(@pet_3.name)
-    expect(page).to_not have_content(@pet_3.shelter_name)
+    expect(page).to have_no_content(@pet_3.name)
+    expect(page).to have_no_content(@pet_3.shelter_name)
   end
 
   it 'displays a link to create a new pet' do
@@ -77,7 +77,7 @@ RSpec.describe 'shelters/pets.html.erb' do
     click_link("Delete #{@pet_1.name}")
 
     expect(page).to have_current_path("/pets")
-    expect(page).to_not have_content(@pet_1.name)
+    expect(page).to have_no_content(@pet_1.name)
   end
 
   it 'displays a form for a number value' do
@@ -93,8 +93,8 @@ RSpec.describe 'shelters/pets.html.erb' do
     find("#age option[value='3']").select_option
     click_button("Filter")
     expect(page).to have_content(@pet_2.name)
-    expect(page).to_not have_content(@pet_1.name)
-    expect(page).to_not have_content(@pet_3.name)
+    expect(page).to have_no_content(@pet_1.name)
+    expect(page).to have_no_content(@pet_3.name)
   end
 
   it 'allows the user to sort in alphabetical order' do

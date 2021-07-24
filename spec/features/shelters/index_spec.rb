@@ -106,7 +106,7 @@ RSpec.describe 'shelters/index.html.erb' do
 
     click_on("Delete #{@shelter_1.name}")
     expect(page).to have_current_path("/shelters")
-    expect(page).to_not have_content(@shelter_1.name)
+    expect(page).to have_no_content(@shelter_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
@@ -121,6 +121,6 @@ RSpec.describe 'shelters/index.html.erb' do
     click_on("Search")
 
     expect(page).to have_content(@shelter_2.name)
-    expect(page).to_not have_content(@shelter_1.name)
+    expect(page).to have_no_content(@shelter_1.name)
   end
 end

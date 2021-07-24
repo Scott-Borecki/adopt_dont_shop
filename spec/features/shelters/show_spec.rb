@@ -42,7 +42,7 @@ RSpec.describe 'shelters/show.html.erb' do
     click_on("Delete #{shelter.name}")
 
     expect(page).to have_current_path('/shelters')
-    expect(page).to_not have_content(shelter.name)
+    expect(page).to have_no_content(shelter.name)
   end
 
   it 'displays a link to the shelters pets index' do

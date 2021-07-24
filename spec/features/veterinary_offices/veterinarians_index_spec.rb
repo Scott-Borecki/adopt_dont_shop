@@ -45,7 +45,7 @@ RSpec.describe '/veterinary_offices/veterinarians.html.erb' do
       expect(page).to have_content(@vet_2.review_rating)
     end
 
-    expect(page).to_not have_content(@vet_3.name)
+    expect(page).to have_no_content(@vet_3.name)
   end
 
   it 'displays a link to edit each veterinarian' do
@@ -67,7 +67,7 @@ RSpec.describe '/veterinary_offices/veterinarians.html.erb' do
     click_link("Delete #{@vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
-    expect(page).to_not have_content(@vet_1.name)
+    expect(page).to have_no_content(@vet_1.name)
   end
 
   it 'displays a link to create a new veterinarian' do
@@ -95,7 +95,7 @@ RSpec.describe '/veterinary_offices/veterinarians.html.erb' do
 
     expect(page).to have_content(@vet_1.name)
     expect(page).to have_content(@vet_2.name)
-    expect(page).to_not have_content(@vet_4.name)
+    expect(page).to have_no_content(@vet_4.name)
   end
 
   it 'allows the user to sort veterinarians alphabetically' do

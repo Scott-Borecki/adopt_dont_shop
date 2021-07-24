@@ -41,7 +41,7 @@ RSpec.describe 'pets/edit.html.erb' do
 
       expect(page).to have_current_path("/pets/#{pet.id}")
       expect(page).to have_content('Itchy')
-      expect(page).to_not have_content('Charlie')
+      expect(page).to have_no_content('Charlie')
     end
   end
 

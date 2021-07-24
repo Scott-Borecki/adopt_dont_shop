@@ -53,7 +53,7 @@ RSpec.describe 'pets/index.html.erb' do
 
     visit "/pets"
 
-    expect(page).to_not have_content(pet_3.name)
+    expect(page).to have_no_content(pet_3.name)
   end
 
   it 'displays a link to edit each pet' do
@@ -106,7 +106,7 @@ RSpec.describe 'pets/index.html.erb' do
     click_link("Delete #{pet_1.name}")
 
     expect(page).to have_current_path("/pets")
-    expect(page).to_not have_content(pet_1.name)
+    expect(page).to have_no_content(pet_1.name)
   end
 
   it 'has a text box to filter results by keyword' do
@@ -142,6 +142,6 @@ RSpec.describe 'pets/index.html.erb' do
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
-    expect(page).to_not have_content(pet_3.name)
+    expect(page).to have_no_content(pet_3.name)
   end
 end
