@@ -40,14 +40,14 @@ Rails.application.routes.draw do
   get '/applications/new', to: 'applications#new'
   get '/applications/:id', to: 'applications#show'
   post '/applications', to: 'applications#create'
-  # HACK: Maybe there is a better way to send app and pet id params
-  patch '/applications/:application_id/:pet_id', to: 'applications#adopt'
-  patch '/applications/:id', to: 'applications#submit'
+  patch '/applications/:id', to: 'applications#update'
+
+  post '/applications/:application_id/:pet_id', to: 'application_pets#create'
+  patch '/admin/applications/:application_id/:pet_id', to:'application_pets#update'
 
   get '/admin/shelters', to: 'admin_shelters#index'
   get '/admin/shelters/:id', to: 'admin_shelters#show'
 
   get '/admin/applications/:id', to:'admin_applications#show'
-  patch '/admin/applications/:application_id/:pet_id/approve', to:'admin_applications#approve_pet'
-  patch '/admin/applications/:application_id/:pet_id/reject', to:'admin_applications#reject_pet'
+
 end

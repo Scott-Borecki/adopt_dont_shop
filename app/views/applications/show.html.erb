@@ -15,7 +15,7 @@
     <% @pets.each do |pet| %>
       <section id="pet-<%= pet.id %>" class='indent container'>
         <%= link_to "#{pet.name}", "/pets/#{pet.id}", class: 'item-title' %>
-        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :patch, class: 'item-button' %>
+        <%= button_to "Adopt this Pet", "/applications/#{@application.id}/#{pet.id}", method: :post, class: 'item-button' %>
       </section>
     <% end %>
   <% end %>

@@ -6,14 +6,14 @@
     <%= link_to pet.name, "/pets/#{pet.id}", class: 'item-title' %>
     <% if pet.not_adoptable? %>
       <div class='item-button'>This pet has been approved for adoption in another application</div>
-      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
+      <%= render partial: 'shared/reject_button', locals: { application: @application, pet: pet } %>
     <% elsif @application.pet_approved?(pet) %>
       <div class='item-button'>Approved</div>
     <% elsif @application.pet_rejected?(pet) %>
       <div class='item-button'>Rejected</div>
     <% else %>
-      <%= button_to 'Approve', "/admin/applications/#{@application.id}/#{pet.id}/approve", method: :patch, class: 'item-button' %>
-      <%= button_to 'Reject', "/admin/applications/#{@application.id}/#{pet.id}/reject", method: :patch, class: 'item-button' %>
+      <%= render partial: 'shared/approve_button', locals: { application: @application, pet: pet } %>
+      <%= render partial: 'shared/reject_button', locals: { application: @application, pet: pet } %>
     <% end %>
     <br><br>
   </section>
