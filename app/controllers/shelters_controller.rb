@@ -45,6 +45,7 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(shelter_params[:id])
+
     if shelter.update(shelter_params)
       redirect_to '/shelters'
     else
@@ -55,6 +56,7 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
+
     shelter.destroy
     redirect_to '/shelters'
   end

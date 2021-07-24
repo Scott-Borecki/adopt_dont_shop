@@ -29,6 +29,7 @@ class VeterinariansController < ApplicationController
 
   def update
     veterinarian = Veterinarian.find(params[:id])
+
     if veterinarian.update(vet_params)
       redirect_to "/veterinarians/#{veterinarian.id}"
     else
@@ -38,7 +39,9 @@ class VeterinariansController < ApplicationController
   end
 
   def destroy
-    Veterinarian.find(params[:id]).destroy
+    veterinarian = Veterinarian.find(params[:id])
+    
+    veterinarian.destroy
     redirect_to '/veterinarians'
   end
 
