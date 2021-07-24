@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the admin application show' do
+RSpec.describe 'admin/applications/show.html.erb' do
   before :each do
     # SHELTERS
     @shelter_1 = Shelter.create!(name: 'Aurora shelter',
@@ -25,64 +25,108 @@ RSpec.describe 'the admin application show' do
                                  rank: 2)
 
     # PETS - SHELTER 1
-    @pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx',
-                         name: 'Lucille Bald', shelter_id: @shelter_1.id)
-    @pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman',
-                         name: 'Lobster', shelter_id: @shelter_1.id)
-    @pet_3 = Pet.create!(adoptable: true, age: 8, breed: 'spanial',
-                         name: 'Bear', shelter_id: @shelter_1.id)
+    @pet_1 = Pet.create!(adoptable: true,
+                         age: 1,
+                         breed: 'sphynx',
+                         name: 'Lucille Bald',
+                         shelter_id: @shelter_1.id)
+    @pet_2 = Pet.create!(adoptable: true,
+                         age: 3,
+                         breed: 'doberman',
+                         name: 'Lobster',
+                         shelter_id: @shelter_1.id)
+    @pet_3 = Pet.create!(adoptable: true,
+                         age: 8,
+                         breed: 'spanial',
+                         name: 'Bear',
+                         shelter_id: @shelter_1.id)
 
     # PETS - SHELTER 2
-    @pet_4 = Pet.create!(adoptable: true, age: 2, breed: 'hound',
-                         name: 'Dolly', shelter_id: @shelter_2.id)
-    @pet_5 = Pet.create!(adoptable: true, age: 4, breed: 'lab',
-                         name: 'Yeller', shelter_id: @shelter_2.id)
+    @pet_4 = Pet.create!(adoptable: true,
+                         age: 2,
+                         breed: 'hound',
+                         name: 'Dolly',
+                         shelter_id: @shelter_2.id)
+    @pet_5 = Pet.create!(adoptable: true,
+                         age: 4,
+                         breed: 'lab',
+                         name: 'Yeller',
+                         shelter_id: @shelter_2.id)
 
     # PETS - SHELTER 3
-    @pet_6 = Pet.create!(adoptable: true, age: 1, breed: 'pig',
-                         name: 'Babe', shelter_id: @shelter_3.id)
-    @pet_7 = Pet.create!(adoptable: true, age: 2, breed: 'orange tabby',
-                         name: 'Milo', shelter_id: @shelter_3.id)
-    @pet_8 = Pet.create!(adoptable: true, age: 2, breed: 'pug',
-                         name: 'Otis', shelter_id: @shelter_3.id)
+    @pet_6 = Pet.create!(adoptable: true,
+                         age: 1,
+                         breed: 'pig',
+                         name: 'Babe',
+                         shelter_id: @shelter_3.id)
+    @pet_7 = Pet.create!(adoptable: true,
+                         age: 2,
+                         breed: 'orange tabby',
+                         name: 'Milo',
+                         shelter_id: @shelter_3.id)
+    @pet_8 = Pet.create!(adoptable: true,
+                         age: 2,
+                         breed: 'pug',
+                         name: 'Otis',
+                         shelter_id: @shelter_3.id)
 
     # PETS - SHELTER 4
-    @pet_9 = Pet.create!(adoptable: true, age: 2, breed: 'st. bernard',
-                         name: 'Beethoven', shelter_id: @shelter_4.id)
-    @pet_10 = Pet.create!(adoptable: true, age: 7, breed: 'bulldog',
-                         name: 'Chance', shelter_id: @shelter_4.id)
-    @pet_11 = Pet.create!(adoptable: true, age: 6, breed: 'golden retriever',
-                         name: 'Shadow', shelter_id: @shelter_4.id)
-    @pet_12 = Pet.create!(adoptable: true, age: 8, breed: 'himalayan cat',
-                         name: 'Sassy', shelter_id: @shelter_4.id)
+    @pet_9 = Pet.create!(adoptable: true,
+                         age: 2,
+                         breed: 'st. bernard',
+                         name: 'Beethoven',
+                         shelter_id: @shelter_4.id)
+    @pet_10 = Pet.create!(adoptable: true,
+                          age: 7,
+                          breed: 'bulldog',
+                          name: 'Chance',
+                          shelter_id: @shelter_4.id)
+    @pet_11 = Pet.create!(adoptable: true,
+                          age: 6,
+                          breed: 'golden retriever',
+                          name: 'Shadow',
+                          shelter_id: @shelter_4.id)
+    @pet_12 = Pet.create!(adoptable: true,
+                          age: 8,
+                          breed: 'himalayan cat',
+                          name: 'Sassy',
+                          shelter_id: @shelter_4.id)
 
     # PETS - SHELTER 5
-    @pet_13 = Pet.create!(adoptable: false, age: 8, breed: 'capuchin monkey',
-                          name: 'Crystal', shelter_id: @shelter_5.id)
+    @pet_13 = Pet.create!(adoptable: false,
+                          age: 8,
+                          breed: 'capuchin monkey',
+                          name: 'Crystal',
+                          shelter_id: @shelter_5.id)
 
     # APPLICATIONS
     @bob = Application.create!(name: 'Bob',
                                street_address: '456 Main Street',
-                               city: 'Denver', state: 'Colorado',
-                               zip_code: '80202', status: 'In Progress')
-    @scott = Application.create!(name: 'Scott',
-                               street_address: '123 Main Street',
-                               city: 'Denver', state: 'Colorado',
+                               city: 'Denver',
+                               state: 'Colorado',
                                zip_code: '80202',
-                               description: 'Great with animals!',
-                               status: 'Pending')
+                               status: 'In Progress')
+    @scott = Application.create!(name: 'Scott',
+                                 street_address: '123 Main Street',
+                                 city: 'Denver',
+                                 state: 'Colorado',
+                                 zip_code: '80202',
+                                 description: 'Great with animals!',
+                                 status: 'Pending')
     @sierra = Application.create!(name: 'Sierra',
-                               street_address: '789 Main Street',
-                               city: 'Arvada', state: 'Colorado',
-                               zip_code: '80003',
-                               description: 'Great with animals!',
-                               status: 'Accepted')
+                                 street_address: '789 Main Street',
+                                 city: 'Arvada',
+                                 state: 'Colorado',
+                                 zip_code: '80003',
+                                 description: 'Great with animals!',
+                                 status: 'Accepted')
     @laura = Application.create!(name: 'Laura',
-                               street_address: '1550 Main Street',
-                               city: 'Aurora', state: 'Colorado',
-                               zip_code: '80010',
-                               description: 'Great with animals!',
-                               status: 'Rejected')
+                                 street_address: '1550 Main Street',
+                                 city: 'Aurora',
+                                 state: 'Colorado',
+                                 zip_code: '80010',
+                                 description: 'Great with animals!',
+                                 status: 'Rejected')
 
     # APPLICATION PETS - BOB
     @bob.pets << @pet_3 << @pet_6 << @pet_7
@@ -228,7 +272,8 @@ RSpec.describe 'the admin application show' do
       before :each do
         @john = Application.create!(name: 'John',
                                     street_address: '234 Main Street',
-                                    city: 'Arvada', state: 'Colorado',
+                                    city: 'Arvada',
+                                    state: 'Colorado',
                                     zip_code: '80003',
                                     description: 'Great with animals too!',
                                     status: 'Pending')
@@ -284,7 +329,7 @@ RSpec.describe 'the admin application show' do
           expect(page).to have_content("This pet has been approved for "\
                                        "adoption in another application")
           expect(page).to have_button('Reject')
-          expect(page).to_not have_button('Approve')
+          expect(page).to have_no_button('Approve')
         end
       end
 
@@ -300,7 +345,7 @@ RSpec.describe 'the admin application show' do
           expect(page).to have_content('This pet has been approved for '\
                                        'adoption in another application')
           expect(page).to have_button('Reject')
-          expect(page).to_not have_button('Approve')
+          expect(page).to have_no_button('Approve')
         end
       end
     end

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian show' do
+RSpec.describe 'veterinarians/show.html.erb' do
   it "shows the veterinarian and all it's attributes" do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false,
+    vet = Veterinarian.create(name: 'Taylor',
+                              review_rating: 10,
+                              on_call: false,
                               veterinary_office_id: vet_office.id)
 
     visit "/veterinarians/#{vet.id}"
@@ -20,7 +22,9 @@ RSpec.describe 'the veterinarian show' do
     vet_office = VeterinaryOffice.create(name: 'Best Vets',
                                          boarding_services: true,
                                          max_patient_capacity: 20)
-    vet = Veterinarian.create(name: 'Taylor', review_rating: 10, on_call: false,
+    vet = Veterinarian.create(name: 'Taylor',
+                              review_rating: 10,
+                              on_call: false,
                               veterinary_office_id: vet_office.id)
 
     visit "/veterinarians/#{vet.id}"
@@ -28,6 +32,6 @@ RSpec.describe 'the veterinarian show' do
     click_on("Delete #{vet.name}")
 
     expect(page).to have_current_path('/veterinarians')
-    expect(page).to_not have_content(vet.name)
+    expect(page).to have_no_content(vet.name)
   end
 end

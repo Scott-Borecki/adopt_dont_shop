@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinary offices index' do
+RSpec.describe '/veterinary_offices/index.html.erb' do
   before(:each) do
     @vet_office_1 = VeterinaryOffice.create(name: 'Special Friends',
                                             boarding_services: true,
@@ -11,11 +11,14 @@ RSpec.describe 'the veterinary offices index' do
     @vet_office_3 = VeterinaryOffice.create(name: 'The Country Vet',
                                             boarding_services: true,
                                             max_patient_capacity: 200)
-    @vet_office_1.veterinarians.create(name: 'Morgan', on_call: true,
+    @vet_office_1.veterinarians.create(name: 'Morgan',
+                                       on_call: true,
                                        review_rating: 10)
-    @vet_office_1.veterinarians.create(name: 'Heather', on_call: true,
+    @vet_office_1.veterinarians.create(name: 'Heather',
+                                       on_call: true,
                                        review_rating: 9)
-    @vet_office_3.veterinarians.create(name: 'John', on_call: true,
+    @vet_office_3.veterinarians.create(name: 'John',
+                                       on_call: true,
                                        review_rating: 9)
   end
 
@@ -99,6 +102,6 @@ RSpec.describe 'the veterinary offices index' do
 
     click_on("Delete #{@vet_office_1.name}")
     expect(page).to have_current_path("/veterinary_offices")
-    expect(page).to_not have_content(@vet_office_1.name)
+    expect(page).to have_no_content(@vet_office_1.name)
   end
 end

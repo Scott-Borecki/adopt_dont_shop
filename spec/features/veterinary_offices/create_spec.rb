@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'vet office creation' do
+RSpec.describe '/veterinary_offices/new.html.erb' do
   describe 'the vet office new' do
     it 'renders the new form' do
       visit '/veterinary_offices/new'
 
-      expect(page).to have_content('New Vet Office')
+      expect(page).to have_content('New Veterinary Office')
       expect(find('form')).to have_content('Name')
       expect(find('form')).to have_content('Max patient capacity')
       expect(find('form')).to have_content('Boarding services')

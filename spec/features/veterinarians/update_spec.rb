@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinarian update' do
+RSpec.describe 'veterinarians/edit.html.erb' do
   it "shows the veterinarian edit form" do
     vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                          boarding_services: true,
                                          max_patient_capacity: 5)
-    vet = vet_office.veterinarians.create(name: 'Kelsey', on_call: true,
+    vet = vet_office.veterinarians.create(name: 'Kelsey',
+                                          on_call: true,
                                           review_rating: 9)
 
     visit "/veterinarians/#{vet.id}/edit"
@@ -20,7 +21,9 @@ RSpec.describe 'the veterinarian update' do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                            boarding_services: true,
                                            max_patient_capacity: 5)
-      vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9,
+      vet = Veterinarian.create(name: 'Kelsey',
+                                on_call: true,
+                                review_rating: 9,
                                 veterinary_office_id: vet_office.id)
 
       visit "/veterinarians/#{vet.id}/edit"
@@ -32,7 +35,7 @@ RSpec.describe 'the veterinarian update' do
 
       expect(page).to have_current_path("/veterinarians/#{vet.id}")
       expect(page).to have_content('Ignacio')
-      expect(page).to_not have_content('Kelsey')
+      expect(page).to have_no_content('Kelsey')
     end
   end
 
@@ -41,7 +44,9 @@ RSpec.describe 'the veterinarian update' do
       vet_office = VeterinaryOffice.create(name: 'Put a bird on it',
                                            boarding_services: true,
                                            max_patient_capacity: 5)
-      vet = Veterinarian.create(name: 'Kelsey', on_call: true, review_rating: 9,
+      vet = Veterinarian.create(name: 'Kelsey',
+                                on_call: true,
+                                review_rating: 9,
                                 veterinary_office_id: vet_office.id)
 
       visit "/veterinarians/#{vet.id}/edit"

@@ -8,35 +8,39 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:name) }
     it { should validate_presence_of(:age) }
     it { should validate_numericality_of(:age) }
+    it { should validate_presence_of(:name) }
   end
 
   before(:each) do
     @shelter_1 = Shelter.create(name: 'Aurora shelter',
-                                city: 'Aurora, CO', foster_program: false,
+                                city: 'Aurora, CO',
+                                foster_program: false,
                                 rank: 9)
 
     @pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate',
-                                    breed: 'tuxedo shorthair', age: 5,
+                                    breed: 'tuxedo shorthair',
+                                    age: 5,
                                     adoptable: true)
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia',
-                                    breed: 'shorthair', age: 3,
+                                    breed: 'shorthair',
+                                    age: 3,
                                     adoptable: true)
     @pet_3 = @shelter_1.pets.create(name: 'Ann',
-                                    breed: 'ragdoll', age: 3,
+                                    breed: 'ragdoll',
+                                    age: 3,
                                     adoptable: false)
   end
 
   describe 'class methods' do
-    describe '#search' do
+    describe '.search' do
       it 'returns partial matches' do
         expect(Pet.search("Claw")).to eq([@pet_2])
       end
     end
 
-    describe '#adoptable' do
+    describe '.adoptable' do
       it 'returns adoptable pets' do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
@@ -44,21 +48,24 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.shelter_name' do
+    describe '#shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
 
-    describe '.not_adoptable?' do
-      it 'returns whether the pet is not adoptable' do
-        expect(@pet_1.not_adoptable?).to eq(false)
-        expect(@pet_3.not_adoptable?).to eq(true)
+    describe '#not_adoptable?' do
+      context 'when pet is adoptable' do
+        specify { expect(@pet_1).to_not be_not_adoptable }
+      end
+
+      context 'when pet is not adoptable' do
+        specify { expect(@pet_3).to be_not_adoptable }
       end
     end
 
-    describe '.adopt' do
-      it 'can adopt a pet and make it not adoptable' do
+    describe '#adopt' do
+      it 'adopts a pet and make it not adoptable' do
         expect(@pet_1.adoptable).to be(true)
 
         @pet_1.adopt
@@ -67,29 +74,33 @@ RSpec.describe Pet, type: :model do
       end
     end
 
-    describe '.actions_required' do
+    describe '#actions_required' do
       it 'returns the applications where action is required for pet'  do
         scott = Application.create!(name: 'Scott',
                                     street_address: '123 Main Street',
-                                    city: 'Denver', state: 'Colorado',
+                                    city: 'Denver',
+                                    state: 'Colorado',
                                     zip_code: '80202',
                                     description: 'Great with animals!',
                                     status: 'Pending')
         bob = Application.create!(name: 'Bob',
                                   street_address: '456 Main Street',
-                                  city: 'Denver', state: 'Colorado',
+                                  city: 'Denver',
+                                  state: 'Colorado',
                                   zip_code: '80202',
                                   description: 'Great with animals!',
                                   status: 'Pending')
         sierra = Application.create!(name: 'Sierra',
                                     street_address: '789 Main Street',
-                                    city: 'Arvada', state: 'Colorado',
+                                    city: 'Arvada',
+                                    state: 'Colorado',
                                     zip_code: '80003',
                                     description: 'Great with animals!',
                                     status: 'Accepted')
         laura = Application.create!(name: 'Laura',
                                     street_address: '1550 Main Street',
-                                    city: 'Aurora', state: 'Colorado',
+                                    city: 'Aurora',
+                                    state: 'Colorado',
                                     zip_code: '80010',
                                     description: 'Great with animals!',
                                     status: 'Rejected')

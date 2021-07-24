@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_162117) do
+ActiveRecord::Schema.define(version: 2021_07_24_171716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_162117) do
   end
 
   create_table "pets", force: :cascade do |t|
-    t.boolean "adoptable"
+    t.boolean "adoptable", default: true, null: false
     t.integer "age"
     t.string "breed"
     t.string "name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_162117) do
   end
 
   create_table "shelters", force: :cascade do |t|
-    t.boolean "foster_program"
+    t.boolean "foster_program", default: true, null: false
     t.string "name"
     t.string "city"
     t.integer "rank"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_162117) do
   end
 
   create_table "veterinarians", force: :cascade do |t|
-    t.boolean "on_call"
+    t.boolean "on_call", default: true, null: false
     t.integer "review_rating"
     t.string "name"
     t.bigint "veterinary_office_id"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_162117) do
   end
 
   create_table "veterinary_offices", force: :cascade do |t|
-    t.boolean "boarding_services"
+    t.boolean "boarding_services", default: true, null: false
     t.integer "max_patient_capacity"
     t.string "name"
     t.datetime "created_at", null: false

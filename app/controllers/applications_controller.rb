@@ -19,14 +19,7 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def adopt
-    # PARAMS via URI: :application_id, :pet_id
-    application = Application.find(params[:application_id])
-    application.add_pet(params[:pet_id])
-    redirect_to "/applications/#{application.id}"
-  end
-
-  def submit
+  def update
     application = Application.find(params[:id])
     if application.update(application_params)
       redirect_to "/applications/#{application.id}"

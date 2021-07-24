@@ -1,8 +1,10 @@
 class Shelter < ApplicationRecord
+  has_many :pets, dependent: :destroy
+
   validates :name, presence: true
   validates :rank, presence: true, numericality: true
   validates :city, presence: true
-  has_many :pets, dependent: :destroy
+  validates :foster_program, inclusion: { in: [true, false] }
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -26,7 +28,7 @@ class Shelter < ApplicationRecord
 
   def self.with_pending_applications
     joins(pets: :applications)
-      .where('applications.status = ?', 'Pending')
+      .where(applications: { status: 'Pending' })
       .distinct
   end
 
@@ -40,7 +42,7 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_pets
-    pets.where(adoptable: true)
+    pets.adoptable
   end
 
   def alphabetical_pets
@@ -61,7 +63,7 @@ class Shelter < ApplicationRecord
 
   def number_of_pets_adopted
     pets.joins(:applications)
-        .where('applications.status = ?', 'Accepted')
+        .where(applications: { status: 'Accepted' })
         .count
   end
 

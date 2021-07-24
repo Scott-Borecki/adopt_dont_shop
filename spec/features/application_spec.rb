@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'application' do
   it 'can link to the index pages' do
-    pages = [['Pets', '/pets'],
+    pages = [['Home', '/'],
+             ['Pets', '/pets'],
              ['Shelters', '/shelters'],
              ['Veterinary Offices', '/veterinary_offices'],
              ['Veterinarians', '/veterinarians']]

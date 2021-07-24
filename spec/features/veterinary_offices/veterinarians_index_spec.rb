@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the veterinary offices veterinarians index' do
+RSpec.describe '/veterinary_offices/veterinarians.html.erb' do
   before(:each) do
     @vet_office_1 = VeterinaryOffice.create(name: 'Best Vets',
                                             boarding_services: true,
@@ -8,19 +8,24 @@ RSpec.describe 'the veterinary offices veterinarians index' do
     @vet_office_2 = VeterinaryOffice.create(name: 'Vets R Us',
                                             boarding_services: true,
                                             max_patient_capacity: 20)
-    @not_on_call_vet = Veterinarian.create(name: 'Taylor', review_rating: 10,
+    @not_on_call_vet = Veterinarian.create(name: 'Taylor',
+                                           review_rating: 10,
                                            on_call: false,
                                            veterinary_office_id: @vet_office_1.id)
-    @vet_1 = Veterinarian.create(name: 'Taylor', review_rating: 10, 
+    @vet_1 = Veterinarian.create(name: 'Taylor',
+                                 review_rating: 10,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_1.id)
-    @vet_2 = Veterinarian.create(name: 'Jim', review_rating: 8,
+    @vet_2 = Veterinarian.create(name: 'Jim',
+                                 review_rating: 8,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_1.id)
-    @vet_3 = Veterinarian.create(name: 'Sarah', review_rating: 9,
+    @vet_3 = Veterinarian.create(name: 'Sarah',
+                                 review_rating: 9,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_2.id)
-    @vet_4 = Veterinarian.create(name: 'John', review_rating: 2,
+    @vet_4 = Veterinarian.create(name: 'John',
+                                 review_rating: 2,
                                  on_call: true,
                                  veterinary_office_id: @vet_office_2.id)
   end
@@ -40,7 +45,7 @@ RSpec.describe 'the veterinary offices veterinarians index' do
       expect(page).to have_content(@vet_2.review_rating)
     end
 
-    expect(page).to_not have_content(@vet_3.name)
+    expect(page).to have_no_content(@vet_3.name)
   end
 
   it 'displays a link to edit each veterinarian' do
@@ -62,7 +67,7 @@ RSpec.describe 'the veterinary offices veterinarians index' do
     click_link("Delete #{@vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
-    expect(page).to_not have_content(@vet_1.name)
+    expect(page).to have_no_content(@vet_1.name)
   end
 
   it 'displays a link to create a new veterinarian' do
@@ -90,7 +95,7 @@ RSpec.describe 'the veterinary offices veterinarians index' do
 
     expect(page).to have_content(@vet_1.name)
     expect(page).to have_content(@vet_2.name)
-    expect(page).to_not have_content(@vet_4.name)
+    expect(page).to have_no_content(@vet_4.name)
   end
 
   it 'allows the user to sort veterinarians alphabetically' do

@@ -1,8 +1,9 @@
 class VeterinaryOffice < ApplicationRecord
+  has_many :veterinarians, dependent: :destroy
+
   validates :name, presence: true
   validates :max_patient_capacity, presence: true, numericality: true
-
-  has_many :veterinarians, dependent: :destroy
+  validates :boarding_services, inclusion: { in: [true, false] }
 
   def self.order_by_recently_created
     order(created_at: :desc)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'applications show' do
+RSpec.describe 'applications/show.html.erb' do
   describe 'as a visitor' do
     describe 'when I visit an applications show page' do
       before :each do
@@ -85,14 +85,14 @@ RSpec.describe 'applications show' do
       describe 'And I have not added any pets to the application' do
         it 'does not show the section to submit my application' do
           visit "/applications/#{@scott.id}"
-          expect(page).to_not have_button('Submit Application')
+          expect(page).to have_no_button('Submit Application')
         end
       end
 
       describe 'And that application has been submitted' do
         it 'does not show the "Add a Pet to this Application" section' do
           visit "/applications/#{@scott.id}"
-          expect(page).to_not have_content('Add a Pet to this Application')
+          expect(page).to have_no_content('Add a Pet to this Application')
         end
       end
 
@@ -146,7 +146,7 @@ RSpec.describe 'applications show' do
             click_button 'Submit'
 
             expect(current_path).to eq("/applications/#{@bob.id}")
-            expect(page).to_not have_link('Rory')
+            expect(page).to have_no_link('Rory')
           end
 
           it 'can add Pet to adopt list on Application show page' do
@@ -197,8 +197,8 @@ RSpec.describe 'applications show' do
               expect(page).to have_content(content)
             end
 
-            expect(page).to_not have_content('Add a Pet to this Application')
-            expect(page).to_not have_content('Describe why you would make a '\
+            expect(page).to have_no_content('Add a Pet to this Application')
+            expect(page).to have_no_content('Describe why you would make a '\
                                              'good owner for these pet(s):')
           end
 

@@ -45,6 +45,7 @@ class VeterinaryOfficesController < ApplicationController
 
   def update
     vet_office = VeterinaryOffice.find(params[:id])
+
     if vet_office.update(vet_office_params)
       redirect_to '/veterinary_offices'
     else
@@ -55,6 +56,7 @@ class VeterinaryOfficesController < ApplicationController
 
   def destroy
     vet_office = VeterinaryOffice.find(params[:id])
+
     vet_office.destroy
     redirect_to '/veterinary_offices'
   end

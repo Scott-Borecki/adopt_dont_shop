@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the vet office show' do
+RSpec.describe '/veterinary_offices/show.html.erb' do
   it "shows the vet office and all it's attributes" do
     vet_office = VeterinaryOffice.create(name: 'The Country Vet',
                                          boarding_services: true,
@@ -34,7 +34,7 @@ RSpec.describe 'the vet office show' do
     click_on("Delete #{vet_office.name}")
 
     expect(page).to have_current_path('/veterinary_offices')
-    expect(page).to_not have_content(vet_office.name)
+    expect(page).to have_no_content(vet_office.name)
   end
 
   it "displays a link to the veterinary offices's veterinarians" do
