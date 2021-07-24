@@ -96,7 +96,6 @@ RSpec.describe Application, type: :model do
 
         @bob.reject_pet(@dolly.id)
 
-        # @bob.reload
         actual = ApplicationPet.find_by(@params_bob).status
         expect(actual).to eq('Rejected')
       end
@@ -181,7 +180,7 @@ RSpec.describe Application, type: :model do
           @application_pet_2.update(status: 'Approved')
           @application_pet_3.update(status: 'Approved')
 
-          expect(@bob.all_pets_approved?).to eq(true)
+          expect(@bob).to be_all_pets_approved
         end
       end
 
@@ -191,7 +190,7 @@ RSpec.describe Application, type: :model do
           @application_pet_2.update(status: 'Approved')
           @application_pet_3.update(status: 'Rejected')
 
-          expect(@bob.all_pets_approved?).to eq(false)
+          expect(@bob).to_not be_all_pets_approved
         end
       end
     end
@@ -203,7 +202,7 @@ RSpec.describe Application, type: :model do
           @application_pet_2.update(status: 'Approved')
           @application_pet_3.update(status: 'Approved')
 
-          expect(@bob.any_pets_rejected?).to eq(false)
+          expect(@bob).to_not be_any_pets_rejected
         end
       end
 
@@ -213,7 +212,7 @@ RSpec.describe Application, type: :model do
           @application_pet_2.update(status: 'Approved')
           @application_pet_3.update(status: 'Rejected')
 
-          expect(@bob.any_pets_rejected?).to eq(true)
+          expect(@bob).to be_any_pets_rejected
         end
       end
     end
@@ -242,11 +241,11 @@ RSpec.describe Application, type: :model do
 
     describe '#in_progress?' do
       context 'when application status is "In Progress"' do
-        specify { expect(@scott.in_progress?).to eq(true) }
+        specify { expect(@scott).to be_in_progress }
       end
 
       context 'when application status is not "In Progress"' do
-        specify { expect(@bob.in_progress?).to eq(false) }
+        specify { expect(@bob).to_not be_in_progress }
       end
     end
 

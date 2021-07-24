@@ -123,8 +123,7 @@ RSpec.describe ApplicationPet, type: :model do
 
         @application_pet_1.approve
 
-        actual = ApplicationPet.find(@application_pet_1.id).status
-        expect(actual).to eq('Approved')
+        expect(@application_pet_1.status).to eq('Approved')
       end
     end
 
@@ -134,30 +133,27 @@ RSpec.describe ApplicationPet, type: :model do
 
         @application_pet_1.reject
 
-        actual = ApplicationPet.find(@application_pet_1.id).status
-        expect(actual).to eq('Rejected')
+        expect(@application_pet_1.status).to eq('Rejected')
       end
     end
 
     describe '#approved?' do
       it 'returns whether a pet is approved on an application' do
-        expect(@application_pet_1.approved?).to eq(false)
+        expect(@application_pet_1).to_not be_approved
 
         @application_pet_1.approve
 
-        actual = ApplicationPet.find(@application_pet_1.id)
-        expect(actual.approved?).to eq(true)
+        expect(@application_pet_1).to be_approved
       end
     end
 
     describe '#rejected?' do
       it 'can return whether a pet is rejeced on an application' do
-        expect(@application_pet_1.rejected?).to eq(false)
+        expect(@application_pet_1).to_not be_rejected
 
         @application_pet_1.reject
 
-        actual = ApplicationPet.find(@application_pet_1.id)
-        expect(actual.rejected?).to eq(true)
+        expect(@application_pet_1).to be_rejected
       end
     end
   end

@@ -56,11 +56,11 @@ RSpec.describe Pet, type: :model do
 
     describe '#not_adoptable?' do
       context 'when pet is adoptable' do
-        specify { expect(@pet_1.not_adoptable?).to eq(false) }
+        specify { expect(@pet_1).to_not be_not_adoptable }
       end
 
       context 'when pet is not adoptable' do
-        specify { expect(@pet_3.not_adoptable?).to eq(true) }
+        specify { expect(@pet_3).to be_not_adoptable }
       end
     end
 
