@@ -4,10 +4,6 @@ RSpec.describe Application, type: :model do
   describe 'relationships' do
     it { should have_many(:application_pets) }
     it { should have_many(:pets).through(:application_pets) }
-    it { should validate_inclusion_of(:status).in_array(['In Progress',
-                                                         'Pending',
-                                                         'Accepted',
-                                                         'Rejected']) }
   end
 
   describe 'validations' do
